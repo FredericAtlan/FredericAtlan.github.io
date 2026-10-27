@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <!-- cyclegen-rev:613e250b -->
+  <!-- cyclegen-rev:demo-embed -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CycleGen — du trajet carte à la force aux roues | Blog Frédéric Atlan</title>
   <meta name="description" content="Comment CycleGen passe d’un trajet carte à un profil de vitesse et de forces aux roues : modèle de conducteur, pente, résistance à l’avancement — avec les équations." />
@@ -37,7 +37,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=20261027c" />
+  <link rel="stylesheet" href="../styles.css?v=20261027d" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous" />
 
   <script type="application/ld+json">
@@ -86,7 +86,7 @@
     </nav>
   </header>
 
-  <main id="top" class="section page-projects article">
+  <main id="top" class="section page-projects article has-demo">
     <nav class="crumb" aria-label="Fil d’Ariane"><a href="/">Accueil</a><span class="crumb-sep">›</span><a href="/blog/">Blog</a><span class="crumb-sep">›</span><a href="/blog/tags/projet.html">projet</a><span class="crumb-sep">›</span>CycleGen</nav>
     <p class="hero-kicker"><time datetime="2026-10-27">27 octobre 2026</time> · rapport technique · <a class="tag" href="./tags/projet.html">projet</a></p>
     <h1>CycleGen — du trajet carte à la force aux roues</h1>
@@ -100,9 +100,32 @@
     </p>
 
     <div class="cta-row">
-      <a class="btn btn-primary" href="https://fredericatlan.github.io/CycleGen/" target="_blank" rel="noopener noreferrer">Démo live</a>
+      <a class="btn btn-primary" href="#demo-live">Essayer dans la page</a>
       <a class="btn btn-ghost" href="https://github.com/FredericAtlan/CycleGen" target="_blank" rel="noopener noreferrer">Dépôt GitHub</a>
     </div>
+
+    <figure class="demo-embed" id="demo-live">
+      <div class="demo-embed__bar">
+        <p class="demo-embed__title">Démo CycleGen <span class="demo-embed__hint">embarquée — vous restez sur l’article</span></p>
+        <div class="demo-embed__actions">
+          <button type="button" class="btn btn-ghost demo-embed__btn" id="demo-expand" aria-pressed="false">Agrandir</button>
+        </div>
+      </div>
+      <div class="demo-embed__stage">
+        <iframe
+          id="demo-frame"
+          title="Démo interactive CycleGen"
+          src="https://fredericatlan.github.io/CycleGen/"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allow="clipboard-write; fullscreen"
+        ></iframe>
+      </div>
+      <figcaption>
+        Atelier live (carte, corridor, conducteur, cycle). Le calcul tourne sur le serveur distant&nbsp;;
+        un premier chargement peut prendre quelques secondes.
+      </figcaption>
+    </figure>
 
     <aside class="related-box" aria-labelledby="related-project-title" data-relation="cyclegen">
       <h2 id="related-project-title">Projet associé</h2>
@@ -398,7 +421,7 @@ def _road_load_n(v_mps: float, plant: VehiclePlant) -> float:
       </p>
 
       <div class="cta-row">
-        <a class="btn btn-primary" href="https://fredericatlan.github.io/CycleGen/" target="_blank" rel="noopener noreferrer">Ouvrir la démo CycleGen</a>
+        <a class="btn btn-primary" href="#demo-live">Revenir à la démo</a>
         <a class="btn btn-ghost" href="https://github.com/FredericAtlan/CycleGen" target="_blank" rel="noopener noreferrer">Code source</a>
       </div>
     </article>
@@ -418,6 +441,28 @@ def _road_load_n(v_mps: float, plant: VehiclePlant) -> float:
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    (function () {
+      var embed = document.getElementById("demo-live");
+      var btn = document.getElementById("demo-expand");
+      if (embed && btn) {
+        function setExpanded(on) {
+          embed.classList.toggle("is-expanded", on);
+          document.body.classList.toggle("demo-expanded", on);
+          btn.setAttribute("aria-pressed", on ? "true" : "false");
+          btn.textContent = on ? "Réduire" : "Agrandir";
+          if (on) btn.focus();
+        }
+        btn.addEventListener("click", function () {
+          setExpanded(!embed.classList.contains("is-expanded"));
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && embed.classList.contains("is-expanded")) {
+            setExpanded(false);
+          }
+        });
+      }
+    })();
 
     (function () {
       var lb = document.getElementById("lightbox");
