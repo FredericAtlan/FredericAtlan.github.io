@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tag projet — Blog Frédéric Atlan</title>
+  <meta name="description" content="Articles du blog tagués « projet » : livrables et architectures (CycleGen, …)." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://fredericatlan.github.io/blog/tags/projet.html" />
+  <meta name="theme-color" content="#070b14" />
+  <meta property="og:site_name" content="Frédéric Atlan" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:title" content="Tag projet — Blog Frédéric Atlan" />
+  <meta property="og:description" content="Articles tagués « projet » : livrables techniques et architectures." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://fredericatlan.github.io/blog/tags/projet.html" />
+  <meta property="og:image" content="https://fredericatlan.github.io/blog/assets/cyclegen/02-atelier-creer.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Tag projet — Blog Frédéric Atlan" />
+  <meta name="twitter:description" content="Articles tagués « projet » : livrables techniques et architectures." />
+  <meta name="twitter:image" content="https://fredericatlan.github.io/blog/assets/cyclegen/02-atelier-creer.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="../../">Frédéric Atlan</a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="../../#parcours">Parcours</a>
+      <a href="../../projets/">Projets</a>
+      <a href="../" aria-current="page">Blog</a>
+      <a href="../../#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top" class="section page-projects">
+    <p class="crumb"><a href="../">Blog</a> · tag</p>
+    <p class="hero-kicker">Filtre blog</p>
+    <h1>Tag <span class="tag tag-lg">projet</span></h1>
+    <p class="section-lead">Articles centrés sur un livrable produit — architecture, stack, résultats. Source : <code>blog/articles.json</code>.</p>
+
+    <ul class="project-list" id="tag-list" data-tag="projet">
+      <li class="project-card" data-tags="projet">
+        <p class="project-meta"><time datetime="2026-10-27">27 oct. 2026</time> · <a class="tag" href="./projet.html">projet</a></p>
+        <h2><a href="../cyclegen-architecture-pipeline.html">CycleGen — architecture et pipeline de cycles synthétiques</a></h2>
+        <p>Problématique ingénierie amont, stack FastAPI / Next.js, corridor spatial, IDM, corpus alpin, déploiement Pages.</p>
+        <p class="project-actions">
+          <a class="btn btn-primary" href="../cyclegen-architecture-pipeline.html">Lire l’article</a>
+          <a class="btn btn-ghost" href="https://fredericatlan.github.io/CycleGen/" target="_blank" rel="noopener noreferrer">Démo live</a>
+        </p>
+      </li>
+    </ul>
+
+    <p class="fine" style="margin-top:2rem;color:var(--muted);font-size:0.9rem;">
+      <a href="../">← Tous les articles</a>
+      · pour un nouvel article : ajouter l’entrée dans <code>articles.json</code>, le tag sur la carte de l’index, et une ligne ici si tag = projet.
+    </p>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="y"></span> Frédéric Atlan · <a href="../">Blog</a></p>
+  </footer>
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

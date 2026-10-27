@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "tags": {
+    "projet": {
+      "label": "projet",
+      "description": "Articles centrés sur un livrable / produit (architecture, stack, résultats)."
+    }
+  },
+  "articles": [
+    {
+      "id": "cyclegen-architecture-pipeline",
+      "title": "CycleGen — architecture et pipeline de cycles synthétiques",
+      "path": "./cyclegen-architecture-pipeline.html",
+      "date": "2026-10-27",
+      "summary": "Problématique ingénierie amont, stack FastAPI / Next.js, corridor spatial, IDM, corpus alpin, déploiement Pages. Compétences démontrées et captures UI.",
+      "tags": ["projet"],
+      "demo": "https://fredericatlan.github.io/CycleGen/"
+    }
+  ]
+}

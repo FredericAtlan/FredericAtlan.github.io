@@ -4,14 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Blog — Frédéric Atlan</title>
-  <meta name="description" content="Notes techniques de Frédéric Atlan : ingénierie numérique, simulation, architecture full-stack. Article CycleGen — cycles de roulage synthétiques." />
+  <meta name="description" content="Notes techniques de Frédéric Atlan : ingénierie numérique, simulation, architecture full-stack. Articles tagués (projet, …)." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://fredericatlan.github.io/blog/" />
   <meta name="theme-color" content="#070b14" />
   <meta property="og:site_name" content="Frédéric Atlan" />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:title" content="Blog — Frédéric Atlan" />
-  <meta property="og:description" content="Articles techniques : CycleGen, digital engineering, architecture logicielle." />
+  <meta property="og:description" content="Articles techniques : CycleGen, digital engineering, architecture logicielle. Filtrables par tag." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://fredericatlan.github.io/blog/" />
   <meta property="og:image" content="https://fredericatlan.github.io/blog/assets/cyclegen/02-atelier-creer.png" />
@@ -23,7 +23,7 @@
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Blog — Frédéric Atlan" />
-  <meta name="twitter:description" content="Articles techniques : CycleGen, digital engineering, architecture logicielle." />
+  <meta name="twitter:description" content="Articles techniques : CycleGen, digital engineering, architecture logicielle. Filtrables par tag." />
   <meta name="twitter:image" content="https://fredericatlan.github.io/blog/assets/cyclegen/02-atelier-creer.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -49,9 +49,21 @@
     <h1>Blog</h1>
     <p class="section-lead">Analyses de produits et architectures livrés — orientées compétences et résultats.</p>
 
-    <ul class="project-list">
-      <li class="project-card">
-        <p class="project-meta"><time datetime="2026-10-27">27 oct. 2026</time> · CycleGen</p>
+    <div class="tag-filter" role="navigation" aria-label="Filtrer par tag">
+      <span class="tag-filter-label">Tags</span>
+      <a class="tag tag-filter-btn is-active" href="./" data-filter="all">tous</a>
+      <a class="tag tag-filter-btn" href="./?tag=projet" data-filter="projet">projet</a>
+      <a class="tag tag-filter-btn tag-ghost" href="./tags/projet.html">vue projet →</a>
+    </div>
+
+    <p class="tag-filter-status" id="filter-status" hidden></p>
+
+    <ul class="project-list" id="article-list">
+      <li class="project-card" data-tags="projet" data-id="cyclegen-architecture-pipeline">
+        <p class="project-meta">
+          <time datetime="2026-10-27">27 oct. 2026</time>
+          · <a class="tag" href="./tags/projet.html">projet</a>
+        </p>
         <h2><a href="./cyclegen-architecture-pipeline.html">CycleGen — architecture et pipeline de cycles synthétiques</a></h2>
         <p>Problématique ingénierie amont, stack FastAPI / Next.js, corridor spatial, IDM, corpus alpin, déploiement Pages. Compétences démontrées et captures UI.</p>
         <p class="project-actions">
@@ -63,10 +75,54 @@
   </main>
 
   <footer class="site-footer">
-    <p>© <span id="y"></span> Frédéric Atlan · <a href="../">fredericatlan.github.io</a></p>
+    <p>© <span id="y"></span> Frédéric Atlan · <a href="../">fredericatlan.github.io</a> · catalogue <a href="./articles.json">articles.json</a></p>
   </footer>
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var tag = (params.get("tag") || "").trim().toLowerCase();
+      var cards = document.querySelectorAll("#article-list .project-card");
+      var buttons = document.querySelectorAll(".tag-filter-btn[data-filter]");
+      var status = document.getElementById("filter-status");
+
+      function apply(filter) {
+        var n = 0;
+        cards.forEach(function (card) {
+          var tags = (card.getAttribute("data-tags") || "")
+            .split(/\s+/)
+            .filter(Boolean);
+          var show = !filter || filter === "all" || tags.indexOf(filter) !== -1;
+          card.hidden = !show;
+          if (show) n += 1;
+        });
+        buttons.forEach(function (btn) {
+          var f = btn.getAttribute("data-filter");
+          btn.classList.toggle(
+            "is-active",
+            (filter === "all" && f === "all") || f === filter
+          );
+        });
+        if (status) {
+          if (filter && filter !== "all") {
+            status.hidden = false;
+            status.textContent =
+              n +
+              " article" +
+              (n > 1 ? "s" : "") +
+              " · tag « " +
+              filter +
+              " »";
+          } else {
+            status.hidden = true;
+            status.textContent = "";
+          }
+        }
+      }
+
+      apply(tag || "all");
+    })();
   </script>
 </body>
 </html>

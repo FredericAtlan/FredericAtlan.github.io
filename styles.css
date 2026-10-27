@@ -316,6 +316,73 @@ a {
   color: var(--accent);
 }
 
+.tag {
+  display: inline-block;
+  padding: 0.12rem 0.55rem;
+  border: 1px solid var(--line);
+  background: rgba(16, 24, 42, 0.75);
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  text-decoration: none;
+  vertical-align: middle;
+}
+
+.tag:hover {
+  border-color: var(--accent);
+  color: var(--paper);
+}
+
+.tag-lg {
+  font-size: 0.95rem;
+  padding: 0.2rem 0.7rem;
+  vertical-align: baseline;
+}
+
+.hero-kicker .tag {
+  margin-left: 0.35rem;
+}
+
+.tag-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0 0 1.5rem;
+}
+
+.tag-filter-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-right: 0.25rem;
+}
+
+.tag-filter-btn.is-active {
+  border-color: var(--accent);
+  color: var(--paper);
+  background: rgba(56, 120, 180, 0.18);
+}
+
+.tag-ghost {
+  border-style: dashed;
+  color: var(--fog);
+}
+
+.tag-filter-status {
+  margin: -0.75rem 0 1.25rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.project-card[hidden] {
+  display: none !important;
+}
+
 .project-card p {
   margin: 0 0 0.75rem;
   color: var(--fog);
