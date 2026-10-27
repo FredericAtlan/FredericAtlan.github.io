@@ -1,0 +1,35 @@
+# Frédéric Atlan
+
+> Architecte Synthèse Numérique · Digital Engineering & Transformation
+> Site: https://fredericatlan.github.io/
+> LinkedIn: https://www.linkedin.com/in/frederic-atlan-97200/
+> Email: atlanfrd@gmail.com
+> Location: Île-de-France, France (remote according to context)
+
+## Summary
+Frédéric Atlan turns upstream design and simulation into industrial digital capability: shared operating models, adoption, and measurable results. 20+ years in digital engineering (Renault Group / Ampere). Not a shopfloor / MES digitalization profile.
+
+## Current role
+- Title: Architecte Synthèse Numérique
+- Organization: Ampere (Renault Group), Guyancourt
+- Since: April 2024
+- Focus: multiphysics digital synthesis, organization design, model/data maturity at milestones, product ownership of a graph-based model traceability platform, AI-assisted engineering workflows
+
+## Selected experience
+- 2021–2024 — Corporate Technical Leader & Platform Architect, EV/hybrid simulation, Renault Group (HIL/MIL/SIL industrialization)
+- 2018–2021 — Model Architect; built a France–India digital simulation factory (1 France lead + 11 India engineers); delivery quality from under 30% to ~98%
+- 2010–2018 — Modeling referent hybrid/electric, PSA Group (Stellantis)
+- Parallel — Founder, DataRefiners; Digital Project Lead on MarketChain (fintech inclusion, outside automotive)
+
+## Education (separate credentials)
+- 2025 — Executive MBA (EMBA), ESCP Business School
+- 2026–2027 — AI Project Manager certification (Chef de projet IA), Mines Paris–PSL (enrolled)
+- 2024 — General Management Program (GMP), ESCP
+- 2005 — Master CFD / thermal-mechanical modeling, Université Paris-Saclay
+- 2005 — Master numerical modeling & image analysis, Université de Cergy-Pontoise
+
+## Languages
+French (native) · English (professional) · Spanish (fluent)
+
+## Topics / keywords
+digital engineering, digital transformation, simulation factories, multiphysics synthesis, model governance, engineering productivity, AI applied to industrial operations, France–India delivery, Ampere, Renault, electrification
