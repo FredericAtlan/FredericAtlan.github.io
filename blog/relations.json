@@ -10,7 +10,7 @@
       },
       "articles": [
         {
-          "title": "CycleGen — architecture et pipeline de cycles synthétiques",
+          "title": "CycleGen — rapport technique : architecture, IDM et bilan de forces",
           "path": "/blog/cyclegen-architecture-pipeline.html",
           "tags": ["projet"]
         }

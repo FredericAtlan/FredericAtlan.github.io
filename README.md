@@ -17,7 +17,8 @@ Puis http://localhost:8080
 
 1. **Google** — `index.html` : title, meta description, `canonical`, H1/H2, texte indexable, JSON-LD Person/WebSite  
 2. **Découverte** — `sitemap.xml` + `robots.txt` (Sitemap + Allow Googlebot)  
-3. **IA** — `llms.txt` + Allow GPTBot / ClaudeBot / PerplexityBot dans `robots.txt`
+3. **IA** — `llms.txt` + Allow GPTBot / ClaudeBot / PerplexityBot dans `robots.txt`  
+4. **Projets** — `projets/index.html` (liste), `projets/cyclegen.html` (fiche CycleGen → dépôt GitHub, sans UI embarquée)
 
 ## Déploiement
 

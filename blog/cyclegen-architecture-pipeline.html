@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CycleGen — architecture et pipeline | Blog Frédéric Atlan</title>
-  <meta name="description" content="CycleGen : cycles de roulage synthétiques. Architecture FastAPI/Next.js, pipeline carto→corridor→IDM, corpus alpin, déploiement GitHub Pages. Compétences full-stack, data, tests Playwright." />
+  <title>CycleGen — rapport technique : architecture, IDM et bilan de forces | Blog Frédéric Atlan</title>
+  <meta name="description" content="Rapport technique CycleGen : IDM vs PID, corridor spatial (pente, V_curve, V_envelope), road-load F0/F1/F2, architecture FastAPI/Next.js, corpus alpin Grossglockner / Pico Veleta." />
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Frédéric Atlan" />
   <link rel="canonical" href="https://fredericatlan.github.io/blog/cyclegen-architecture-pipeline.html" />
@@ -12,37 +12,38 @@
 
   <meta property="og:site_name" content="Frédéric Atlan" />
   <meta property="og:locale" content="fr_FR" />
-  <meta property="og:title" content="CycleGen — architecture et pipeline" />
-  <meta property="og:description" content="Architecture FastAPI / Next.js, corridor géospatial, IDM, corpus alpin, Playwright. Compétences full-stack démontrées." />
+  <meta property="og:title" content="CycleGen — rapport technique : architecture et physique" />
+  <meta property="og:description" content="IDM, topographie, bilan de forces F0/F1/F2, pipeline FastAPI → kinematic_solver, UI Focus+Contexte. Rapport d’ingénierie." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://fredericatlan.github.io/blog/cyclegen-architecture-pipeline.html" />
-  <meta property="og:image" content="https://fredericatlan.github.io/blog/assets/cyclegen/02-atelier-creer.png" />
-  <meta property="og:image:secure_url" content="https://fredericatlan.github.io/blog/assets/cyclegen/02-atelier-creer.png" />
-  <meta property="og:image:type" content="image/png" />
-  <meta property="og:image:width" content="1440" />
-  <meta property="og:image:height" content="900" />
-  <meta property="og:image:alt" content="CycleGen — atelier Créer : carte, routeurs et corridor" />
+  <meta property="og:image" content="https://fredericatlan.github.io/blog/assets/cyclegen/08-analyse-cycle-veleta.jpg" />
+  <meta property="og:image:secure_url" content="https://fredericatlan.github.io/blog/assets/cyclegen/08-analyse-cycle-veleta.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1024" />
+  <meta property="og:image:height" content="494" />
+  <meta property="og:image:alt" content="CycleGen — analyse Pico Veleta, graphe v(t) et carte sync" />
   <meta property="article:published_time" content="2026-10-27" />
+  <meta property="article:modified_time" content="2026-10-27" />
   <meta property="article:author" content="Frédéric Atlan" />
   <meta property="article:tag" content="projet" />
-  <meta name="keywords" content="CycleGen, projet, architecture, FastAPI, Next.js, simulation, Playwright" />
+  <meta name="keywords" content="CycleGen, IDM, road load, FastAPI, Next.js, simulation, corridor, ingénierie automobile" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="CycleGen — architecture et pipeline" />
-  <meta name="twitter:description" content="Architecture FastAPI / Next.js, corridor géospatial, IDM, corpus alpin, Playwright. Compétences full-stack démontrées." />
-  <meta name="twitter:image" content="https://fredericatlan.github.io/blog/assets/cyclegen/02-atelier-creer.png" />
-  <meta name="twitter:image:alt" content="CycleGen — atelier Créer : carte, routeurs et corridor" />
+  <meta name="twitter:title" content="CycleGen — rapport technique : architecture et physique" />
+  <meta name="twitter:description" content="IDM, topographie, bilan F0/F1/F2, pipeline FastAPI → kinematic_solver." />
+  <meta name="twitter:image" content="https://fredericatlan.github.io/blog/assets/cyclegen/08-analyse-cycle-veleta.jpg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous" />
 
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "CycleGen — architecture et pipeline de cycles synthétiques",
+    "headline": "CycleGen — rapport technique : architecture, IDM et bilan de forces",
     "datePublished": "2026-10-27",
     "dateModified": "2026-10-27",
     "author": {
@@ -55,12 +56,13 @@
       "name": "Frédéric Atlan"
     },
     "mainEntityOfPage": "https://fredericatlan.github.io/blog/cyclegen-architecture-pipeline.html",
-    "description": "Architecture et pipeline CycleGen : cycles de roulage synthétiques pour l’ingénierie amont.",
-    "keywords": ["projet", "CycleGen", "FastAPI", "Next.js", "simulation"],
+    "description": "Rapport d’ingénierie sur CycleGen : IDM, corridor spatial, road-load, architecture FastAPI/Next.js.",
+    "keywords": ["projet", "CycleGen", "IDM", "FastAPI", "simulation", "road load"],
     "articleSection": "projet",
     "image": [
-      "https://fredericatlan.github.io/blog/assets/cyclegen/01-accueil.png",
-      "https://fredericatlan.github.io/blog/assets/cyclegen/02-atelier-creer.png"
+      "https://fredericatlan.github.io/blog/assets/cyclegen/08-analyse-cycle-veleta.jpg",
+      "https://fredericatlan.github.io/blog/assets/cyclegen/06-trajet-pico-veleta.jpg",
+      "https://fredericatlan.github.io/blog/assets/cyclegen/07-contraintes-pente.jpg"
     ]
   }
   </script>
@@ -68,7 +70,7 @@
 <body>
   <div class="atmosphere" aria-hidden="true"></div>
 
-    <header class="site-header">
+  <header class="site-header">
     <a class="brand" href="/">Frédéric Atlan</a>
     <nav class="nav" aria-label="Navigation principale">
       <span class="nav-cluster" role="group" aria-label="Profil">
@@ -85,11 +87,13 @@
 
   <main id="top" class="section page-projects article">
     <nav class="crumb" aria-label="Fil d’Ariane"><a href="/">Accueil</a><span class="crumb-sep">›</span><a href="/blog/">Blog</a><span class="crumb-sep">›</span><a href="/blog/tags/projet.html">projet</a><span class="crumb-sep">›</span>CycleGen</nav>
-    <p class="hero-kicker"><time datetime="2026-10-27">27 octobre 2026</time> · note technique · <a class="tag" href="./tags/projet.html">projet</a></p>
-    <h1>CycleGen — architecture et pipeline de cycles synthétiques</h1>
+    <p class="hero-kicker"><time datetime="2026-10-27">27 octobre 2026</time> · rapport technique · <a class="tag" href="./tags/projet.html">projet</a></p>
+    <h1>CycleGen — architecture et physique&nbsp;: du corridor à la force aux roues</h1>
     <p class="section-lead">
-      CycleGen génère des profils de vitesse v(t) et de pente α(t) physiquement contraints à partir d’un trajet cartographique.
-      Objectif : fournir à l’ingénierie amont (énergie, freinage, scénarios) des cycles traçables, sans campagne GNSS systématique.
+      CycleGen génère des profils \(v(t)\), \(\alpha(t)\) et bilans mécaniques à partir d’un trajet cartographique.
+      Ce n’est pas un jumeau de contrôleur batterie, ni une homologation WLTP&nbsp;: c’est une chaîne
+      <strong>itinéraire → enveloppe spatiale → conducteur IDM → plant véhicule</strong>,
+      avec métadonnées d’audit et code open source.
     </p>
 
     <div class="cta-row">
@@ -99,7 +103,7 @@
 
     <aside class="related-box" aria-labelledby="related-project-title" data-relation="cyclegen">
       <h2 id="related-project-title">Projet associé</h2>
-      <p>Fiche technique du livrable — stack, pipeline, déploiement (pratique ↔ article).</p>
+      <p>Fiche livrable — stack, déploiement Pages + API Render.</p>
       <p class="project-actions">
         <a class="btn btn-primary" href="/projets/cyclegen.html">Fiche projet CycleGen</a>
         <a class="btn btn-ghost" href="/blog/tags/projet.html">Tous les articles « projet »</a>
@@ -107,166 +111,244 @@
     </aside>
 
     <section class="skills-box" aria-labelledby="skills-title">
-      <h2 id="skills-title">Compétences clés démontrées</h2>
+      <h2 id="skills-title">Ce que ce rapport démontre</h2>
       <ul class="skills-grid">
         <li>
-          <strong>Architecture logicielle</strong>
-          Découpage API / UI / moteurs de simu ; contrats Pydantic ; stores TTL et caps DoS ; auth API optionnelle.
+          <strong>Modélisation conducteur</strong>
+          IDM continu (vs PID oscillant) + gate Markov en freinage dur.
         </li>
         <li>
-          <strong>Full-stack</strong>
-          Backend FastAPI (Python) ; frontend Next.js 16 / React / TypeScript ; carte Leaflet ; export CSV·XML·Excel.
+          <strong>Géospatial → physique</strong>
+          DEM / ponts OSM, \(V_{curve}\), \(V_{envelope}\), road-load \(F_0,F_1,F_2\).
         </li>
         <li>
-          <strong>Data &amp; géospatial</strong>
-          Chaîne HERE / Mapbox / OSRM → Overpass → DEM ; corridor V<sub>legal</sub>, V<sub>traffic</sub>, V<sub>curve</sub> ; corpus alpin versionné (manifest + SHA-256).
+          <strong>Architecture</strong>
+          Thin routers FastAPI ; vérité dans <code>kinematic_solver</code> ; pas d’IDM dans React.
         </li>
         <li>
-          <strong>Modélisation / simulation</strong>
-          Solveur IDM + bruit Markov borné ; pont SUMO/TraCI optionnel ; recalage vs traces Route Studio.
-        </li>
-        <li>
-          <strong>Qualité &amp; automatisation</strong>
-          Unittests backend, typecheck, e2e Playwright ; captures UI automatisées pour cette page ; CI GitHub Actions.
-        </li>
-        <li>
-          <strong>Déploiement</strong>
-          Export Next.js statique (GitHub Pages, <code>basePath=/CycleGen</code>) ; API Docker prête Render/Railway (<code>$PORT</code>, CORS).
+          <strong>UI ingénierie</strong>
+          Focus + contexte (graphe principal, sparklines, carte sync playhead).
         </li>
       </ul>
     </section>
 
     <article class="project-detail prose">
-      <h2>1. Problématique</h2>
+      <h2>0. Abstract</h2>
       <p>
-        Les cycles réglementaires (WLTP, NEDC…) sont comparables mais non géographiques.
-        Les enregistrements GNSS / NDS sont réalistes mais coûteux, peu reproductibles et sensibles privacy.
-        Les simulateurs microscopiques (SUMO, etc.) exigent un calibrage lourd.
-      </p>
-      <p>
-        CycleGen cible un compromis opérationnel : <strong>itinéraire réel</strong> → <strong>enveloppe de contraintes</strong>
-        (limites, trafic, courbes, pente, feux) → <strong>cycle synthétique plausible</strong> (IDM ± Markov, ou SUMO).
-        Chaque résultat conserve des métadonnées d’audit (<code>traffic_source</code>, <code>warnings</code>, paramètres conducteur).
+        En ingénierie amont (énergie, freinage, scénarios alpins), on a besoin de cycles
+        <em>géographiques</em> reproductibles. CycleGen orchestre&nbsp;:
+        routage (HERE / Mapbox / OSRM) → corridor spatial \(V_{envelope}(s)\) →
+        <code>POST /api/simulate/start</code> → <code>IDMSolver</code> (+ plant véhicule) →
+        profil consolidé exportable. Le frontend Next.js est un atelier&nbsp;;
+        la physique vit côté Python.
       </p>
 
       <figure class="shot">
-        <img src="./assets/cyclegen/01-accueil.png" width="1440" height="900" alt="Écran d’accueil CycleGen — hub Accueil / Créer / Bibliothèque" loading="lazy" />
-        <figcaption>Fig. 1 — Hub CycleGen (capture Playwright, démo Pages).</figcaption>
+        <img src="./assets/cyclegen/01-accueil.png" width="1440" height="900" alt="Hub CycleGen — portes Trajet GPS et Trace, bibliothèque alpine" loading="lazy" />
+        <figcaption>Fig. 1 — Hub démo Pages (Playwright). Packs alpins préchargés (Grossglockner, Veleta, Iseran, Stelvio).</figcaption>
       </figure>
 
-      <h2>2. Comment c’est construit</h2>
+      <h2>1. Architecture&nbsp;: frontières cheap / expensive</h2>
       <p>
-        Découpage volontaire : <strong>FastAPI (Python)</strong> = vérité scientifique et I/O géospatiales ;
-        <strong>Next.js 16 / React 19 / TypeScript</strong> = atelier d’ingénierie (pas de logique IDM ou Markov dans React).
-        Contrats d’échange en <strong>Pydantic</strong> (<code>app/models/schemas.py</code>) ;
-        routers HTTP minces (<code>routes_route</code>, <code>routes_corridor</code>, <code>routes_simulate</code>,
-        <code>routes_export</code>, <code>routes_calibrate</code>, <code>routes_drivers</code>, <code>routes_benchmark</code>).
-        Auth optionnelle <code>CYCLEGEN_API_KEY</code> (header / Bearer ; query uniquement sur upgrade WebSocket).
-        CORS borné via <code>CORS_ORIGINS</code> — jamais <code>*</code> avec credentials.
+        Règle produit (et de perf)&nbsp;: <strong>rebuild corridor</strong> (routeurs, DEM, feux) = action
+        utilisateur explicite ; <strong>update dynamics</strong> (params IDM / véhicule) = re-sim
+        debounce 50–100&nbsp;ms via l’API, sans logique métier dans React.
       </p>
-
-      <h3>Géospatial et corridor</h3>
+      <pre class="code-block" data-lang="pipeline"><code>Wizard (CycleGenShell)
+  → frontend/src/lib/api.ts
+      POST /api/route/analyze      # expensive
+      POST /api/corridor/build     # expensive
+      POST /api/simulate/start     # cheap re-run si corridor en mémoire
+  → FastAPI thin routers
+  → spatial_processor → SpatialCorridor
+  → simulation_manager → kinematic_solver.IDMSolver
+  → frames / ConsolidatedProfile (+ WS optionnel)</code></pre>
       <p>
-        Orchestrateur <code>services/routing/multi.py</code> : chaîne primaire séquentielle
-        <strong>HERE ADAS → Mapbox Traffic → OSRM</strong> (premier succès = géométrie de référence).
-        Les routeurs secondaires cochés en UI sont fetchés en parallèle et leurs V<sub>legal</sub> / Z
-        sont projetés sur l’axe S primaire pour le workspace Contraintes — pas de bascule silencieuse opaque.
-        Disponibilité runtime : <code>HERE_API_KEY</code>, <code>MAPBOX_ACCESS_TOKEN</code> ; OSRM toujours joignable
-        (démo publique ou URL self-host).
-      </p>
-      <p>
-        <code>spatial_processor.py</code> assemble le <code>SpatialCorridor</code> (NumPy + SciPy) :
-        lissage DEM Savitzky–Golay / fenêtre spatiale ~150&nbsp;m pour tuer le bruit Mapbox/OSM sur α(s) ;
-        courbure → V<sub>curve</sub> (<code>curvature.py</code>, freinage latéral admissible) ;
-        overlay maxspeed OSM ; projection des feux Overpass (dédup ~15&nbsp;m, caps 500 events / warnings).
-        Enveloppes résultantes : V<sub>legal</sub>, V<sub>traffic</sub>, V<sub>curve</sub> le long de S.
+        Contrats Pydantic, stores TTL, caps DoS sur Overpass / fingerprint.
+        Auth optionnelle <code>CYCLEGEN_API_KEY</code>. Sur GitHub Pages&nbsp;:
+        <code>NEXT_PUBLIC_API_MODE=direct</code> vers l’API hébergée (Render).
       </p>
 
       <figure class="shot">
-        <img src="./assets/cyclegen/02-atelier-creer.png" width="1440" height="900" alt="Atelier Créer CycleGen — carte, paramètres trajet et corridor" loading="lazy" />
-        <figcaption>Fig. 2 — Atelier Créer : sélection routeur, contraintes, carte (capture Playwright).</figcaption>
+        <img src="./assets/cyclegen/06-trajet-pico-veleta.jpg" width="1024" height="493" alt="Étape Trajet — Pico Veleta → Granada, carte et loupe route" loading="lazy" />
+        <figcaption>Fig. 2 — Étape Trajet&nbsp;: Pico Veleta → Granada, carte + loupe 3D / pente (capture produit, 2026-10-27).</figcaption>
       </figure>
 
-      <h3>Solveur, calibration Route Studio, data</h3>
+      <h2>2. L’adieu au PID&nbsp;: l’Intelligent Driver Model</h2>
+      <p>
+        Une boucle PID sur l’erreur de vitesse produit souvent des micro-oscillations
+        et des réactions «&nbsp;tout ou rien&nbsp;». L’IDM calcule une accélération
+        <em>continue</em> à partir de grandeurs conducteur (désirée, gap, confort)&nbsp;:
+      </p>
+      \[
+      a_{\mathrm{IDM}}=a_{\max}\left(
+        1-\left(\frac{v}{v_0}\right)^{\delta}
+        -\left(\frac{s^{*}}{s}\right)^{2}
+      \right)
+      \quad(\delta=4)
+      \]
+      \[
+      s^{*}=s_0+v\,T+\frac{v\,\Delta v}{2\sqrt{a_{\max}\,b_{\mathrm{comf}}}}
+      \]
+      \[
+      v_0=\max\bigl(0{,}1,\; V_{\mathrm{envelope}}(s)\cdot \texttt{speed\_factor}\bigr)
+      \]
+      <p>
+        Profils Eco / Normal / Sport (et calibrages Route Studio) ne changent que
+        \(a_{\max}\), \(b_{\mathrm{comf}}\), \(T\), \(s_0\), <code>speed_factor</code> —
+        pas une autre physique. Un bruit Markov optionnel est <strong>coupé</strong>
+        dès que \(a_{\mathrm{IDM}}\le -1\,\mathrm{m/s^2}\) ou qu’un danger est dans
+        l’horizon de freinage&nbsp;: la nervosité en roulage libre ne pollue pas un arrêt d’urgence.
+      </p>
+      <pre class="code-block" data-lang="python"><code># backend/app/services/kinematic_solver.py — _idm_accel
+free = 1.0 - (v / v0) ** DELTA
+dv = v - v_lead
+s_star = params.s0 + max(
+    0.0,
+    v * params.T
+    + (v * dv) / (2.0 * math.sqrt(max(params.a_max * params.b_comf, 1e-6))),
+)
+return params.a_max * (free - (s_star / gap) ** 2)</code></pre>
+
+      <h2>3. Corridor spatial&nbsp;: topographie sans «&nbsp;plongeon&nbsp;» sous les ponts</h2>
+      <p>
+        Le solveur micro a besoin d’un objet échantillonnable le long de l’abscisse curviligne \(s\)&nbsp;:
+      </p>
+      \[
+      \bigl(S,\;\alpha(s),\;V_{\mathrm{legal}},\;V_{\mathrm{traffic}},\;V_{\mathrm{curve}},\;V_{\mathrm{envelope}},\;S_{\mathrm{feux}}\bigr)
+      \]
+      <p>
+        Les DEM bruts mettent souvent le sol de la vallée <em>sous</em> un pont.
+        CycleGen interpole \(z\) entre les extrémités de structure OSM (pont / tunnel),
+        lisse (Savitzky–Golay), puis&nbsp;:
+      </p>
+      \[
+      \alpha_i=\operatorname{atan}\!\left(\frac{z^{\mathrm{SG}}_i-z^{\mathrm{SG}}_{i-1}}{S_i-S_{i-1}}\right)
+      \]
+      <p>
+        Affichage % = \(100\cdot\tan\alpha\) (UI seule)&nbsp;; stockage solveur en radians.
+        Courbure → vitesse latérale de confort&nbsp;:
+      </p>
+      \[
+      V_{\mathrm{curve}}(s)=\sqrt{a_y\,R(s)},\qquad
+      V_{\mathrm{envelope}}=\min\bigl(V_{\mathrm{legal}},\,V_{\mathrm{traffic}},\,V_{\mathrm{curve}}\bigr)
+      \]
+      <p>
+        (\(a_y\) défaut \(2{,}5\,\mathrm{m/s^2}\).) C’est cette enveloppe — pas une consigne PID —
+        qui borne \(v_0\) de l’IDM. Côté UI Contraintes&nbsp;: sources Z (HERE / Open-Meteo / …),
+        filtre spatial (ex. AVL N90), clamp grade, trapèzes \(L\), bornes pente min/max —
+        rebuild corridor = action explicite («&nbsp;Construire le cycle&nbsp;»).
+      </p>
+
+      <figure class="shot">
+        <img src="./assets/cyclegen/07-contraintes-pente.jpg" width="1024" height="489" alt="Étape Contraintes — pente α(s), profil altitude Pico Veleta" loading="lazy" />
+        <figcaption>Fig. 3 — Étape Contraintes&nbsp;: α(s), profil altitude coloré, alertes DEM (capture produit, Pico Veleta).</figcaption>
+      </figure>
+
+      <h2>4. Bilan de forces&nbsp;: road-load et plant véhicule</h2>
+      <p>
+        Une fois \(a_{\mathrm{cmd}}\) issu de l’IDM (éventuellement lissé jerk / pedal lag),
+        le plant véhicule clippe la commande par puissance, couple frein et pente.
+        Forme du bilan longitudinal&nbsp;:
+      </p>
+      \[
+      F_{\mathrm{need}}=m\,a_{\mathrm{cmd}}+F_{\mathrm{road}}+F_{\mathrm{grade}}
+      \]
+      \[
+      F_{\mathrm{road}}=F_0+F_1\,v_{\mathrm{km/h}}+F_2\,v_{\mathrm{km/h}}^{2},\qquad
+      F_{\mathrm{grade}}=m\,g\,\sin\alpha
+      \]
+      <p>
+        Puis \(F_{\mathrm{applied}}\) est borné par \(P_{\max}/v\) (traction) et
+        \(\tau_{\mathrm{brake}}/r_{\mathrm{dyn}}\) (frein)&nbsp;; on reconstruit
+        \(a=(F_{\mathrm{applied}}-F_{\mathrm{road}}-F_{\mathrm{grade}})/m\).
+        Couple / puissance aux roues suivent \(T=F\,r_{\mathrm{dyn}}\) et \(P=T\,\omega\).
+      </p>
+      <pre class="code-block" data-lang="python"><code># backend/app/services/kinematic_solver.py
+def _road_load_n(v_mps: float, plant: VehiclePlant) -> float:
+    vk = max(0.0, v_mps) * 3.6
+    return plant.f0_n + plant.f1_n_per_kph * vk + plant.f2_n_per_kph2 * vk * vk
+
+# clip_vehicle_accel: f_need = m*a_cmd + f_road + m*g*sin(alpha)
+# puis min/max traction &amp; frein → a reconstruit</code></pre>
+      <p>
+        Catalogue seed démo = <strong>proxies BEV d’ingénierie</strong> (ordres de grandeur publics,
+        pas des CoC)&nbsp;: Zoé R135, Leaf 40, ID.3 Pro, Model&nbsp;3 RWD, Ioniq&nbsp;5, BEV-C-TM générique.
+        Exemple BEV-C-TM&nbsp;: \(m=1810\,\mathrm{kg}\), \(F_0=102\,\mathrm{N}\), \(F_2=0{,}028\), \(r_{\mathrm{dyn}}=0{,}322\,\mathrm{m}\), \(P=150\,\mathrm{kW}\).
+        Les road-loads constructeur (C-Space, X-Space/Grossglockner, BCB) sont retirés du seed public.
+      </p>
+      <p>
+        La cohérence du bilan (\(F_{\mathrm{trac}}\) vs somme résistances + inertie) se vérifie
+        sur les exports CSV — c’est un test de non-régression numérique, pas une «&nbsp;preuve&nbsp;»
+        que le véhicule réel est cloné.
+      </p>
+
+      <h2>5. Épreuves alpines&nbsp;: Pico Veleta et Grossglockner</h2>
+      <p>
+        Pour stress-tester freins, retenue et enveloppes en descente / montée longue,
+        la démo embarque des packs HERE pré-enregistrés (geo + corridor + profil)&nbsp;:
+      </p>
       <ul class="edu">
         <li>
-          <strong><code>kinematic_solver.IDMSolver</code></strong> — IDM (δ=4) sans SUMO par défaut ;
-          couplage pente a<sub>grade</sub> = −g·sin(α) ; lag 1<sup>er</sup> ordre
-          <code>pedal_tau_s</code> / <code>vdes_tau_s</code> (défaut Pydantic <strong>0</strong> = désactivé) ;
-          profils Eco / Normal / Agressif / Sportif / Prudent / Dynamique ;
-          bruit Markov borné (<code>markov_noise.py</code>, forcé à 0 en freinage dur a ≤ −1&nbsp;m/s²).
+          <strong>Pico Veleta</strong> (Espagne) — descente / montée asphaltée côté Sierra Nevada&nbsp;;
+          juge de paix pour effort traction / freinage soutenu et enveloppes \(V_{\mathrm{legal}}\).
         </li>
         <li>
-          <strong>SUMO/TraCI</strong> — pont optionnel (<code>sumo_bridge.py</code> + image Docker dédiée)
-          pour scénarios microscopiques ; l’IDM reste le chemin nominal CI / Pages.
+          <strong>Grossglockner</strong> (Autriche) — descente type Edelweißspitze → fond de vallée,
+          \(\sim 14{,}7\,\mathrm{km}\), pentes fortes&nbsp;; scénario freinage / retenue.
         </li>
         <li>
-          <strong>Recalage RS</strong> — fingerprint SHA-256 de la source
-          (<code>rs_fingerprint.py</code>) → suggestion physique IDM ;
-          fit geometry-lock async (<code>rs_jobs.py</code> : ThreadPoolExecutor, TTL 1&nbsp;h, file max 8,
-          <code>POST …/jobs</code> + poll — jamais un POST sync long).
-        </li>
-        <li>
-          <strong>Corpus</strong> — <code>backend/app/data/benchmark/</code> + <code>manifest.json</code>
-          (id, license, citation, <code>sha256</code>, <code>family</code>) ;
-          alpin : Grossglockner, Col de l’Iseran, Stelvio, Pico Veleta ; seeds réglementaires proxy (WLTC/NEDC) documentés comme non officiels.
-        </li>
-        <li>
-          <strong>Export</strong> — CSV / XML / Excel (<code>exceljs</code> / <code>xlsx</code> côté front) ;
-          pack <code>route_studio_fit_pack.json</code> pour Versus et réouverture.
+          <strong>Iseran / Stelvio</strong> — mêmes mécaniques, autres géométries (stress freins cols).
         </li>
       </ul>
+      <p>
+        Ces packs peuplent les quatre écrans du wizard à l’ouverture (trajet → contraintes →
+        conducteur → cycle), sans attendre un cold start API pour <em>lire</em> un résultat —
+        la re-génération live, elle, passe par <code>simulate/start</code>.
+      </p>
+
+      <h2>6. UI&nbsp;: Focus + contexte, pas une grille de neuf graphes</h2>
+      <p>
+        Empiler vitesse, \(a\), \(P\), \(\tau\), pente… en neuf panneaux égaux
+        surcharge l’ingénieur. Le poste Cycle (étape&nbsp;4) suit un paradigme
+        <strong>Focus + Contexte</strong>&nbsp;:
+      </p>
+      <ul class="edu">
+        <li>un <strong>graphe focus</strong> (série primaire, overlays limites / moyenne / RMS)&nbsp;;</li>
+        <li>un <strong>bandeau de miniatures</strong> pour basculer V, \(a\), \(P_t\), \(\tau\), …&nbsp;;</li>
+        <li>un <strong>HUD</strong> au curseur (valeurs sync à l’instant \(t\)) + audit sécurité (\(\lvert a\rvert_{\max}\), gate Markov, clips)&nbsp;;</li>
+        <li>un <strong>playhead</strong> commun carte ↔ courbes ↔ loupe pente / 3D&nbsp;;</li>
+        <li>ledger applicatif (config / géométrie / résultats)&nbsp;; pas de corridor passé en URL.</li>
+      </ul>
+      <p>
+        Objectif&nbsp;: passer du temps sur le phénomène physique (suivi d’enveloppe, pics de couple,
+        freinage en descente), pas sur la configuration de l’outil.
+      </p>
+
+      <figure class="shot">
+        <img src="./assets/cyclegen/08-analyse-cycle-veleta.jpg" width="1024" height="494" alt="Étape Cycle — Pico Veleta, graphe vitesse focus, sparklines, carte sync" loading="lazy" />
+        <figcaption>Fig. 4 — Étape Cycle (Pico Veleta)&nbsp;: graphe focus \(v(t)\), overlays enveloppe / légal, sparklines, carte sync (capture produit).</figcaption>
+      </figure>
 
       <figure class="shot">
         <img src="./assets/cyclegen/03-bibliotheque.png" width="1440" height="900" alt="Bibliothèque de cycles CycleGen" loading="lazy" />
-        <figcaption>Fig. 3 — Bibliothèque locale / corpus (capture Playwright).</figcaption>
+        <figcaption>Fig. 5 — Bibliothèque / corpus. Flux Trajet GPS vs étude énergie.</figcaption>
       </figure>
 
-      <h3>Frontend, sync spatiale, livraison</h3>
+      <h2>7. Livraison</h2>
       <ul class="edu">
-        <li>
-          <strong>UI</strong> — Leaflet / react-leaflet (carte), Recharts (v(t), a, pente, énergie),
-          loupe route 3D (<code>RoadLoupe3D</code>) synchronisée au curseur ;
-          ledger Zustand 3 strates (config / géométrie / résultats) + <code>hoverIndex</code> / <code>playheadIndex</code>
-          pour lier courbes ↔ marqueur carte ↔ pente.
-        </li>
-        <li>
-          <strong>Persistance locale</strong> — bibliothèque cycles + banques conducteur/véhicule
-          (localStorage + Dexie pour road-law) ; pas de corridor passé en URL.
-        </li>
-        <li>
-          <strong>Cheap vs expensive</strong> — retouche IDM / véhicule → re-sim debounce 50–100&nbsp;ms ;
-          rebuild corridor (HERE/OSRM/Mapbox, DEM, feux) = action utilisateur explicite.
-        </li>
-        <li>
-          <strong>Pages</strong> — <code>output: "export"</code>, <code>basePath=/CycleGen</code>,
-          <code>NEXT_PUBLIC_API_MODE=direct</code> (pas de BFF obligatoire) ;
-          workflow Actions → artifact ; API Docker <code>$PORT</code> (Render/Railway).
-        </li>
-        <li>
-          <strong>Qualité</strong> — <code>unittest</code> backend, <code>tsc --noEmit</code>,
-          e2e Playwright (<code>smoke</code>, <code>studio-shell</code>, campagnes usage) ;
-          captures de cet article elles-mêmes générées via Playwright.
-        </li>
+        <li><strong>Front</strong> — Next.js export statique, <code>basePath=/CycleGen</code>, GitHub Pages.</li>
+        <li><strong>API</strong> — FastAPI Docker, <code>$PORT</code>, Render free (<code>cyclegen-api.onrender.com</code>)&nbsp;; cold start possible.</li>
+        <li><strong>Qualité</strong> — unittests backend, <code>tsc</code>, Playwright live (smoke Pages + assert catalogue proxies BEV).</li>
       </ul>
 
-      <figure class="shot">
-        <img src="./assets/cyclegen/04-versus.png" width="1440" height="900" alt="Studio Versus / comparaison CycleGen" loading="lazy" />
-        <figcaption>Fig. 4 — Versus : superposition de cycles et métriques (capture Playwright).</figcaption>
-      </figure>
-
-      <h2>3. Valeur ajoutée</h2>
-      <ul class="edu">
-        <li><strong>Réduction du coût de donnée</strong> — cycles A→B sans campagne de mesure pour chaque étude</li>
-        <li><strong>Traçabilité</strong> — sources routeur, warnings, paramètres conducteur/véhicule exportables</li>
-        <li><strong>Réutilisabilité</strong> — export vers chaînes d’outils d’ingénierie ; corpus alpin partagé</li>
-        <li><strong>Industrialisation</strong> — même logique que le digital engineering auto : standards, seed, CI, déploiement découplé front/API</li>
-      </ul>
-
-      <h2>4. Limites (explicites)</h2>
+      <h2>8. Limites (explicites)</h2>
       <p>
-        CycleGen n’est pas une vérité terrain NDS, ni une homologation WLTP/NEDC officielle, ni un jumeau de contrôleur de feux réel.
-        Les seeds et TPM sont des proxies d’ingénierie documentés — à remplacer par des données autorisées en usage critique.
+        CycleGen n’est pas une vérité terrain NDS, ni une homologation réglementaire officielle,
+        ni un modèle thermique batterie / frein à disque. \(V_{curve}\) est un confort latéral,
+        pas une limite d’adhérence. Les TPM Markov et seeds sont des proxies d’ingénierie
+        documentés. Les chiffres véhicule ci-dessus sont ceux du catalogue seed open&nbsp;;
+        toute étude critique doit substituer des CoC / mesures autorisées.
       </p>
 
       <div class="cta-row">
@@ -282,5 +364,8 @@
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
   </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"
+    onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}], throwOnError:false});"></script>
 </body>
 </html>

@@ -9,10 +9,10 @@
   "articles": [
     {
       "id": "cyclegen-architecture-pipeline",
-      "title": "CycleGen — architecture et pipeline de cycles synthétiques",
+      "title": "CycleGen — rapport technique : architecture, IDM et bilan de forces",
       "path": "./cyclegen-architecture-pipeline.html",
       "date": "2026-10-27",
-      "summary": "Problématique ingénierie amont, stack FastAPI / Next.js, corridor spatial, IDM, corpus alpin, déploiement Pages. Compétences démontrées et captures UI.",
+      "summary": "Rapport d’ingénierie : IDM vs PID, corridor spatial, road-load F0/F1/F2, pipeline FastAPI → kinematic_solver, UI Focus+Contexte, corpus alpin. Équations KaTeX + extraits de code.",
       "tags": ["projet"],
       "demo": "https://fredericatlan.github.io/CycleGen/"
     }
