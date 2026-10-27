@@ -36,7 +36,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../styles.css?v=20261027b" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous" />
 
   <script type="application/ld+json">
@@ -386,7 +386,8 @@ def _road_load_n(v_mps: float, plant: VehiclePlant) -> float:
         lbCap.textContent = caption || "";
         document.body.appendChild(lb);
         lb.hidden = false;
-        lb.style.display = "flex";
+        lb.style.cssText =
+          "position:fixed;inset:0;z-index:4000;display:flex;align-items:center;justify-content:center;padding:1.25rem;margin:0;background:rgba(4,8,16,0.92);";
         lb.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
         lbClose.focus();
@@ -394,7 +395,7 @@ def _road_load_n(v_mps: float, plant: VehiclePlant) -> float:
 
       function closeLightbox() {
         lb.hidden = true;
-        lb.style.display = "none";
+        lb.style.cssText = "";
         lb.setAttribute("aria-hidden", "true");
         lbImg.removeAttribute("src");
         document.body.style.overflow = "";
