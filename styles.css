@@ -295,7 +295,11 @@ a {
 
 .page-projects {
   padding-top: calc(var(--header-h) + 1.75rem);
-  max-width: 900px;
+  max-width: 960px;
+}
+
+.page-projects.article {
+  max-width: 980px;
 }
 
 .page-projects h1 {

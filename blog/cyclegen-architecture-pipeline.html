@@ -384,15 +384,20 @@ def _road_load_n(v_mps: float, plant: VehiclePlant) -> float:
         lbImg.src = src;
         lbImg.alt = alt || "";
         lbCap.textContent = caption || "";
+        document.body.appendChild(lb);
         lb.hidden = false;
+        lb.style.display = "flex";
         lb.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
         lbClose.focus();
       }
 
       function closeLightbox() {
         lb.hidden = true;
+        lb.style.display = "none";
         lb.setAttribute("aria-hidden", "true");
         lbImg.removeAttribute("src");
+        document.body.style.overflow = "";
       }
 
       document.querySelectorAll("figure.shot").forEach(function (fig) {
