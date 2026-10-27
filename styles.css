@@ -321,6 +321,65 @@ a {
   margin-right: auto;
 }
 
+/* Accordéons technique (équations / code) — fermés par défaut */
+.fold {
+  margin: 1rem 0 1.5rem;
+  border: 1px solid var(--line);
+  background: rgba(10, 16, 28, 0.55);
+  max-width: min(72ch, 100%);
+}
+
+.fold > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0.65rem 0.85rem;
+  font-family: var(--display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--fog);
+  user-select: none;
+}
+
+.fold > summary::-webkit-details-marker {
+  display: none;
+}
+
+.fold > summary::before {
+  content: "+";
+  display: inline-block;
+  width: 1.1em;
+  margin-right: 0.35rem;
+  color: var(--accent);
+  font-family: var(--body);
+  font-weight: 500;
+}
+
+.fold[open] > summary::before {
+  content: "−";
+}
+
+.fold > summary:hover {
+  color: var(--paper);
+}
+
+.fold > *:not(summary) {
+  margin-left: 0.85rem;
+  margin-right: 0.85rem;
+}
+
+.fold > *:last-child {
+  margin-bottom: 0.85rem;
+}
+
+.fold .code-block {
+  max-width: 100%;
+}
+
+.fold .katex-display {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
 /* Démo embarquée (iframe) — rester dans l’article */
 .demo-embed {
   margin: 1.75rem 0 2.25rem;

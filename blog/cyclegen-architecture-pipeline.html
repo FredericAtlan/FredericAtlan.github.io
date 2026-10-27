@@ -37,7 +37,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=20261027e" />
+  <link rel="stylesheet" href="../styles.css?v=20261027f" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous" />
 
   <script type="application/ld+json">
   {
@@ -149,6 +150,18 @@
         Règle produit&nbsp;: reconstruire le corridor = action explicite&nbsp;;
         retoucher le conducteur = re-simulation rapide, sans remettre la carte à zéro.
       </p>
+      <details class="fold">
+        <summary>Pipeline (cher vs bon marché)</summary>
+        <pre class="code-block" data-lang="pipeline"><code>Atelier web
+  → client HTTP
+      analyser l’itinéraire          # cher
+      construire le corridor         # cher
+      démarrer la simulation         # bon marché si corridor déjà là
+  → serveur Python (routes HTTP minces)
+  → assemblage spatial → corridor
+  → solveur de conducteur (+ modèle véhicule)
+  → profil exportable</code></pre>
+      </details>
 
       <h2>Conducteur</h2>
       <p>
@@ -163,6 +176,49 @@
         Un petit bruit optionnel simule la nervosité en roulage libre&nbsp;; il est coupé
         dès qu’on freine fort ou qu’un danger est trop près.
       </p>
+      <details class="fold">
+        <summary>Équations et code — conducteur</summary>
+        <p>
+          Accélération IDM et distance désirée \(s^*\) (\(a_{\max}\) accélération souhaitée,
+          \(b_{\mathrm{comf}}\) freinage confort, \(T\) temps de tête, \(s_0\) gap à l’arrêt)&nbsp;:
+        </p>
+        \[
+        a_{\mathrm{IDM}}=a_{\max}\left(
+          1-\left(\frac{v}{v_0}\right)^{\delta}
+          -\left(\frac{s^{*}}{s}\right)^{2}
+        \right)
+        \quad(\delta=4)
+        \]
+        \[
+        s^{*}=s_0+v\,T+\frac{v\,\Delta v}{2\sqrt{a_{\max}\,b_{\mathrm{comf}}}}
+        \]
+        \[
+        v_0=\max\bigl(0{,}1,\; V_{\mathrm{envelope}}(s)\cdot \texttt{speed\_factor}\bigr)
+        \]
+        <p>
+          Coupure du bruit et clip, puis intégration d’Euler (\(\Delta t\approx 1\,\mathrm{s}\))&nbsp;:
+        </p>
+        \[
+        d_{\mathrm{brake}}=\max\!\Bigl(\frac{v^{2}}{2\,b_{\mathrm{comf}}},\,25\Bigr)\quad[\mathrm{m}]
+        \]
+        \[
+        a=\operatorname{clip}\bigl(a_{\mathrm{IDM}}+a_{\mathrm{noise}},\;
+          -1{,}5\,b_{\mathrm{comf}},\; a_{\max}\bigr)
+        \]
+        \[
+        v\leftarrow v+a\,\Delta t,\qquad
+        s\leftarrow s+v_{\mathrm{old}}\,\Delta t
+        \]
+        <pre class="code-block" data-lang="python"><code># Extrait — a_IDM (kinematic_solver.py)
+free = 1.0 - (v / v0) ** DELTA
+dv = v - v_lead
+s_star = params.s0 + max(
+    0.0,
+    v * params.T
+    + (v * dv) / (2.0 * math.sqrt(max(params.a_max * params.b_comf, 1e-6))),
+)
+return params.a_max * (free - (s_star / gap) ** 2)</code></pre>
+      </details>
 
       <h2>Corridor</h2>
       <p>
@@ -172,6 +228,24 @@
         L’altitude brute plonge parfois sous un pont&nbsp;: on corrige les structures carte,
         on lisse, puis on calcule la pente. Affichage en&nbsp;% à l’écran&nbsp;; calcul en radians.
       </p>
+      <details class="fold">
+        <summary>Équations — corridor et enveloppe</summary>
+        <p>Objet indexé par la distance \(s\)&nbsp;:</p>
+        \[
+        \bigl(S,\;\alpha(s),\;V_{\mathrm{legal}},\;V_{\mathrm{traffic}},\;V_{\mathrm{curve}},\;V_{\mathrm{envelope}},\;S_{\mathrm{feux}}\bigr)
+        \]
+        <p>Pente après lissage (Savitzky–Golay, noté SG)&nbsp;:</p>
+        \[
+        \alpha_i=\operatorname{atan}\!\left(\frac{z^{\mathrm{SG}}_i-z^{\mathrm{SG}}_{i-1}}{S_i-S_{i-1}}\right)
+        \]
+        <p>Virage (\(a_y\) confort latéral, \(R\) rayon) et enveloppe&nbsp;:</p>
+        \[
+        V_{\mathrm{curve}}(s)=\sqrt{a_y\,R(s)}
+        \]
+        \[
+        V_{\mathrm{envelope}}(s)=\min\bigl(V_{\mathrm{legal}}(s),\,V_{\mathrm{traffic}}(s),\,V_{\mathrm{curve}}(s)\bigr)
+        \]
+      </details>
 
       <figure class="shot">
         <img src="./assets/cyclegen/07-contraintes-pente.jpg" width="1024" height="489" alt="Contraintes — profil de pente Pico Veleta" loading="lazy" />
@@ -190,6 +264,27 @@
         (non officiels). Pour une étude critique, on substitue des données constructeur
         ou des mesures autorisées.
       </p>
+      <details class="fold">
+        <summary>Équations et code — bilan de forces</summary>
+        \[
+        F_{\mathrm{need}}=m\,a_{\mathrm{cmd}}+F_{\mathrm{road}}+F_{\mathrm{grade}}
+        \]
+        \[
+        F_{\mathrm{road}}=F_0+F_1\,v_{\mathrm{km/h}}+F_2\,v_{\mathrm{km/h}}^{2},\qquad
+        F_{\mathrm{grade}}=m\,g\,\sin\alpha
+        \]
+        \[
+        a=\frac{F_{\mathrm{applied}}-F_{\mathrm{road}}-F_{\mathrm{grade}}}{m}
+        \]
+        \[
+        T=F\,r_{\mathrm{dyn}},\qquad
+        P=T\,\omega
+        \]
+        <pre class="code-block" data-lang="python"><code># Road-load (kinematic_solver.py)
+def _road_load_n(v_mps: float, plant: VehiclePlant) -> float:
+    vk = max(0.0, v_mps) * 3.6  # m/s → km/h
+    return plant.f0_n + plant.f1_n_per_kph * vk + plant.f2_n_per_kph2 * vk * vk</code></pre>
+      </details>
 
       <h2>Routes alpines</h2>
       <p>
@@ -318,5 +413,8 @@
       });
     })();
   </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"
+    onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}], throwOnError:false});"></script>
 </body>
 </html>
