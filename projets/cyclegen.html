@@ -50,18 +50,23 @@
 <body>
   <div class="atmosphere" aria-hidden="true"></div>
 
-  <header class="site-header">
-    <a class="brand" href="../">Frédéric Atlan</a>
+    <header class="site-header">
+    <a class="brand" href="/">Frédéric Atlan</a>
     <nav class="nav" aria-label="Navigation principale">
-      <a href="../#parcours">Parcours</a>
-      <a href="./">Projets</a>
-      <a href="../blog/">Blog</a>
-      <a href="../#contact">Contact</a>
+      <span class="nav-cluster" role="group" aria-label="Profil">
+        <a href="/#parcours">Parcours</a>
+        <a href="/#contact">Contact</a>
+      </span>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-cluster" role="group" aria-label="Publications">
+        <a class="nav-page" href="/projets/">Projets</a>
+        <a class="nav-page" href="/blog/">Blog</a>
+      </span>
     </nav>
   </header>
 
   <main id="top" class="section page-projects">
-    <p class="crumb"><a href="./">Projets</a> · CycleGen</p>
+    <nav class="crumb" aria-label="Fil d’Ariane"><a href="/">Accueil</a><span class="crumb-sep">›</span><a href="/projets/">Projets</a><span class="crumb-sep">›</span>CycleGen</nav>
     <p class="hero-kicker">Digital engineering · simulation</p>
     <h1>CycleGen</h1>
     <p class="section-lead">Générer des cycles de roulage automobiles synthétiques physiquement réalistes — profils vitesse v(t) et pente α(t) — pour l’ingénierie amont (validation, études énergie, scénarios réalistes).</p>
@@ -98,9 +103,17 @@
       <p class="project-actions">
         <a class="btn btn-primary" href="https://fredericatlan.github.io/CycleGen/" target="_blank" rel="noopener noreferrer">Démo live</a>
         <a class="btn btn-ghost" href="https://github.com/FredericAtlan/CycleGen" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a class="btn btn-ghost" href="../blog/cyclegen-architecture-pipeline.html">Article blog</a>
-        <a class="btn btn-ghost" href="./">Tous les projets</a>
+        <a class="btn btn-ghost" href="/projets/">Tous les projets</a>
       </p>
+
+      <aside class="related-box" aria-labelledby="related-articles-title" data-relation="cyclegen">
+        <h2 id="related-articles-title">Articles liés</h2>
+        <p>Réflexion d’architecture associée à ce livrable (catalogue <code>/blog/relations.json</code>).</p>
+        <p class="project-actions">
+          <a class="btn btn-primary" href="/blog/cyclegen-architecture-pipeline.html">CycleGen — architecture et pipeline</a>
+          <a class="btn btn-ghost" href="/blog/tags/projet.html">Tag projet</a>
+        </p>
+      </aside>
     </div>
   </main>
 

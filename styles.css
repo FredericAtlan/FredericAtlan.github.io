@@ -84,8 +84,25 @@ a {
 
 .nav {
   display: flex;
-  gap: 1.25rem;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem 1rem;
   font-size: 0.92rem;
+}
+
+.nav-cluster {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem 1.1rem;
+}
+
+.nav-sep {
+  display: inline-block;
+  width: 1px;
+  height: 1rem;
+  background: var(--line);
+  flex-shrink: 0;
 }
 
 .nav a {
@@ -100,6 +117,13 @@ a {
 
 .nav a[aria-current="page"] {
   color: var(--accent);
+}
+
+.nav a.nav-page::after {
+  content: "↗";
+  margin-left: 0.28rem;
+  font-size: 0.72em;
+  opacity: 0.55;
 }
 
 .hero {
@@ -278,6 +302,36 @@ a {
 
 .crumb a:hover {
   text-decoration: underline;
+}
+
+.crumb-sep {
+  margin: 0 0.35rem;
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+.related-box {
+  margin: 2rem 0;
+  padding: 1.15rem 1.2rem;
+  border: 1px solid var(--line);
+  background: rgba(16, 24, 42, 0.55);
+}
+
+.related-box h2 {
+  margin: 0 0 0.55rem;
+  font-family: var(--display);
+  font-size: 1.05rem;
+}
+
+.related-box p {
+  margin: 0 0 0.85rem;
+  color: var(--fog);
+  max-width: 58ch;
+  font-size: 0.95rem;
+}
+
+.related-box .project-actions {
+  margin-top: 0 !important;
 }
 
 .project-list {

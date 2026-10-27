@@ -34,17 +34,23 @@
 <body>
   <div class="atmosphere" aria-hidden="true"></div>
 
-  <header class="site-header">
-    <a class="brand" href="../">Frédéric Atlan</a>
+    <header class="site-header">
+    <a class="brand" href="/">Frédéric Atlan</a>
     <nav class="nav" aria-label="Navigation principale">
-      <a href="../#parcours">Parcours</a>
-      <a href="./" aria-current="page">Projets</a>
-      <a href="../blog/">Blog</a>
-      <a href="../#contact">Contact</a>
+      <span class="nav-cluster" role="group" aria-label="Profil">
+        <a href="/#parcours">Parcours</a>
+        <a href="/#contact">Contact</a>
+      </span>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-cluster" role="group" aria-label="Publications">
+        <a class="nav-page" href="/projets/" aria-current="page">Projets</a>
+        <a class="nav-page" href="/blog/">Blog</a>
+      </span>
     </nav>
   </header>
 
   <main id="top" class="section page-projects">
+    <nav class="crumb" aria-label="Fil d’Ariane"><a href="/">Accueil</a><span class="crumb-sep">›</span>Projets</nav>
     <p class="hero-kicker">Ingénierie numérique · open source</p>
     <h1>Projets</h1>
     <p class="section-lead">Outils et démonstrateurs personnels — distincts du parcours Ampere / Renault.</p>
@@ -56,6 +62,7 @@
         <p>Génération de cycles de roulage automobiles synthétiques physiquement réalistes (v(t), pente), corridor spatial, IDM / SUMO optionnel, export CSV·XML pour l’ingénierie amont.</p>
         <p class="project-actions">
           <a class="btn btn-primary" href="./cyclegen.html">Fiche projet</a>
+          <a class="btn btn-ghost" href="/blog/cyclegen-architecture-pipeline.html">Article blog</a>
           <a class="btn btn-ghost" href="https://github.com/FredericAtlan/CycleGen" target="_blank" rel="noopener noreferrer">Code source</a>
         </p>
       </li>

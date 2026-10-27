@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "note": "Cross-links projet ↔ article. Ajouter une entrée par livrable.",
+  "links": [
+    {
+      "id": "cyclegen",
+      "project": {
+        "title": "CycleGen",
+        "path": "/projets/cyclegen.html"
+      },
+      "articles": [
+        {
+          "title": "CycleGen — architecture et pipeline de cycles synthétiques",
+          "path": "/blog/cyclegen-architecture-pipeline.html",
+          "tags": ["projet"]
+        }
+      ]
+    }
+  ]
+}

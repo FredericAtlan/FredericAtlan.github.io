@@ -34,17 +34,23 @@
 <body>
   <div class="atmosphere" aria-hidden="true"></div>
 
-  <header class="site-header">
-    <a class="brand" href="../">Frédéric Atlan</a>
+    <header class="site-header">
+    <a class="brand" href="/">Frédéric Atlan</a>
     <nav class="nav" aria-label="Navigation principale">
-      <a href="../#parcours">Parcours</a>
-      <a href="../projets/">Projets</a>
-      <a href="./" aria-current="page">Blog</a>
-      <a href="../#contact">Contact</a>
+      <span class="nav-cluster" role="group" aria-label="Profil">
+        <a href="/#parcours">Parcours</a>
+        <a href="/#contact">Contact</a>
+      </span>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-cluster" role="group" aria-label="Publications">
+        <a class="nav-page" href="/projets/">Projets</a>
+        <a class="nav-page" href="/blog/" aria-current="page">Blog</a>
+      </span>
     </nav>
   </header>
 
   <main id="top" class="section page-projects">
+    <nav class="crumb" aria-label="Fil d’Ariane"><a href="/">Accueil</a><span class="crumb-sep">›</span>Blog</nav>
     <p class="hero-kicker">Notes techniques</p>
     <h1>Blog</h1>
     <p class="section-lead">Analyses de produits et architectures livrés — orientées compétences et résultats.</p>

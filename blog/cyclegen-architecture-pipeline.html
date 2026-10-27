@@ -68,18 +68,23 @@
 <body>
   <div class="atmosphere" aria-hidden="true"></div>
 
-  <header class="site-header">
-    <a class="brand" href="../">Frédéric Atlan</a>
+    <header class="site-header">
+    <a class="brand" href="/">Frédéric Atlan</a>
     <nav class="nav" aria-label="Navigation principale">
-      <a href="../#parcours">Parcours</a>
-      <a href="../projets/">Projets</a>
-      <a href="./" aria-current="page">Blog</a>
-      <a href="../#contact">Contact</a>
+      <span class="nav-cluster" role="group" aria-label="Profil">
+        <a href="/#parcours">Parcours</a>
+        <a href="/#contact">Contact</a>
+      </span>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-cluster" role="group" aria-label="Publications">
+        <a class="nav-page" href="/projets/">Projets</a>
+        <a class="nav-page" href="/blog/" aria-current="page">Blog</a>
+      </span>
     </nav>
   </header>
 
   <main id="top" class="section page-projects article">
-    <p class="crumb"><a href="./">Blog</a> · <a href="./tags/projet.html">projet</a> · CycleGen</p>
+    <nav class="crumb" aria-label="Fil d’Ariane"><a href="/">Accueil</a><span class="crumb-sep">›</span><a href="/blog/">Blog</a><span class="crumb-sep">›</span><a href="/blog/tags/projet.html">projet</a><span class="crumb-sep">›</span>CycleGen</nav>
     <p class="hero-kicker"><time datetime="2026-10-27">27 octobre 2026</time> · note technique · <a class="tag" href="./tags/projet.html">projet</a></p>
     <h1>CycleGen — architecture et pipeline de cycles synthétiques</h1>
     <p class="section-lead">
@@ -90,8 +95,16 @@
     <div class="cta-row">
       <a class="btn btn-primary" href="https://fredericatlan.github.io/CycleGen/" target="_blank" rel="noopener noreferrer">Démo live</a>
       <a class="btn btn-ghost" href="https://github.com/FredericAtlan/CycleGen" target="_blank" rel="noopener noreferrer">Dépôt GitHub</a>
-      <a class="btn btn-ghost" href="../projets/cyclegen.html">Fiche projet</a>
     </div>
+
+    <aside class="related-box" aria-labelledby="related-project-title" data-relation="cyclegen">
+      <h2 id="related-project-title">Projet associé</h2>
+      <p>Fiche technique du livrable — stack, pipeline, déploiement (pratique ↔ article).</p>
+      <p class="project-actions">
+        <a class="btn btn-primary" href="/projets/cyclegen.html">Fiche projet CycleGen</a>
+        <a class="btn btn-ghost" href="/blog/tags/projet.html">Tous les articles « projet »</a>
+      </p>
+    </aside>
 
     <section class="skills-box" aria-labelledby="skills-title">
       <h2 id="skills-title">Compétences clés démontrées</h2>
