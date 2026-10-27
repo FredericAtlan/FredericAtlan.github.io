@@ -122,42 +122,104 @@
       </figure>
 
       <h2>2. Comment c’est construit</h2>
-      <h3>Pipeline</h3>
-      <ol class="edu">
-        <li><strong>Routage</strong> — HERE (clé utilisateur), Mapbox Traffic, fallback OSRM free-flow</li>
-        <li><strong>Contexte</strong> — Overpass (feux, ponts, tunnels) + élévation DEM</li>
-        <li><strong>Corridor spatial</strong> — abscisse curviligne S, pente α(s), enveloppes de vitesse</li>
-        <li><strong>Micro</strong> — IDM (défaut) ou SUMO/TraCI ; profils Eco / Normal / Sportif</li>
-        <li><strong>Export / benchmark</strong> — profil consolidé, KPIs vs corpus, bibliothèque locale</li>
-      </ol>
+      <p>
+        Découpage volontaire : <strong>FastAPI (Python)</strong> = vérité scientifique et I/O géospatiales ;
+        <strong>Next.js 16 / React 19 / TypeScript</strong> = atelier d’ingénierie (pas de logique IDM ou Markov dans React).
+        Contrats d’échange en <strong>Pydantic</strong> (<code>app/models/schemas.py</code>) ;
+        routers HTTP minces (<code>routes_route</code>, <code>routes_corridor</code>, <code>routes_simulate</code>,
+        <code>routes_export</code>, <code>routes_calibrate</code>, <code>routes_drivers</code>, <code>routes_benchmark</code>).
+        Auth optionnelle <code>CYCLEGEN_API_KEY</code> (header / Bearer ; query uniquement sur upgrade WebSocket).
+        CORS borné via <code>CORS_ORIGINS</code> — jamais <code>*</code> avec credentials.
+      </p>
+
+      <h3>Géospatial et corridor</h3>
+      <p>
+        Orchestrateur <code>services/routing/multi.py</code> : chaîne primaire séquentielle
+        <strong>HERE ADAS → Mapbox Traffic → OSRM</strong> (premier succès = géométrie de référence).
+        Les routeurs secondaires cochés en UI sont fetchés en parallèle et leurs V<sub>legal</sub> / Z
+        sont projetés sur l’axe S primaire pour le workspace Contraintes — pas de bascule silencieuse opaque.
+        Disponibilité runtime : <code>HERE_API_KEY</code>, <code>MAPBOX_ACCESS_TOKEN</code> ; OSRM toujours joignable
+        (démo publique ou URL self-host).
+      </p>
+      <p>
+        <code>spatial_processor.py</code> assemble le <code>SpatialCorridor</code> (NumPy + SciPy) :
+        lissage DEM Savitzky–Golay / fenêtre spatiale ~150&nbsp;m pour tuer le bruit Mapbox/OSM sur α(s) ;
+        courbure → V<sub>curve</sub> (<code>curvature.py</code>, freinage latéral admissible) ;
+        overlay maxspeed OSM ; projection des feux Overpass (dédup ~15&nbsp;m, caps 500 events / warnings).
+        Enveloppes résultantes : V<sub>legal</sub>, V<sub>traffic</sub>, V<sub>curve</sub> le long de S.
+      </p>
 
       <figure class="shot">
         <img src="./assets/cyclegen/02-atelier-creer.png" width="1440" height="900" alt="Atelier Créer CycleGen — carte, paramètres trajet et corridor" loading="lazy" />
-        <figcaption>Fig. 2 — Atelier « Créer » : carte, routeurs, contraintes (capture Playwright).</figcaption>
+        <figcaption>Fig. 2 — Atelier Créer : sélection routeur, contraintes, carte (capture Playwright).</figcaption>
       </figure>
 
-      <h3>Stack livrée</h3>
+      <h3>Solveur, calibration Route Studio, data</h3>
       <ul class="edu">
-        <li><strong>API</strong> — FastAPI, services isolés (route, corridor, simulate, export, calibrate, drivers)</li>
-        <li><strong>UI</strong> — Next.js App Router, export statique pour Pages ; mode API directe hors BFF</li>
-        <li><strong>Données</strong> — corpus sous <code>backend/app/data/benchmark/</code> + <code>manifest.json</code> (family <code>alpine</code> : Grossglockner, Col de l’Iseran, Stelvio, Pico Veleta)</li>
+        <li>
+          <strong><code>kinematic_solver.IDMSolver</code></strong> — IDM (δ=4) sans SUMO par défaut ;
+          couplage pente a<sub>grade</sub> = −g·sin(α) ; lag 1<sup>er</sup> ordre
+          <code>pedal_tau_s</code> / <code>vdes_tau_s</code> (défaut Pydantic <strong>0</strong> = désactivé) ;
+          profils Eco / Normal / Agressif / Sportif / Prudent / Dynamique ;
+          bruit Markov borné (<code>markov_noise.py</code>, forcé à 0 en freinage dur a ≤ −1&nbsp;m/s²).
+        </li>
+        <li>
+          <strong>SUMO/TraCI</strong> — pont optionnel (<code>sumo_bridge.py</code> + image Docker dédiée)
+          pour scénarios microscopiques ; l’IDM reste le chemin nominal CI / Pages.
+        </li>
+        <li>
+          <strong>Recalage RS</strong> — fingerprint SHA-256 de la source
+          (<code>rs_fingerprint.py</code>) → suggestion physique IDM ;
+          fit geometry-lock async (<code>rs_jobs.py</code> : ThreadPoolExecutor, TTL 1&nbsp;h, file max 8,
+          <code>POST …/jobs</code> + poll — jamais un POST sync long).
+        </li>
+        <li>
+          <strong>Corpus</strong> — <code>backend/app/data/benchmark/</code> + <code>manifest.json</code>
+          (id, license, citation, <code>sha256</code>, <code>family</code>) ;
+          alpin : Grossglockner, Col de l’Iseran, Stelvio, Pico Veleta ; seeds réglementaires proxy (WLTC/NEDC) documentés comme non officiels.
+        </li>
+        <li>
+          <strong>Export</strong> — CSV / XML / Excel (<code>exceljs</code> / <code>xlsx</code> côté front) ;
+          pack <code>route_studio_fit_pack.json</code> pour Versus et réouverture.
+        </li>
       </ul>
 
       <figure class="shot">
         <img src="./assets/cyclegen/03-bibliotheque.png" width="1440" height="900" alt="Bibliothèque de cycles CycleGen" loading="lazy" />
-        <figcaption>Fig. 3 — Bibliothèque / corpus (capture Playwright).</figcaption>
+        <figcaption>Fig. 3 — Bibliothèque locale / corpus (capture Playwright).</figcaption>
       </figure>
 
-      <h3>Déploiement observé</h3>
+      <h3>Frontend, sync spatiale, livraison</h3>
       <ul class="edu">
-        <li>UI : <a href="https://fredericatlan.github.io/CycleGen/">fredericatlan.github.io/CycleGen</a> (Actions → artifact Pages)</li>
-        <li>API : image Docker + variables d’environnement (CORS verrouillé sur l’origine Pages)</li>
-        <li>Qualité visuelle / non-régression : Playwright (smoke e2e + captures de cet article)</li>
+        <li>
+          <strong>UI</strong> — Leaflet / react-leaflet (carte), Recharts (v(t), a, pente, énergie),
+          loupe route 3D (<code>RoadLoupe3D</code>) synchronisée au curseur ;
+          ledger Zustand 3 strates (config / géométrie / résultats) + <code>hoverIndex</code> / <code>playheadIndex</code>
+          pour lier courbes ↔ marqueur carte ↔ pente.
+        </li>
+        <li>
+          <strong>Persistance locale</strong> — bibliothèque cycles + banques conducteur/véhicule
+          (localStorage + Dexie pour road-law) ; pas de corridor passé en URL.
+        </li>
+        <li>
+          <strong>Cheap vs expensive</strong> — retouche IDM / véhicule → re-sim debounce 50–100&nbsp;ms ;
+          rebuild corridor (HERE/OSRM/Mapbox, DEM, feux) = action utilisateur explicite.
+        </li>
+        <li>
+          <strong>Pages</strong> — <code>output: "export"</code>, <code>basePath=/CycleGen</code>,
+          <code>NEXT_PUBLIC_API_MODE=direct</code> (pas de BFF obligatoire) ;
+          workflow Actions → artifact ; API Docker <code>$PORT</code> (Render/Railway).
+        </li>
+        <li>
+          <strong>Qualité</strong> — <code>unittest</code> backend, <code>tsc --noEmit</code>,
+          e2e Playwright (<code>smoke</code>, <code>studio-shell</code>, campagnes usage) ;
+          captures de cet article elles-mêmes générées via Playwright.
+        </li>
       </ul>
 
       <figure class="shot">
         <img src="./assets/cyclegen/04-versus.png" width="1440" height="900" alt="Studio Versus / comparaison CycleGen" loading="lazy" />
-        <figcaption>Fig. 4 — Studio Versus / comparaison (capture Playwright).</figcaption>
+        <figcaption>Fig. 4 — Versus : superposition de cycles et métriques (capture Playwright).</figcaption>
       </figure>
 
       <h2>3. Valeur ajoutée</h2>
