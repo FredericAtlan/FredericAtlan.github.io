@@ -303,6 +303,9 @@ a {
   font-family: var(--display);
   font-size: clamp(2rem, 5vw, 2.8rem);
   letter-spacing: -0.03em;
+  line-height: 1.18;
+  overflow: visible;
+  padding-bottom: 0.12em;
 }
 
 .crumb {
@@ -482,13 +485,21 @@ a {
 .project-detail > p,
 .prose p {
   color: var(--fog);
-  max-width: 62ch;
+  max-width: 68ch;
+  line-height: 1.65;
+  overflow: visible;
+}
+
+.article .hero-kicker {
+  line-height: 1.45;
+  letter-spacing: 0.1em;
 }
 
 .project-detail code,
 .prose code {
   font-size: 0.9em;
   color: var(--accent);
+  line-height: 1.4;
 }
 
 .prose pre.code-block,
@@ -499,7 +510,7 @@ a {
   border: 1px solid var(--line);
   background: rgba(8, 12, 22, 0.92);
   border-radius: 0;
-  max-width: 72ch;
+  max-width: min(72ch, 100%);
 }
 
 .prose pre.code-block::before,
@@ -518,17 +529,30 @@ a {
 .project-detail pre.code-block code {
   font-family: "IBM Plex Mono", ui-monospace, monospace;
   font-size: 0.78rem;
-  line-height: 1.5;
+  line-height: 1.55;
   color: var(--paper);
   white-space: pre;
 }
 
+.prose .katex,
+.project-detail .katex {
+  font-size: 1.05em;
+  line-height: 1.35;
+}
+
 .prose .katex-display,
 .project-detail .katex-display {
-  margin: 1.15rem 0;
+  margin: 1.25rem 0;
+  padding: 0.35em 0 0.55em;
   overflow-x: auto;
-  overflow-y: hidden;
-  max-width: 72ch;
+  overflow-y: visible;
+  max-width: min(72ch, 100%);
+}
+
+.prose .katex-display > .katex,
+.project-detail .katex-display > .katex {
+  white-space: nowrap;
+  text-align: left;
 }
 
 .cta-row {
@@ -579,6 +603,7 @@ a {
 .shot {
   margin: 1.75rem 0;
   padding: 0;
+  max-width: min(900px, 100%);
 }
 
 .shot img {
@@ -587,16 +612,106 @@ a {
   height: auto;
   border: 1px solid var(--line);
   background: #0a101c;
+  cursor: zoom-in;
+}
+
+.shot button.shot-zoom {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+  text-align: left;
+}
+
+.shot button.shot-zoom:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .shot figcaption {
   margin-top: 0.55rem;
   font-size: 0.85rem;
+  line-height: 1.45;
   color: var(--muted);
 }
 
 .article .section-lead {
-  max-width: 62ch;
+  max-width: 68ch;
+  line-height: 1.65;
+}
+
+/* Lightbox — zoom captures produit */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: rgba(4, 8, 16, 0.88);
+  backdrop-filter: blur(6px);
+}
+
+.lightbox[hidden] {
+  display: none !important;
+}
+
+.lightbox__inner {
+  position: relative;
+  max-width: min(1280px, 96vw);
+  max-height: 92vh;
+}
+
+.lightbox__inner img {
+  display: block;
+  max-width: 100%;
+  max-height: 88vh;
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid var(--line);
+  background: #0a101c;
+  cursor: zoom-out;
+}
+
+.lightbox__caption {
+  margin: 0.65rem 0 0;
+  text-align: center;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--fog);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: -0.35rem;
+  right: -0.35rem;
+  z-index: 1;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #101828;
+  color: var(--paper);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.lightbox__close:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.project-detail h2,
+.prose h2 {
+  line-height: 1.25;
+  overflow: visible;
+  padding-bottom: 0.08em;
 }
 
 .timeline {
