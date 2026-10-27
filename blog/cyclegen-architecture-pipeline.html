@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CycleGen — rapport technique : architecture, IDM et bilan de forces | Blog Frédéric Atlan</title>
-  <meta name="description" content="Rapport technique CycleGen : IDM vs PID, corridor spatial (pente, V_curve, V_envelope), road-load F0/F1/F2, architecture FastAPI/Next.js, corpus alpin Grossglockner / Pico Veleta." />
+  <meta name="description" content="Rapport technique CycleGen : comment on passe d’un trajet carte à un profil de vitesse et de forces aux roues, avec les équations du conducteur (IDM), de la pente et du road-load." />
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Frédéric Atlan" />
   <link rel="canonical" href="https://fredericatlan.github.io/blog/cyclegen-architecture-pipeline.html" />
@@ -36,7 +36,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=20261027b" />
+  <link rel="stylesheet" href="../styles.css?v=20261027c" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous" />
 
   <script type="application/ld+json">
@@ -88,12 +88,13 @@
   <main id="top" class="section page-projects article">
     <nav class="crumb" aria-label="Fil d’Ariane"><a href="/">Accueil</a><span class="crumb-sep">›</span><a href="/blog/">Blog</a><span class="crumb-sep">›</span><a href="/blog/tags/projet.html">projet</a><span class="crumb-sep">›</span>CycleGen</nav>
     <p class="hero-kicker"><time datetime="2026-10-27">27 octobre 2026</time> · rapport technique · <a class="tag" href="./tags/projet.html">projet</a></p>
-    <h1>CycleGen — architecture et physique&nbsp;: du corridor à la force aux roues</h1>
+    <h1>CycleGen — du trajet carte à la force aux roues</h1>
     <p class="section-lead">
-      CycleGen génère des profils \(v(t)\), \(\alpha(t)\) et bilans mécaniques à partir d’un trajet cartographique.
-      Ce n’est pas un jumeau de contrôleur batterie, ni une homologation WLTP&nbsp;: c’est une chaîne
-      <strong>itinéraire → enveloppe spatiale → conducteur IDM → plant véhicule</strong>,
-      avec métadonnées d’audit et code open source.
+      CycleGen construit un profil de vitesse \(v(t)\) et de pente \(\alpha(t)\) à partir d’un
+      itinéraire réel, puis un bilan de forces aux roues. Ce n’est <em>pas</em> une homologation
+      réglementaire (type WLTP), ni un jumeau de batterie&nbsp;: c’est une chaîne claire
+      <strong>carte → limites de vitesse le long de la route → conducteur → véhicule</strong>,
+      avec traces d’audit et code ouvert.
     </p>
 
     <div class="cta-row">
@@ -103,7 +104,7 @@
 
     <aside class="related-box" aria-labelledby="related-project-title" data-relation="cyclegen">
       <h2 id="related-project-title">Projet associé</h2>
-      <p>Fiche livrable — stack, déploiement Pages + API Render.</p>
+      <p>Fiche produit&nbsp;: stack technique et mise en ligne (Pages + serveur de calcul).</p>
       <p class="project-actions">
         <a class="btn btn-primary" href="/projets/cyclegen.html">Fiche projet CycleGen</a>
         <a class="btn btn-ghost" href="/blog/tags/projet.html">Tous les articles « projet »</a>
@@ -111,74 +112,90 @@
     </aside>
 
     <section class="skills-box" aria-labelledby="skills-title">
-      <h2 id="skills-title">Ce que ce rapport démontre</h2>
+      <h2 id="skills-title">En une page</h2>
       <ul class="skills-grid">
         <li>
-          <strong>Modélisation conducteur</strong>
-          IDM continu (vs PID oscillant) + gate Markov en freinage dur.
+          <strong>Conducteur</strong>
+          Modèle IDM (Intelligent Driver Model) plutôt qu’un régulateur PID qui oscille autour de la consigne.
         </li>
         <li>
-          <strong>Géospatial → physique</strong>
-          DEM / ponts OSM, \(V_{curve}\), \(V_{envelope}\), road-load \(F_0,F_1,F_2\).
+          <strong>Terrain</strong>
+          Altitude lissée, ponts corrigés, enveloppe de vitesse \(V_{\mathrm{envelope}}\) le long de la route.
         </li>
         <li>
-          <strong>Architecture</strong>
-          Thin routers FastAPI ; vérité dans <code>kinematic_solver</code> ; pas d’IDM dans React.
+          <strong>Véhicule</strong>
+          Résistance à l’avancement \(F_0,F_1,F_2\), pente, puis couple et puissance aux roues.
         </li>
         <li>
-          <strong>UI ingénierie</strong>
-          Focus + contexte (graphe principal, sparklines, carte sync playhead).
+          <strong>Logiciel</strong>
+          L’interface prépare et affiche&nbsp;; le calcul vit en Python (solveur cinématique).
         </li>
       </ul>
     </section>
 
     <article class="project-detail prose">
-      <h2>0. Abstract</h2>
+      <h2>0. De quoi parle-t-on&nbsp;?</h2>
       <p>
-        En ingénierie amont (énergie, freinage, scénarios alpins), on a besoin de cycles
-        <em>géographiques</em> reproductibles. CycleGen orchestre&nbsp;:
-        routage (HERE / Mapbox / OSRM) → corridor spatial \(V_{envelope}(s)\) →
-        <code>POST /api/simulate/start</code> → <code>IDMSolver</code> (+ plant véhicule) →
-        profil consolidé exportable. Le frontend Next.js est un atelier&nbsp;;
-        la physique vit côté Python.
+        En amont d’un projet véhicule (énergie, freinage, scénarios de montagne), on veut des
+        <em>cycles de conduite</em> liés à une géographie réelle — pas seulement un cycle
+        réglementaire plat. CycleGen enchaîne quatre idées&nbsp;:
+      </p>
+      <ol class="edu">
+        <li>calculer un itinéraire (services de carte publics ou professionnels)&nbsp;;</li>
+        <li>construire, le long de la distance \(s\), une enveloppe de vitesse admissible&nbsp;;</li>
+        <li>faire «&nbsp;conduire&nbsp;» un modèle de conducteur (IDM) sous cette enveloppe&nbsp;;</li>
+        <li>traduire l’accélération en forces, couple et puissance aux roues via un modèle véhicule simple.</li>
+      </ol>
+      <p>
+        L’écran web (Next.js / React) est un atelier&nbsp;: carte, curseurs, graphiques.
+        La physique est calculée côté serveur (Python / FastAPI) — volontairement hors de React.
       </p>
 
       <figure class="shot">
         <img src="./assets/cyclegen/01-accueil.png" width="1440" height="900" alt="Hub CycleGen — portes Trajet GPS et Trace, bibliothèque alpine" loading="lazy" />
-        <figcaption>Fig. 1 — Hub démo Pages (Playwright). Packs alpins préchargés (Grossglockner, Veleta, Iseran, Stelvio).</figcaption>
+        <figcaption>Fig. 1 — Accueil de la démo&nbsp;: ouvrir un trajet GPS, ou charger un pack alpin déjà préparé.</figcaption>
       </figure>
 
-      <h2>1. Architecture&nbsp;: frontières cheap / expensive</h2>
+      <h2>1. Deux cadences&nbsp;: cher vs bon marché</h2>
       <p>
-        Règle produit (et de perf)&nbsp;: <strong>rebuild corridor</strong> (routeurs, DEM, feux) = action
-        utilisateur explicite ; <strong>update dynamics</strong> (params IDM / véhicule) = re-sim
-        debounce 50–100&nbsp;ms via l’API, sans logique métier dans React.
+        Recalculer toute la géométrie (itinéraire, altitude, feux) est <strong>coûteux</strong>&nbsp;:
+        appels réseau, modèles numériques. En revanche, changer le style de conduite ou le
+        véhicule et relancer la dynamique est <strong>bon marché</strong> — quelques dizaines
+        de millisecondes une fois le corridor déjà en mémoire.
       </p>
-      <pre class="code-block" data-lang="pipeline"><code>Wizard (CycleGenShell)
-  → frontend/src/lib/api.ts
-      POST /api/route/analyze      # expensive
-      POST /api/corridor/build     # expensive
-      POST /api/simulate/start     # cheap re-run si corridor en mémoire
-  → FastAPI thin routers
-  → spatial_processor → SpatialCorridor
-  → simulation_manager → kinematic_solver.IDMSolver
-  → frames / ConsolidatedProfile (+ WS optionnel)</code></pre>
       <p>
-        Contrats Pydantic, stores TTL, caps DoS sur Overpass / fingerprint.
-        Auth optionnelle <code>CYCLEGEN_API_KEY</code>. Sur GitHub Pages&nbsp;:
-        <code>NEXT_PUBLIC_API_MODE=direct</code> vers l’API hébergée (Render).
+        D’où la règle produit&nbsp;: reconstruire le corridor = bouton explicite&nbsp;;
+        retoucher le conducteur = re-simulation rapide, sans remettre la carte à zéro.
+      </p>
+      <pre class="code-block" data-lang="pipeline"><code>Atelier web (CycleGenShell)
+  → client HTTP (api.ts)
+      analyser l’itinéraire          # cher
+      construire le corridor         # cher
+      démarrer la simulation         # bon marché si corridor déjà là
+  → API Python (routers minces)
+  → assemblage spatial → corridor
+  → solveur IDM (+ modèle véhicule)
+  → profil exportable (courbes, indicateurs)</code></pre>
+      <p>
+        En démo publique, l’interface appelle directement le serveur de calcul hébergé
+        (aujourd’hui sur Render). Pas de logique IDM dans le navigateur.
       </p>
 
       <figure class="shot">
         <img src="./assets/cyclegen/06-trajet-pico-veleta.jpg" width="1024" height="493" alt="Étape Trajet — Pico Veleta → Granada, carte et loupe route" loading="lazy" />
-        <figcaption>Fig. 2 — Étape Trajet&nbsp;: Pico Veleta → Granada, carte + loupe 3D / pente (capture produit, 2026-10-27).</figcaption>
+        <figcaption>Fig. 2 — Étape Trajet&nbsp;: Pico Veleta → Granada, carte et loupe de route (capture produit).</figcaption>
       </figure>
 
-      <h2>2. L’adieu au PID&nbsp;: l’Intelligent Driver Model</h2>
+      <h2>2. Pourquoi pas un simple PID&nbsp;?</h2>
       <p>
-        Une boucle PID sur l’erreur de vitesse produit souvent des micro-oscillations
-        et des réactions «&nbsp;tout ou rien&nbsp;». L’IDM calcule une accélération
-        <em>continue</em> à partir de grandeurs conducteur (désirée, gap, confort)&nbsp;:
+        Un régulateur PID (proportionnel–intégral–dérivé) sur l’erreur de vitesse
+        «&nbsp;poursuit&nbsp;» une consigne. Sur une route accidentée, cela produit souvent des
+        micro-oscillations et des coups de pédale trop secs.
+      </p>
+      <p>
+        CycleGen utilise l’<strong>IDM</strong> (Intelligent Driver Model)&nbsp;: à chaque pas de temps,
+        on calcule une accélération continue qui équilibre «&nbsp;je veux aller à \(v_0\)&nbsp;»
+        et «&nbsp;je respecte une distance de sécurité \(s^*\)&nbsp;»&nbsp;:
       </p>
       \[
       a_{\mathrm{IDM}}=a_{\max}\left(
@@ -190,17 +207,38 @@
       \[
       s^{*}=s_0+v\,T+\frac{v\,\Delta v}{2\sqrt{a_{\max}\,b_{\mathrm{comf}}}}
       \]
+      <p>
+        Ici \(a_{\max}\) est l’accélération max souhaitée, \(b_{\mathrm{comf}}\) le freinage
+        «&nbsp;confort&nbsp;», \(T\) le temps de tête (interdistance), \(s_0\) le gap à l’arrêt,
+        \(s\) la distance au «&nbsp;leader&nbsp;» (feu rouge, ou ralentissement d’enveloppe).
+        La vitesse désirée vient de l’enveloppe spatiale, modulée par le profil conducteur&nbsp;:
+      </p>
       \[
       v_0=\max\bigl(0{,}1,\; V_{\mathrm{envelope}}(s)\cdot \texttt{speed\_factor}\bigr)
       \]
       <p>
-        Profils Eco / Normal / Sport (et calibrages Route Studio) ne changent que
-        \(a_{\max}\), \(b_{\mathrm{comf}}\), \(T\), \(s_0\), <code>speed_factor</code> —
-        pas une autre physique. Un bruit Markov optionnel est <strong>coupé</strong>
-        dès que \(a_{\mathrm{IDM}}\le -1\,\mathrm{m/s^2}\) ou qu’un danger est dans
-        l’horizon de freinage&nbsp;: la nervosité en roulage libre ne pollue pas un arrêt d’urgence.
+        Eco / Normal / Sport ne changent que ces boutons — pas une autre physique.
+        On peut ajouter un petit bruit d’accélération (chaîne de Markov) pour la nervosité
+        en roulage libre. Ce bruit est <strong>coupé</strong> dès qu’on freine fort ou qu’un
+        danger est trop près&nbsp;:
       </p>
-      <pre class="code-block" data-lang="python"><code># backend/app/services/kinematic_solver.py — _idm_accel
+      \[
+      d_{\mathrm{brake}}=\max\!\Bigl(\frac{v^{2}}{2\,b_{\mathrm{comf}}},\,25\Bigr)\quad[\mathrm{m}]
+      \]
+      \[
+      a=\operatorname{clip}\bigl(a_{\mathrm{IDM}}+a_{\mathrm{noise}},\;
+        -1{,}5\,b_{\mathrm{comf}},\; a_{\max}\bigr)
+      \]
+      <p>
+        (bruit forcé à zéro dès que la distance au danger tombe sous \(d_{\mathrm{brake}}\),
+        ou dès que \(a_{\mathrm{IDM}}\le -1\,\mathrm{m/s^2}\).)
+        Puis intégration d’Euler, pas de temps typique \(\Delta t=1\,\mathrm{s}\)&nbsp;:
+      </p>
+      \[
+      v\leftarrow v+a\,\Delta t,\qquad
+      s\leftarrow s+v_{\mathrm{old}}\,\Delta t
+      \]
+      <pre class="code-block" data-lang="python"><code># Extrait — calcul de a_IDM (kinematic_solver.py)
 free = 1.0 - (v / v0) ** DELTA
 dv = v - v_lead
 s_star = params.s0 + max(
@@ -210,45 +248,53 @@ s_star = params.s0 + max(
 )
 return params.a_max * (free - (s_star / gap) ** 2)</code></pre>
 
-      <h2>3. Corridor spatial&nbsp;: topographie sans «&nbsp;plongeon&nbsp;» sous les ponts</h2>
+      <h2>3. Le corridor&nbsp;: ce que la route autorise</h2>
       <p>
-        Le solveur micro a besoin d’un objet échantillonnable le long de l’abscisse curviligne \(s\)&nbsp;:
+        Avant de «&nbsp;conduire&nbsp;», on prépare un objet indexé par la distance parcourue \(s\)
+        (abscisse curviligne)&nbsp;:
       </p>
       \[
       \bigl(S,\;\alpha(s),\;V_{\mathrm{legal}},\;V_{\mathrm{traffic}},\;V_{\mathrm{curve}},\;V_{\mathrm{envelope}},\;S_{\mathrm{feux}}\bigr)
       \]
       <p>
-        Les DEM bruts mettent souvent le sol de la vallée <em>sous</em> un pont.
-        CycleGen interpole \(z\) entre les extrémités de structure OSM (pont / tunnel),
-        lisse (Savitzky–Golay), puis&nbsp;:
+        \(V_{\mathrm{legal}}\) vient des limitations / annotations de carte,
+        \(V_{\mathrm{traffic}}\) d’une estimation de fluide (si disponible),
+        \(V_{\mathrm{curve}}\) du confort en virage.
+      </p>
+      <p>
+        L’altitude brute (modèle numérique de terrain) plonge souvent <em>sous</em> un pont.
+        CycleGen corrige les structures OpenStreetMap (pont / tunnel), lisse l’altitude,
+        puis calcule la pente&nbsp;:
       </p>
       \[
       \alpha_i=\operatorname{atan}\!\left(\frac{z^{\mathrm{SG}}_i-z^{\mathrm{SG}}_{i-1}}{S_i-S_{i-1}}\right)
       \]
       <p>
-        Affichage % = \(100\cdot\tan\alpha\) (UI seule)&nbsp;; stockage solveur en radians.
-        Courbure → vitesse latérale de confort&nbsp;:
+        À l’écran on affiche souvent \(100\cdot\tan\alpha\) en&nbsp;%&nbsp;; le solveur, lui, travaille en radians.
+        En virage, avec une accélération latérale de confort \(a_y\) (défaut \(2{,}5\,\mathrm{m/s^2}\))
+        et un rayon local \(R\)&nbsp;:
       </p>
       \[
-      V_{\mathrm{curve}}(s)=\sqrt{a_y\,R(s)},\qquad
-      V_{\mathrm{envelope}}=\min\bigl(V_{\mathrm{legal}},\,V_{\mathrm{traffic}},\,V_{\mathrm{curve}}\bigr)
+      V_{\mathrm{curve}}(s)=\sqrt{a_y\,R(s)}
+      \]
+      \[
+      V_{\mathrm{envelope}}(s)=\min\bigl(V_{\mathrm{legal}}(s),\,V_{\mathrm{traffic}}(s),\,V_{\mathrm{curve}}(s)\bigr)
       \]
       <p>
-        (\(a_y\) défaut \(2{,}5\,\mathrm{m/s^2}\).) C’est cette enveloppe — pas une consigne PID —
-        qui borne \(v_0\) de l’IDM. Côté UI Contraintes&nbsp;: sources Z (HERE / Open-Meteo / …),
-        filtre spatial (ex. AVL N90), clamp grade, trapèzes \(L\), bornes pente min/max —
-        rebuild corridor = action explicite («&nbsp;Construire le cycle&nbsp;»).
+        C’est cette enveloppe — pas une consigne PID — qui borne \(v_0\) du conducteur.
+        Dans l’écran Contraintes, on choisit les sources d’altitude, le lissage, le clamp de pente,
+        puis on lance explicitement «&nbsp;Construire le cycle&nbsp;».
       </p>
 
       <figure class="shot">
         <img src="./assets/cyclegen/07-contraintes-pente.jpg" width="1024" height="489" alt="Étape Contraintes — pente α(s), profil altitude Pico Veleta" loading="lazy" />
-        <figcaption>Fig. 3 — Étape Contraintes&nbsp;: α(s), profil altitude coloré, alertes DEM (capture produit, Pico Veleta).</figcaption>
+        <figcaption>Fig. 3 — Contraintes&nbsp;: pente le long de \(s\), profil d’altitude, alertes de correction terrain.</figcaption>
       </figure>
 
-      <h2>4. Bilan de forces&nbsp;: road-load et plant véhicule</h2>
+      <h2>4. Du mouvement aux forces aux roues</h2>
       <p>
-        Une fois \(a_{\mathrm{cmd}}\) issu de l’IDM (éventuellement lissé jerk / pedal lag),
-        le plant véhicule clippe la commande par puissance, couple frein et pente.
+        L’IDM propose une accélération de commande \(a_{\mathrm{cmd}}\).
+        Le modèle véhicule borne ensuite ce que la traction et le frein peuvent vraiment faire.
         Forme du bilan longitudinal&nbsp;:
       </p>
       \[
@@ -259,96 +305,92 @@ return params.a_max * (free - (s_star / gap) ** 2)</code></pre>
       F_{\mathrm{grade}}=m\,g\,\sin\alpha
       \]
       <p>
-        Puis \(F_{\mathrm{applied}}\) est borné par \(P_{\max}/v\) (traction) et
-        \(\tau_{\mathrm{brake}}/r_{\mathrm{dyn}}\) (frein)&nbsp;; on reconstruit
-        \(a=(F_{\mathrm{applied}}-F_{\mathrm{road}}-F_{\mathrm{grade}})/m\).
-        Couple / puissance aux roues suivent \(T=F\,r_{\mathrm{dyn}}\) et \(P=T\,\omega\).
+        \(F_0,F_1,F_2\) sont les coefficients de road-load (résistance à l’avancement,
+        issus typiquement d’un essai de côte libre). La force réellement appliquée est
+        limitée par la puissance moteur et le couple frein max, puis on reconstruit
+        l’accélération et on passe aux grandeurs de roue&nbsp;:
       </p>
-      <pre class="code-block" data-lang="python"><code># backend/app/services/kinematic_solver.py
+      \[
+      a=\frac{F_{\mathrm{applied}}-F_{\mathrm{road}}-F_{\mathrm{grade}}}{m}
+      \]
+      \[
+      T=F\,r_{\mathrm{dyn}},\qquad
+      P=T\,\omega
+      \]
+      <p>
+        (\(r_{\mathrm{dyn}}\) rayon dynamique, \(\omega\) vitesse angulaire de roue.)
+      </p>
+      <pre class="code-block" data-lang="python"><code># Road-load (kinematic_solver.py)
 def _road_load_n(v_mps: float, plant: VehiclePlant) -> float:
-    vk = max(0.0, v_mps) * 3.6
-    return plant.f0_n + plant.f1_n_per_kph * vk + plant.f2_n_per_kph2 * vk * vk
-
-# clip_vehicle_accel: f_need = m*a_cmd + f_road + m*g*sin(alpha)
-# puis min/max traction &amp; frein → a reconstruit</code></pre>
+    vk = max(0.0, v_mps) * 3.6  # m/s → km/h
+    return plant.f0_n + plant.f1_n_per_kph * vk + plant.f2_n_per_kph2 * vk * vk</code></pre>
       <p>
-        Catalogue seed démo = <strong>proxies BEV d’ingénierie</strong> (ordres de grandeur publics,
-        pas des CoC)&nbsp;: Zoé R135, Leaf 40, ID.3 Pro, Model&nbsp;3 RWD, Ioniq&nbsp;5, BEV-C-TM générique.
-        Exemple BEV-C-TM&nbsp;: \(m=1810\,\mathrm{kg}\), \(F_0=102\,\mathrm{N}\), \(F_2=0{,}028\), \(r_{\mathrm{dyn}}=0{,}322\,\mathrm{m}\), \(P=150\,\mathrm{kW}\).
-        Les road-loads constructeur (C-Space, X-Space/Grossglockner, BCB) sont retirés du seed public.
-      </p>
-      <p>
-        La cohérence du bilan (\(F_{\mathrm{trac}}\) vs somme résistances + inertie) se vérifie
-        sur les exports CSV — c’est un test de non-régression numérique, pas une «&nbsp;preuve&nbsp;»
-        que le véhicule réel est cloné.
+        Sur la démo publique, le catalogue propose des <strong>véhicules proxies</strong>
+        (ordres de grandeur BEV — battery electric vehicle — documentés comme non officiels)&nbsp;:
+        Zoé, Leaf, ID.3, Model&nbsp;3, Ioniq&nbsp;5, et un compact générique.
+        Exemple générique&nbsp;: \(m=1810\,\mathrm{kg}\), \(F_0=102\,\mathrm{N}\),
+        \(r_{\mathrm{dyn}}=0{,}322\,\mathrm{m}\), \(P=150\,\mathrm{kW}\).
+        Les road-loads constructeur internes ne sont pas dans le seed public.
       </p>
 
-      <h2>5. Épreuves alpines&nbsp;: Pico Veleta et Grossglockner</h2>
+      <h2>5. Des routes qui font mal (volontairement)</h2>
       <p>
-        Pour stress-tester freins, retenue et enveloppes en descente / montée longue,
-        la démo embarque des packs HERE pré-enregistrés (geo + corridor + profil)&nbsp;:
+        Pour éprouver freinage et retenue, la démo embarque des packs alpins déjà remplis
+        (géométrie + corridor + un premier profil)&nbsp;:
       </p>
       <ul class="edu">
         <li>
-          <strong>Pico Veleta</strong> (Espagne) — descente / montée asphaltée côté Sierra Nevada&nbsp;;
-          juge de paix pour effort traction / freinage soutenu et enveloppes \(V_{\mathrm{legal}}\).
+          <strong>Pico Veleta</strong> (Espagne) — longue descente / montée asphaltée côté Sierra Nevada.
         </li>
         <li>
-          <strong>Grossglockner</strong> (Autriche) — descente type Edelweißspitze → fond de vallée,
-          \(\sim 14{,}7\,\mathrm{km}\), pentes fortes&nbsp;; scénario freinage / retenue.
+          <strong>Grossglockner</strong> (Autriche) — descente alpine typée, forte pente sur une quinzaine de kilomètres.
         </li>
         <li>
-          <strong>Iseran / Stelvio</strong> — mêmes mécaniques, autres géométries (stress freins cols).
+          <strong>Iseran / Stelvio</strong> — mêmes mécaniques, autres géométries.
         </li>
       </ul>
       <p>
-        Ces packs peuplent les quatre écrans du wizard à l’ouverture (trajet → contraintes →
-        conducteur → cycle), sans attendre un cold start API pour <em>lire</em> un résultat —
-        la re-génération live, elle, passe par <code>simulate/start</code>.
+        À l’ouverture, les quatre écrans du parcours (Trajet → Contraintes → Conducteur → Cycle)
+        sont déjà peuplés. Relancer une génération live, en revanche, passe bien par le serveur de calcul.
       </p>
 
-      <h2>6. UI&nbsp;: Focus + contexte, pas une grille de neuf graphes</h2>
+      <h2>6. Lire sans se noyer</h2>
       <p>
-        Empiler vitesse, \(a\), \(P\), \(\tau\), pente… en neuf panneaux égaux
-        surcharge l’ingénieur. Le poste Cycle (étape&nbsp;4) suit un paradigme
-        <strong>Focus + Contexte</strong>&nbsp;:
+        Neuf graphes de la même taille, côte à côte, fatiguent. L’étape Cycle privilégie
+        un <strong>graphe principal</strong> (souvent la vitesse), un <strong>bandeau de miniatures</strong>
+        pour changer de grandeur (accélération, puissances, couple…), un <strong>curseur synchronisé</strong>
+        entre la carte et les courbes, et un bandeau de valeurs à l’instant \(t\)
+        (vitesse, enveloppe, accélération max observée, etc.).
       </p>
-      <ul class="edu">
-        <li>un <strong>graphe focus</strong> (série primaire, overlays limites / moyenne / RMS)&nbsp;;</li>
-        <li>un <strong>bandeau de miniatures</strong> pour basculer V, \(a\), \(P_t\), \(\tau\), …&nbsp;;</li>
-        <li>un <strong>HUD</strong> au curseur (valeurs sync à l’instant \(t\)) + audit sécurité (\(\lvert a\rvert_{\max}\), gate Markov, clips)&nbsp;;</li>
-        <li>un <strong>playhead</strong> commun carte ↔ courbes ↔ loupe pente / 3D&nbsp;;</li>
-        <li>ledger applicatif (config / géométrie / résultats)&nbsp;; pas de corridor passé en URL.</li>
-      </ul>
       <p>
-        Objectif&nbsp;: passer du temps sur le phénomène physique (suivi d’enveloppe, pics de couple,
-        freinage en descente), pas sur la configuration de l’outil.
+        L’idée&nbsp;: passer du temps sur le phénomène (suivi d’enveloppe, pic de couple en lacets),
+        pas à réorganiser l’écran.
       </p>
 
       <figure class="shot">
         <img src="./assets/cyclegen/08-analyse-cycle-veleta.jpg" width="1024" height="494" alt="Étape Cycle — Pico Veleta, graphe vitesse focus, sparklines, carte sync" loading="lazy" />
-        <figcaption>Fig. 4 — Étape Cycle (Pico Veleta)&nbsp;: graphe focus \(v(t)\), overlays enveloppe / légal, sparklines, carte sync (capture produit).</figcaption>
+        <figcaption>Fig. 4 — Analyse&nbsp;: graphe focus \(v(t)\), limites d’enveloppe, miniatures, carte synchronisée.</figcaption>
       </figure>
 
       <figure class="shot">
         <img src="./assets/cyclegen/03-bibliotheque.jpg" width="1024" height="494" alt="Bibliothèque CycleGen — tableau des cycles FIT alpins, filtres Corpus / Énergie" loading="lazy" />
-        <figcaption>Fig. 5 — Bibliothèque&nbsp;: corpus / mes cycles, filtres type Trajet GPS · Énergie (capture produit, 2026-10-27).</figcaption>
+        <figcaption>Fig. 5 — Bibliothèque&nbsp;: cycles enregistrés, filtres par type (trajet GPS / étude énergie).</figcaption>
       </figure>
 
-      <h2>7. Livraison</h2>
+      <h2>7. Où ça tourne</h2>
       <ul class="edu">
-        <li><strong>Front</strong> — Next.js export statique, <code>basePath=/CycleGen</code>, GitHub Pages.</li>
-        <li><strong>API</strong> — FastAPI Docker, <code>$PORT</code>, Render free (<code>cyclegen-api.onrender.com</code>)&nbsp;; cold start possible.</li>
-        <li><strong>Qualité</strong> — unittests backend, <code>tsc</code>, Playwright live (smoke Pages + assert catalogue proxies BEV).</li>
+        <li><strong>Interface</strong> — site statique Next.js sur GitHub Pages (<code>/CycleGen</code>).</li>
+        <li><strong>Calcul</strong> — service Python FastAPI (conteneur Docker), aujourd’hui sur Render&nbsp;; possible cold start après inactivité.</li>
+        <li><strong>Qualité</strong> — tests automatisés côté serveur et parcours navigateur (Playwright) sur la démo live.</li>
       </ul>
 
-      <h2>8. Limites (explicites)</h2>
+      <h2>8. Ce que CycleGen n’est pas</h2>
       <p>
-        CycleGen n’est pas une vérité terrain NDS, ni une homologation réglementaire officielle,
-        ni un modèle thermique batterie / frein à disque. \(V_{curve}\) est un confort latéral,
-        pas une limite d’adhérence. Les TPM Markov et seeds sont des proxies d’ingénierie
-        documentés. Les chiffres véhicule ci-dessus sont ceux du catalogue seed open&nbsp;;
-        toute étude critique doit substituer des CoC / mesures autorisées.
+        Ce n’est pas une campagne de mesures terrain, ni une homologation officielle,
+        ni un modèle thermique détaillé de batterie ou de frein à disque.
+        \(V_{\mathrm{curve}}\) exprime un confort latéral, pas la limite d’adhérence pneu.
+        Les bruits Markov et les véhicules «&nbsp;seed&nbsp;» sont des proxies d’ingénierie&nbsp;:
+        pour une étude critique, on substitue des données constructeur ou des mesures autorisées.
       </p>
 
       <div class="cta-row">
