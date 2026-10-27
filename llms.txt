@@ -33,7 +33,7 @@ French (native) · English (professional) · Spanish (fluent)
 
 ## Personal projects (open source)
 - Projects index: https://fredericatlan.github.io/projets/
-- CycleGen — synthetic driving cycles for upstream automotive engineering (FastAPI + Next.js, optional SUMO): https://fredericatlan.github.io/projets/cyclegen.html · live demo: https://fredericatlan.github.io/CycleGen/ · technical report: https://fredericatlan.github.io/blog/cyclegen-architecture-pipeline.html · code: https://github.com/FredericAtlan/CycleGen
+- CycleGen — synthetic driving cycles from real routes (one blog post, embedded demo): https://fredericatlan.github.io/blog/cyclegen-architecture-pipeline.html
 
 ## Topics / keywords
 digital engineering, digital transformation, simulation factories, multiphysics synthesis, model governance, engineering productivity, AI applied to industrial operations, France–India delivery, Ampere, Renault, electrification, CycleGen, driving cycles

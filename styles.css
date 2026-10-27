@@ -265,6 +265,8 @@ a {
 .section {
   padding: clamp(3.25rem, 8vh, 5.5rem) clamp(1.25rem, 4vw, 3rem);
   max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .section-alt {
@@ -300,10 +302,23 @@ a {
 
 .page-projects.article {
   max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .page-projects.article.has-demo {
-  max-width: min(1120px, calc(100vw - 2rem));
+  max-width: min(1080px, calc(100vw - 2.5rem));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-projects.article .cta-row {
+  justify-content: flex-start;
+}
+
+.page-projects.article .shot {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Démo embarquée (iframe) — rester dans l’article */

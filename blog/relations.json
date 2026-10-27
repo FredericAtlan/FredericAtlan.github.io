@@ -1,16 +1,16 @@
 {
   "version": 1,
-  "note": "Cross-links projet ↔ article. Ajouter une entrée par livrable.",
+  "note": "CycleGen : un seul billet blog (pas de fiche projet séparée).",
   "links": [
     {
       "id": "cyclegen",
       "project": {
         "title": "CycleGen",
-        "path": "/projets/cyclegen.html"
+        "path": "/blog/cyclegen-architecture-pipeline.html"
       },
       "articles": [
         {
-          "title": "CycleGen — rapport technique : architecture, IDM et bilan de forces",
+          "title": "CycleGen — cycles de conduite depuis une carte",
           "path": "/blog/cyclegen-architecture-pipeline.html",
           "tags": ["projet"]
         }
