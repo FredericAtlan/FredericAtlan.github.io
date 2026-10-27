@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CycleGen — rapport technique : architecture, IDM et bilan de forces | Blog Frédéric Atlan</title>
-  <meta name="description" content="Rapport technique CycleGen : comment on passe d’un trajet carte à un profil de vitesse et de forces aux roues, avec les équations du conducteur (IDM), de la pente et du road-load." />
+  <title>CycleGen — du trajet carte à la force aux roues | Blog Frédéric Atlan</title>
+  <meta name="description" content="Comment CycleGen passe d’un trajet carte à un profil de vitesse et de forces aux roues : modèle de conducteur, pente, résistance à l’avancement — avec les équations." />
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Frédéric Atlan" />
   <link rel="canonical" href="https://fredericatlan.github.io/blog/cyclegen-architecture-pipeline.html" />
@@ -12,8 +12,8 @@
 
   <meta property="og:site_name" content="Frédéric Atlan" />
   <meta property="og:locale" content="fr_FR" />
-  <meta property="og:title" content="CycleGen — rapport technique : architecture et physique" />
-  <meta property="og:description" content="IDM, topographie, bilan de forces F0/F1/F2, pipeline FastAPI → kinematic_solver, UI Focus+Contexte. Rapport d’ingénierie." />
+  <meta property="og:title" content="CycleGen — du trajet carte à la force aux roues" />
+  <meta property="og:description" content="Du trajet carte aux forces aux roues : conducteur, pente, résistance à l’avancement — équations et captures produit." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://fredericatlan.github.io/blog/cyclegen-architecture-pipeline.html" />
   <meta property="og:image" content="https://fredericatlan.github.io/blog/assets/cyclegen/08-analyse-cycle-veleta.jpg" />
@@ -26,11 +26,11 @@
   <meta property="article:modified_time" content="2026-10-27" />
   <meta property="article:author" content="Frédéric Atlan" />
   <meta property="article:tag" content="projet" />
-  <meta name="keywords" content="CycleGen, IDM, road load, FastAPI, Next.js, simulation, corridor, ingénierie automobile" />
+  <meta name="keywords" content="CycleGen, simulation, conducteur, pente, road load, itinéraire, ingénierie automobile" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="CycleGen — rapport technique : architecture et physique" />
-  <meta name="twitter:description" content="IDM, topographie, bilan F0/F1/F2, pipeline FastAPI → kinematic_solver." />
+  <meta name="twitter:title" content="CycleGen — du trajet carte à la force aux roues" />
+  <meta name="twitter:description" content="Du trajet carte aux forces aux roues : conducteur, pente, road-load — avec équations." />
   <meta name="twitter:image" content="https://fredericatlan.github.io/blog/assets/cyclegen/08-analyse-cycle-veleta.jpg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -43,7 +43,7 @@
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "CycleGen — rapport technique : architecture, IDM et bilan de forces",
+    "headline": "CycleGen — du trajet carte à la force aux roues",
     "datePublished": "2026-10-27",
     "dateModified": "2026-10-27",
     "author": {
@@ -56,8 +56,8 @@
       "name": "Frédéric Atlan"
     },
     "mainEntityOfPage": "https://fredericatlan.github.io/blog/cyclegen-architecture-pipeline.html",
-    "description": "Rapport d’ingénierie sur CycleGen : IDM, corridor spatial, road-load, architecture FastAPI/Next.js.",
-    "keywords": ["projet", "CycleGen", "IDM", "FastAPI", "simulation", "road load"],
+    "description": "Du trajet carte aux forces aux roues : conducteur, pente, road-load — équations et captures produit.",
+    "keywords": ["projet", "CycleGen", "simulation", "conducteur", "road load", "itinéraire"],
     "articleSection": "projet",
     "image": [
       "https://fredericatlan.github.io/blog/assets/cyclegen/08-analyse-cycle-veleta.jpg",
@@ -92,7 +92,8 @@
     <p class="section-lead">
       CycleGen construit un profil de vitesse \(v(t)\) et de pente \(\alpha(t)\) à partir d’un
       itinéraire réel, puis un bilan de forces aux roues. Ce n’est <em>pas</em> une homologation
-      réglementaire (type WLTP), ni un jumeau de batterie&nbsp;: c’est une chaîne claire
+        réglementaire (type WLTP — Worldwide Harmonised Light Vehicle Test Procedure,
+        le cycle d’homologation européen), ni un jumeau de batterie&nbsp;: c’est une chaîne claire
       <strong>carte → limites de vitesse le long de la route → conducteur → véhicule</strong>,
       avec traces d’audit et code ouvert.
     </p>
@@ -116,7 +117,7 @@
       <ul class="skills-grid">
         <li>
           <strong>Conducteur</strong>
-          Modèle IDM (Intelligent Driver Model) plutôt qu’un régulateur PID qui oscille autour de la consigne.
+          Modèle de conducteur IDM (Intelligent Driver Model) plutôt qu’un régulateur PID (proportionnel–intégral–dérivé) qui oscille autour de la consigne.
         </li>
         <li>
           <strong>Terrain</strong>
@@ -148,7 +149,7 @@
       </ol>
       <p>
         L’écran web (Next.js / React) est un atelier&nbsp;: carte, curseurs, graphiques.
-        La physique est calculée côté serveur (Python / FastAPI) — volontairement hors de React.
+        La physique est calculée côté serveur (Python, via une API FastAPI — interface HTTP légère) — volontairement hors de React.
       </p>
 
       <figure class="shot">
@@ -172,13 +173,13 @@
       analyser l’itinéraire          # cher
       construire le corridor         # cher
       démarrer la simulation         # bon marché si corridor déjà là
-  → API Python (routers minces)
+  → serveur Python (routes HTTP minces)
   → assemblage spatial → corridor
-  → solveur IDM (+ modèle véhicule)
+  → solveur de conducteur IDM (+ modèle véhicule)
   → profil exportable (courbes, indicateurs)</code></pre>
       <p>
         En démo publique, l’interface appelle directement le serveur de calcul hébergé
-        (aujourd’hui sur Render). Pas de logique IDM dans le navigateur.
+        (aujourd’hui sur Render). Pas de modèle de conducteur dans le navigateur.
       </p>
 
       <figure class="shot">
@@ -218,9 +219,9 @@
       \]
       <p>
         Eco / Normal / Sport ne changent que ces boutons — pas une autre physique.
-        On peut ajouter un petit bruit d’accélération (chaîne de Markov) pour la nervosité
-        en roulage libre. Ce bruit est <strong>coupé</strong> dès qu’on freine fort ou qu’un
-        danger est trop près&nbsp;:
+        On peut ajouter un petit bruit d’accélération (suite aléatoire à mémoire courte,
+        type chaîne de Markov) pour la nervosité en roulage libre. Ce bruit est
+        <strong>coupé</strong> dès qu’on freine fort ou qu’un danger est trop près&nbsp;:
       </p>
       \[
       d_{\mathrm{brake}}=\max\!\Bigl(\frac{v^{2}}{2\,b_{\mathrm{comf}}},\,25\Bigr)\quad[\mathrm{m}]
@@ -263,7 +264,8 @@ return params.a_max * (free - (s_star / gap) ** 2)</code></pre>
       </p>
       <p>
         L’altitude brute (modèle numérique de terrain) plonge souvent <em>sous</em> un pont.
-        CycleGen corrige les structures OpenStreetMap (pont / tunnel), lisse l’altitude,
+        CycleGen corrige les structures OpenStreetMap (la carte collaborative ouverte — pont / tunnel),
+        lisse l’altitude (filtre Savitzky–Golay, noté SG ci-dessous),
         puis calcule la pente&nbsp;:
       </p>
       \[
@@ -330,7 +332,7 @@ def _road_load_n(v_mps: float, plant: VehiclePlant) -> float:
         Zoé, Leaf, ID.3, Model&nbsp;3, Ioniq&nbsp;5, et un compact générique.
         Exemple générique&nbsp;: \(m=1810\,\mathrm{kg}\), \(F_0=102\,\mathrm{N}\),
         \(r_{\mathrm{dyn}}=0{,}322\,\mathrm{m}\), \(P=150\,\mathrm{kW}\).
-        Les road-loads constructeur internes ne sont pas dans le seed public.
+        Les road-loads constructeur internes ne sont pas dans le catalogue public.
       </p>
 
       <h2>5. Des routes qui font mal (volontairement)</h2>
@@ -389,8 +391,9 @@ def _road_load_n(v_mps: float, plant: VehiclePlant) -> float:
         Ce n’est pas une campagne de mesures terrain, ni une homologation officielle,
         ni un modèle thermique détaillé de batterie ou de frein à disque.
         \(V_{\mathrm{curve}}\) exprime un confort latéral, pas la limite d’adhérence pneu.
-        Les bruits Markov et les véhicules «&nbsp;seed&nbsp;» sont des proxies d’ingénierie&nbsp;:
-        pour une étude critique, on substitue des données constructeur ou des mesures autorisées.
+        Les bruits de conduite et les véhicules du catalogue démo sont des approximations
+        d’ingénierie&nbsp;: pour une étude critique, on substitue des données constructeur
+        ou des mesures autorisées.
       </p>
 
       <div class="cta-row">
