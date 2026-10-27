@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CycleGen — architecture et pipeline | Blog Frédéric Atlan</title>
+  <meta name="description" content="CycleGen : cycles de roulage synthétiques. Architecture FastAPI/Next.js, pipeline carto→corridor→IDM, corpus alpin, déploiement GitHub Pages. Compétences full-stack, data, tests Playwright." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Frédéric Atlan" />
+  <link rel="canonical" href="https://fredericatlan.github.io/blog/cyclegen-architecture-pipeline.html" />
+  <meta name="theme-color" content="#070b14" />
+  <meta property="og:title" content="CycleGen — architecture et pipeline" />
+  <meta property="og:description" content="Problématique, construction technique et compétences démontrées sur CycleGen." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://fredericatlan.github.io/blog/cyclegen-architecture-pipeline.html" />
+  <meta property="article:published_time" content="2026-10-27" />
+  <meta property="article:author" content="Frédéric Atlan" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "CycleGen — architecture et pipeline de cycles synthétiques",
+    "datePublished": "2026-10-27",
+    "dateModified": "2026-10-27",
+    "author": {
+      "@type": "Person",
+      "name": "Frédéric Atlan",
+      "url": "https://fredericatlan.github.io/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Frédéric Atlan"
+    },
+    "mainEntityOfPage": "https://fredericatlan.github.io/blog/cyclegen-architecture-pipeline.html",
+    "description": "Architecture et pipeline CycleGen : cycles de roulage synthétiques pour l’ingénierie amont.",
+    "image": [
+      "https://fredericatlan.github.io/blog/assets/cyclegen/01-accueil.png",
+      "https://fredericatlan.github.io/blog/assets/cyclegen/02-atelier-creer.png"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="../">Frédéric Atlan</a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="../#parcours">Parcours</a>
+      <a href="../projets/">Projets</a>
+      <a href="./" aria-current="page">Blog</a>
+      <a href="../#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top" class="section page-projects article">
+    <p class="crumb"><a href="./">Blog</a> · CycleGen</p>
+    <p class="hero-kicker"><time datetime="2026-10-27">27 octobre 2026</time> · note technique</p>
+    <h1>CycleGen — architecture et pipeline de cycles synthétiques</h1>
+    <p class="section-lead">
+      CycleGen génère des profils de vitesse v(t) et de pente α(t) physiquement contraints à partir d’un trajet cartographique.
+      Objectif : fournir à l’ingénierie amont (énergie, freinage, scénarios) des cycles traçables, sans campagne GNSS systématique.
+    </p>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://fredericatlan.github.io/CycleGen/" target="_blank" rel="noopener noreferrer">Démo live</a>
+      <a class="btn btn-ghost" href="https://github.com/FredericAtlan/CycleGen" target="_blank" rel="noopener noreferrer">Dépôt GitHub</a>
+      <a class="btn btn-ghost" href="../projets/cyclegen.html">Fiche projet</a>
+    </div>
+
+    <section class="skills-box" aria-labelledby="skills-title">
+      <h2 id="skills-title">Compétences clés démontrées</h2>
+      <ul class="skills-grid">
+        <li>
+          <strong>Architecture logicielle</strong>
+          Découpage API / UI / moteurs de simu ; contrats Pydantic ; stores TTL et caps DoS ; auth API optionnelle.
+        </li>
+        <li>
+          <strong>Full-stack</strong>
+          Backend FastAPI (Python) ; frontend Next.js 16 / React / TypeScript ; carte Leaflet ; export CSV·XML·Excel.
+        </li>
+        <li>
+          <strong>Data &amp; géospatial</strong>
+          Chaîne HERE / Mapbox / OSRM → Overpass → DEM ; corridor V<sub>legal</sub>, V<sub>traffic</sub>, V<sub>curve</sub> ; corpus alpin versionné (manifest + SHA-256).
+        </li>
+        <li>
+          <strong>Modélisation / simulation</strong>
+          Solveur IDM + bruit Markov borné ; pont SUMO/TraCI optionnel ; recalage vs traces Route Studio.
+        </li>
+        <li>
+          <strong>Qualité &amp; automatisation</strong>
+          Unittests backend, typecheck, e2e Playwright ; captures UI automatisées pour cette page ; CI GitHub Actions.
+        </li>
+        <li>
+          <strong>Déploiement</strong>
+          Export Next.js statique (GitHub Pages, <code>basePath=/CycleGen</code>) ; API Docker prête Render/Railway (<code>$PORT</code>, CORS).
+        </li>
+      </ul>
+    </section>
+
+    <article class="project-detail prose">
+      <h2>1. Problématique</h2>
+      <p>
+        Les cycles réglementaires (WLTP, NEDC…) sont comparables mais non géographiques.
+        Les enregistrements GNSS / NDS sont réalistes mais coûteux, peu reproductibles et sensibles privacy.
+        Les simulateurs microscopiques (SUMO, etc.) exigent un calibrage lourd.
+      </p>
+      <p>
+        CycleGen cible un compromis opérationnel : <strong>itinéraire réel</strong> → <strong>enveloppe de contraintes</strong>
+        (limites, trafic, courbes, pente, feux) → <strong>cycle synthétique plausible</strong> (IDM ± Markov, ou SUMO).
+        Chaque résultat conserve des métadonnées d’audit (<code>traffic_source</code>, <code>warnings</code>, paramètres conducteur).
+      </p>
+
+      <figure class="shot">
+        <img src="./assets/cyclegen/01-accueil.png" width="1440" height="900" alt="Écran d’accueil CycleGen — hub Accueil / Créer / Bibliothèque" loading="lazy" />
+        <figcaption>Fig. 1 — Hub CycleGen (capture Playwright, démo Pages).</figcaption>
+      </figure>
+
+      <h2>2. Comment c’est construit</h2>
+      <h3>Pipeline</h3>
+      <ol class="edu">
+        <li><strong>Routage</strong> — HERE (clé utilisateur), Mapbox Traffic, fallback OSRM free-flow</li>
+        <li><strong>Contexte</strong> — Overpass (feux, ponts, tunnels) + élévation DEM</li>
+        <li><strong>Corridor spatial</strong> — abscisse curviligne S, pente α(s), enveloppes de vitesse</li>
+        <li><strong>Micro</strong> — IDM (défaut) ou SUMO/TraCI ; profils Eco / Normal / Sportif</li>
+        <li><strong>Export / benchmark</strong> — profil consolidé, KPIs vs corpus, bibliothèque locale</li>
+      </ol>
+
+      <figure class="shot">
+        <img src="./assets/cyclegen/02-atelier-creer.png" width="1440" height="900" alt="Atelier Créer CycleGen — carte, paramètres trajet et corridor" loading="lazy" />
+        <figcaption>Fig. 2 — Atelier « Créer » : carte, routeurs, contraintes (capture Playwright).</figcaption>
+      </figure>
+
+      <h3>Stack livrée</h3>
+      <ul class="edu">
+        <li><strong>API</strong> — FastAPI, services isolés (route, corridor, simulate, export, calibrate, drivers)</li>
+        <li><strong>UI</strong> — Next.js App Router, export statique pour Pages ; mode API directe hors BFF</li>
+        <li><strong>Données</strong> — corpus sous <code>backend/app/data/benchmark/</code> + <code>manifest.json</code> (family <code>alpine</code> : Grossglockner, Col de l’Iseran, Stelvio, Pico Veleta)</li>
+      </ul>
+
+      <figure class="shot">
+        <img src="./assets/cyclegen/03-bibliotheque.png" width="1440" height="900" alt="Bibliothèque de cycles CycleGen" loading="lazy" />
+        <figcaption>Fig. 3 — Bibliothèque / corpus (capture Playwright).</figcaption>
+      </figure>
+
+      <h3>Déploiement observé</h3>
+      <ul class="edu">
+        <li>UI : <a href="https://fredericatlan.github.io/CycleGen/">fredericatlan.github.io/CycleGen</a> (Actions → artifact Pages)</li>
+        <li>API : image Docker + variables d’environnement (CORS verrouillé sur l’origine Pages)</li>
+        <li>Qualité visuelle / non-régression : Playwright (smoke e2e + captures de cet article)</li>
+      </ul>
+
+      <figure class="shot">
+        <img src="./assets/cyclegen/04-versus.png" width="1440" height="900" alt="Studio Versus / comparaison CycleGen" loading="lazy" />
+        <figcaption>Fig. 4 — Studio Versus / comparaison (capture Playwright).</figcaption>
+      </figure>
+
+      <h2>3. Valeur ajoutée</h2>
+      <ul class="edu">
+        <li><strong>Réduction du coût de donnée</strong> — cycles A→B sans campagne de mesure pour chaque étude</li>
+        <li><strong>Traçabilité</strong> — sources routeur, warnings, paramètres conducteur/véhicule exportables</li>
+        <li><strong>Réutilisabilité</strong> — export vers chaînes d’outils d’ingénierie ; corpus alpin partagé</li>
+        <li><strong>Industrialisation</strong> — même logique que le digital engineering auto : standards, seed, CI, déploiement découplé front/API</li>
+      </ul>
+
+      <h2>4. Limites (explicites)</h2>
+      <p>
+        CycleGen n’est pas une vérité terrain NDS, ni une homologation WLTP/NEDC officielle, ni un jumeau de contrôleur de feux réel.
+        Les seeds et TPM sont des proxies d’ingénierie documentés — à remplacer par des données autorisées en usage critique.
+      </p>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://fredericatlan.github.io/CycleGen/" target="_blank" rel="noopener noreferrer">Ouvrir la démo CycleGen</a>
+        <a class="btn btn-ghost" href="https://github.com/FredericAtlan/CycleGen" target="_blank" rel="noopener noreferrer">Code source</a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="y"></span> Frédéric Atlan · <a href="./">Blog</a> · <a href="../">Accueil</a></p>
+  </footer>
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

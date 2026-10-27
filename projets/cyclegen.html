@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CycleGen — Frédéric Atlan</title>
+  <meta name="description" content="CycleGen : application web d’ingénierie pour générer des cycles de roulage automobiles synthétiques. FastAPI, Next.js, SUMO optionnel. Code open source." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://fredericatlan.github.io/projets/cyclegen.html" />
+  <meta name="theme-color" content="#070b14" />
+  <meta property="og:title" content="CycleGen — Frédéric Atlan" />
+  <meta property="og:description" content="Cycles de roulage synthétiques réalistes — pipeline carto, corridor, IDM / SUMO, export CSV/XML." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://fredericatlan.github.io/projets/cyclegen.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    "name": "CycleGen",
+    "description": "Génération de cycles de roulage automobiles synthétiques pour l’ingénierie amont — FastAPI, Next.js, SUMO optionnel.",
+    "codeRepository": "https://github.com/FredericAtlan/CycleGen",
+    "programmingLanguage": ["Python", "TypeScript"],
+    "author": {
+      "@type": "Person",
+      "name": "Frédéric Atlan",
+      "url": "https://fredericatlan.github.io/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="../">Frédéric Atlan</a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="../#parcours">Parcours</a>
+      <a href="./">Projets</a>
+      <a href="../blog/">Blog</a>
+      <a href="../#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top" class="section page-projects">
+    <p class="crumb"><a href="./">Projets</a> · CycleGen</p>
+    <p class="hero-kicker">Digital engineering · simulation</p>
+    <h1>CycleGen</h1>
+    <p class="section-lead">Générer des cycles de roulage automobiles synthétiques physiquement réalistes — profils vitesse v(t) et pente α(t) — pour l’ingénierie amont (validation, études énergie, scénarios réalistes).</p>
+
+    <div class="project-detail">
+      <h2>Objectif</h2>
+      <p>Partir d’un trajet réel (ou d’un corridor géographique) pour produire des profils temporels exploitables en simulation véhicule : vitesse, altitude, contraintes routières, sans enregistrement terrain systématique.</p>
+
+      <h2>Pipeline</h2>
+      <ul class="edu">
+        <li><strong>Routage</strong> — Mapbox ou OSRM (géométrie du parcours)</li>
+        <li><strong>Contexte route</strong> — Overpass (feux, ponts, tunnels, limitations)</li>
+        <li><strong>Relief</strong> — élévation le long du tracé</li>
+        <li><strong>Corridor</strong> — enveloppe de vitesse cohérente avec le réseau</li>
+        <li><strong>Trafic</strong> — modèle IDM intégré ; SUMO / TraCI en option (Docker)</li>
+        <li><strong>Export</strong> — CSV et XML pour chaînes d’outils d’ingénierie</li>
+      </ul>
+
+      <h2>Stack</h2>
+      <ul class="edu">
+        <li><strong>API</strong> — FastAPI (Python) : calculs, orchestration du pipeline, endpoints stables</li>
+        <li><strong>Frontend</strong> — Next.js (TypeScript) : carte, paramètres, visualisation ; déployable en statique (GitHub Pages) ou en local</li>
+        <li><strong>Simulation</strong> — IDM natif ; couche SUMO optionnelle pour scénarios microscopiques</li>
+      </ul>
+      <p>Le front Next.js et l’API FastAPI sont deux composants distincts : le front consomme l’API via une URL configurable (<code>NEXT_PUBLIC_API_URL</code>).</p>
+
+      <h2>Installation &amp; déploiement</h2>
+      <ul class="edu">
+        <li><strong>Local</strong> — cloner le dépôt, lancer l’API FastAPI et le front Next.js selon le README</li>
+        <li><strong>Hébergé</strong> — UI statique (ex. GitHub Pages) pointant vers une API FastAPI déjà exposée (Render, Railway, etc.)</li>
+        <li><strong>SUMO</strong> — conteneur Docker documenté dans le repo pour activer TraCI</li>
+      </ul>
+
+      <p class="project-actions">
+        <a class="btn btn-primary" href="https://fredericatlan.github.io/CycleGen/" target="_blank" rel="noopener noreferrer">Démo live</a>
+        <a class="btn btn-ghost" href="https://github.com/FredericAtlan/CycleGen" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a class="btn btn-ghost" href="../blog/cyclegen-architecture-pipeline.html">Article blog</a>
+        <a class="btn btn-ghost" href="./">Tous les projets</a>
+      </p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="y"></span> Frédéric Atlan · <a href="../">fredericatlan.github.io</a></p>
+  </footer>
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

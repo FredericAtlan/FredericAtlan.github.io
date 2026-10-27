@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog — Frédéric Atlan</title>
+  <meta name="description" content="Notes techniques de Frédéric Atlan : ingénierie numérique, simulation, architecture full-stack. Article CycleGen — cycles de roulage synthétiques." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://fredericatlan.github.io/blog/" />
+  <meta name="theme-color" content="#070b14" />
+  <meta property="og:title" content="Blog — Frédéric Atlan" />
+  <meta property="og:description" content="Articles techniques : CycleGen, digital engineering, architecture logicielle." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://fredericatlan.github.io/blog/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="../">Frédéric Atlan</a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="../#parcours">Parcours</a>
+      <a href="../projets/">Projets</a>
+      <a href="./" aria-current="page">Blog</a>
+      <a href="../#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top" class="section page-projects">
+    <p class="hero-kicker">Notes techniques</p>
+    <h1>Blog</h1>
+    <p class="section-lead">Analyses de produits et architectures livrés — orientées compétences et résultats.</p>
+
+    <ul class="project-list">
+      <li class="project-card">
+        <p class="project-meta"><time datetime="2026-10-27">27 oct. 2026</time> · CycleGen</p>
+        <h2><a href="./cyclegen-architecture-pipeline.html">CycleGen — architecture et pipeline de cycles synthétiques</a></h2>
+        <p>Problématique ingénierie amont, stack FastAPI / Next.js, corridor spatial, IDM, corpus alpin, déploiement Pages. Compétences démontrées et captures UI.</p>
+        <p class="project-actions">
+          <a class="btn btn-primary" href="./cyclegen-architecture-pipeline.html">Lire l’article</a>
+          <a class="btn btn-ghost" href="https://fredericatlan.github.io/CycleGen/" target="_blank" rel="noopener noreferrer">Démo live</a>
+        </p>
+      </li>
+    </ul>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="y"></span> Frédéric Atlan · <a href="../">fredericatlan.github.io</a></p>
+  </footer>
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
