@@ -1,4 +1,4 @@
-# Frédéric Atlan
+# FredericAtlan Lab — Frédéric Atlan
 
 > Technical leadership in Data, AI & Cybersecurity · former Digital Synthesis Architect (Ampere / Renault Group)
 > Site: https://fredericatlan.github.io/ (French) · https://fredericatlan.github.io/en/ (English)
