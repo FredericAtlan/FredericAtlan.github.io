@@ -7,7 +7,7 @@ Page personnelle de **Frédéric Atlan** — Digital Engineering & Transformatio
 Ouvrir `index.html` dans le navigateur, ou :
 
 ```bash
-cd page-perso
+cd ~/Documents/Fred-page-Perso
 python3 -m http.server 8080
 ```
 
