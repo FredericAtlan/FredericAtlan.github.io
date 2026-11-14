@@ -8,11 +8,11 @@
 > Location: Île-de-France, France (remote according to context)
 
 ## Summary
-Frédéric Atlan has 20+ years of systems architecture and digital synthesis in the automotive industry (Renault Group / Ampere, PSA). He is moving into technical leadership for Data, AI & Cybersecurity, and runs an open R&D lab: he designs, audits and open-sources sovereign multi-agent architectures, reliable data pipelines and proof-based trust mechanisms. Not a shopfloor / MES digitalization profile.
+Frédéric Atlan has 20+ years of systems architecture and digital synthesis in the automotive industry (Renault Group / Ampere, PSA). He is moving into technical leadership for Data, AI & Cybersecurity, and runs a personal open-source Lab where he experiments with and documents Web2 development, Web3 protocols, data engineering and multi-agent systems. Background: 0D/1D/3D multiphysics modelling for powertrain design. Not a shopfloor / MES digitalization profile.
 
 ## Current focus
 - Moving into technical leadership: Data, AI & Cybersecurity (since November 2026)
-- Open R&D lab (this site): sovereign multi-agent architectures, reliable data pipelines, proof-based trust mechanisms, published as open source
+- Personal Lab (this site): Web2 development, Web3 protocols, data engineering, multi-agent systems, published as open source
 
 ## Selected experience
 - April 2024 – 16 November 2026 — Digital Synthesis Architect, Ampere (Renault Group), Guyancourt: multiphysics digital synthesis, organization design, model/data maturity at milestones, product ownership of a graph-based traceability platform, AI-assisted engineering workflows
@@ -29,7 +29,7 @@ Frédéric Atlan has 20+ years of systems architecture and digital synthesis in 
 - 2005 — Master numerical modeling & image analysis, Université de Cergy-Pontoise
 
 ## Languages
-French (native) · English (professional) · Spanish (fluent)
+French · English · Spanish
 
 ## Personal projects (open source)
 - Blog (projects are tagged "projet"): https://fredericatlan.github.io/blog/
