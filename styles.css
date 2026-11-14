@@ -1241,15 +1241,20 @@ ol.edu li {
 }
 .hero-titre {
   margin: 0;
-  max-width: 23ch;
+  max-width: 34ch;
   font-family: var(--display);
   font-weight: 800;
-  font-size: clamp(1.9rem, 4.1vw, 3.3rem);
+  font-size: clamp(2rem, 4.4vw, 3.6rem);
   line-height: 1.04;
   letter-spacing: -0.025em;
   color: var(--paper);
 }
 .hero-accent {
+  display: block;
+  margin-top: 0.35em;
+  font-size: 0.56em;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
   background: linear-gradient(90deg, var(--accent), #7aa2ff 60%, #b48cff);
   -webkit-background-clip: text;
   background-clip: text;
