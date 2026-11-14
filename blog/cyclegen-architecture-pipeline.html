@@ -98,9 +98,9 @@
       <h1>CycleGen — cycles de conduite depuis une carte</h1>
       <p class="section-lead">
         CycleGen produit un profil de vitesse et de pente à partir d’un trajet réel,
-        puis un bilan de forces aux roues. Ce n’est pas une homologation réglementaire&nbsp;:
-        c’est une chaîne carte → limites le long de la route → conducteur → véhicule,
-        avec la démo directement dans cette page.
+        puis un bilan de forces aux roues. Rien à voir avec une homologation réglementaire.
+        Le principe tient en une chaîne carte → limites le long de la route → conducteur → véhicule,
+        et la démo tourne directement dans cette page.
       </p>
 
       <p class="cta-row">
@@ -135,14 +135,14 @@
       <h2>À quoi ça sert</h2>
       <p>
         En amont d’un projet véhicule (énergie, freinage, montagne), on veut des cycles
-        liés à une géographie réelle — pas seulement un cycle plat réglementaire.
+        liés à une géographie réelle, et pas seulement un cycle plat réglementaire.
         CycleGen enchaîne&nbsp;: tracer un itinéraire, construire une enveloppe de vitesse
         le long de la distance, faire «&nbsp;conduire&nbsp;» un modèle de conducteur sous
         cette enveloppe, puis traduire l’accélération en forces, couple et puissance aux roues.
       </p>
       <p>
         L’écran web est un atelier (carte, curseurs, graphiques).
-        La physique tourne côté serveur Python — volontairement hors du navigateur.
+        La physique tourne côté serveur Python. Je l’ai gardée hors du navigateur exprès.
       </p>
 
       <figure class="shot">
@@ -154,11 +154,11 @@
       <p>
         Reconstruire la géométrie (itinéraire, altitude, feux) est coûteux&nbsp;: réseau,
         modèles numériques. Changer le style de conduite ou le véhicule, une fois le corridor
-        en mémoire, est bon marché — quelques dizaines de millisecondes.
+        en mémoire, ne coûte presque rien&nbsp;: quelques dizaines de millisecondes.
       </p>
       <p>
-        Règle produit&nbsp;: reconstruire le corridor = action explicite&nbsp;;
-        retoucher le conducteur = re-simulation rapide, sans remettre la carte à zéro.
+        J’en ai tiré une règle produit. On ne reconstruit le corridor que sur action explicite&nbsp;;
+        retoucher le conducteur relance juste la simulation, sans remettre la carte à zéro.
       </p>
       <details class="fold">
         <summary>Pipeline (cher vs bon marché)</summary>
@@ -180,14 +180,14 @@
         (Intelligent Driver Model)&nbsp;: à chaque pas, une accélération qui équilibre
         «&nbsp;je veux aller à telle vitesse&nbsp;» et «&nbsp;je garde une distance de sécurité&nbsp;».
         Eco / Normal / Sport ne changent que quelques boutons (accélération max, freinage
-        confort, facteur de vitesse) — pas une autre physique.
+        confort, facteur de vitesse). La physique, elle, ne bouge pas.
       </p>
       <p>
         Un petit bruit optionnel simule la nervosité en roulage libre&nbsp;; il est coupé
         dès qu’on freine fort ou qu’un danger est trop près.
       </p>
       <details class="fold">
-        <summary>Équations et code — conducteur</summary>
+        <summary>Équations et code du conducteur</summary>
         <p>
           Accélération IDM et distance désirée \(s^*\) (\(a_{\max}\) accélération souhaitée,
           \(b_{\mathrm{comf}}\) freinage confort, \(T\) temps de tête, \(s_0\) gap à l’arrêt)&nbsp;:
@@ -239,7 +239,7 @@ return params.a_max * (free - (s_star / gap) ** 2)</code></pre>
         on lisse, puis on calcule la pente. Affichage en&nbsp;% à l’écran&nbsp;; calcul en radians.
       </p>
       <details class="fold">
-        <summary>Équations — corridor et enveloppe</summary>
+        <summary>Équations du corridor et de l’enveloppe</summary>
         <p>Objet indexé par la distance \(s\)&nbsp;:</p>
         \[
         \bigl(S,\;\alpha(s),\;V_{\mathrm{legal}},\;V_{\mathrm{traffic}},\;V_{\mathrm{curve}},\;V_{\mathrm{envelope}},\;S_{\mathrm{feux}}\bigr)
@@ -275,7 +275,7 @@ return params.a_max * (free - (s_star / gap) ** 2)</code></pre>
         ou des mesures autorisées.
       </p>
       <details class="fold">
-        <summary>Équations et code — bilan de forces</summary>
+        <summary>Équations et code du bilan de forces</summary>
         \[
         F_{\mathrm{need}}=m\,a_{\mathrm{cmd}}+F_{\mathrm{road}}+F_{\mathrm{grade}}
         \]
@@ -311,18 +311,18 @@ def _road_load_n(v_mps: float, plant: VehiclePlant) -> float:
 
       <h2>Lecture de l’écran</h2>
       <p>
-        Un graphe principal (souvent la vitesse), un bandeau de miniatures pour changer
-        de grandeur, un curseur commun carte ↔ courbes. L’idée&nbsp;: regarder le phénomène
-        (suivi d’enveloppe, pic de couple), pas réorganiser neuf panneaux.
+        Tout part d’un graphe principal, souvent la vitesse. Un bandeau de miniatures sert à changer
+        de grandeur, et un curseur commun relie carte ↔ courbes. Je voulais qu’on regarde le phénomène
+        (suivi d’enveloppe, pic de couple) au lieu de passer son temps à réorganiser neuf panneaux.
       </p>
 
       <h2>Stack et limites</h2>
       <p>
         Interface statique (Next.js) sur GitHub Pages&nbsp;; calcul Python (FastAPI) en conteneur,
-        aujourd’hui sur Render — cold start possible après inactivité.
-        CycleGen n’est pas une campagne terrain, ni une homologation, ni un modèle thermique
-        détaillé de batterie ou de frein. La vitesse en virage est un confort latéral,
-        pas la limite d’adhérence pneu.
+        aujourd’hui sur Render, donc cold start possible après inactivité.
+        CycleGen ne remplace ni une campagne terrain ni une homologation, et il n’a pas de modèle
+        thermique détaillé de batterie ou de frein. Dernière précision&nbsp;: en virage, la vitesse
+        vient d’un confort latéral, pas de la limite d’adhérence du pneu.
       </p>
     </article>
   </main>

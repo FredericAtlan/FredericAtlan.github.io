@@ -132,38 +132,59 @@
   </header>
 
   <main id="top">
-    <section class="hero hero-v2" aria-labelledby="hero-titre">
-      <p class="hero-badge">Direction technique • Data • IA • Cybersécurité</p>
-      <h1 class="hero-titre" id="hero-titre">Concevoir, simuler, sécuriser&nbsp;: <span class="hero-accent">de la modélisation multiphysique à la conception de systèmes Web2, Web3, Data&nbsp;&amp;&nbsp;IA.</span></h1>
-      <p class="hero-support">Ex-Architecte Synthèse Numérique (20+&nbsp;ans en modélisation 0D/1D/3D pour la conception des groupes motopropulseurs), j’oriente désormais mon leadership vers la Direction Technique Data, IA &amp; Cybersécurité. Ce site est mon Lab personnel&nbsp;: j’y expérimente, documente et partage en open source mes travaux en développement Web2, protocoles Web3, ingénierie Data et systèmes multi-agents.</p>
-      <div class="hero-cta">
-        <a class="btn btn-primary" href="https://www.linkedin.com/in/frederic-atlan-97200/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a class="btn btn-ghost" href="/blog/">Blog</a>
-        <a class="btn btn-ghost" href="mailto:atlanfrd@gmail.com">atlanfrd@gmail.com</a>
-      </div>
-      <ul class="hero-pills" aria-label="Repères">
-        <li>20+&nbsp;ans Architecture Système</li>
-        <li>Executive MBA</li>
-        <li>Chef de Projet IA (Mines Paris – PSL / Dauphine)</li>
-        <li>Open-Source Lab</li>
-      </ul>
+    <section class="section accueil-intro" aria-labelledby="accueil-titre">
+      <p class="hero-badge">Lab d’ingénierie · open source</p>
+      <h1 class="accueil-nom" id="accueil-titre">Frédéric Atlan</h1>
+      <p class="accueil-lead">Ce site rassemble ce que je construis à côté de mon parcours d’ingénieur&nbsp;: des outils de simulation, des contrats Web3, des essais avec des agents. Chaque projet est publié avec son code et, quand c’est possible, une démo à essayer.</p>
+      <p class="accueil-liens">
+        <a class="btn btn-primary" href="/parcours/">Mon parcours</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/frederic-atlan-97200/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a class="btn btn-ghost" href="/parcours/#contact">Contact</a>
+      </p>
     </section>
 
-    <section id="articles" class="section" aria-labelledby="articles-title">
-      <h2 id="articles-title">Derniers articles</h2>
-      <p class="section-lead">Projets personnels et notes d’ingénierie, de l’idée au code qui tourne.</p>
-      <ul class="tuiles">
-        <li class="tuile">
-          <span class="card-thumb"><img src="/blog/assets/cyclegen/vignette.jpg" alt="" width="960" height="600" loading="lazy" /></span>
-          <div class="tuile-corps">
-            <p class="project-meta"><time datetime="2026-10-27">27 oct. 2026</time> · projet</p>
-            <h3><a href="/blog/cyclegen-architecture-pipeline.html">CycleGen — cycles de conduite depuis une carte</a></h3>
-            <p>D’un trajet carte à un profil de vitesse et de forces aux roues. Démo dans la page.</p>
-            <p class="tuile-liens"><a class="tuile-code" href="https://github.com/FredericAtlan/CycleGen" target="_blank" rel="noopener noreferrer">Code sur GitHub ↗</a></p>
-          </div>
+    <section class="section une" aria-labelledby="une-titre">
+      <p class="une-kicker">À la une · démo en ligne</p>
+      <article class="une-carte">
+        <a class="une-visuel" href="/blog/cyclegen-architecture-pipeline.html" tabindex="-1" aria-hidden="true"><img src="/blog/assets/cyclegen/vignette.jpg" alt="" width="960" height="600" /></a>
+        <div class="une-corps">
+          <h2 id="une-titre"><a href="/blog/cyclegen-architecture-pipeline.html">CycleGen — cycles de conduite depuis une carte</a></h2>
+          <p>On trace un trajet sur une carte et CycleGen en tire un profil de vitesse réaliste (pente, virages, feux, trafic), puis les forces aux roues du véhicule choisi. C’est mon passage de la modélisation véhicule à un vrai produit web.</p>
+          <ul class="une-tags" aria-label="Thèmes"><li>Modélisation</li><li>Simulation</li><li>Web2</li></ul>
+          <p class="une-actions">
+            <a class="btn btn-primary" href="https://fredericatlan.github.io/CycleGen/" target="_blank" rel="noopener noreferrer">Essayer la démo ↗</a>
+            <a class="btn btn-ghost" href="/blog/cyclegen-architecture-pipeline.html">Lire l’article</a>
+            <a class="btn btn-ghost" href="https://github.com/FredericAtlan/CycleGen" target="_blank" rel="noopener noreferrer">Code ↗</a>
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section class="section" aria-labelledby="chantiers-titre">
+      <h2 id="chantiers-titre">Les chantiers du Lab</h2>
+      <p class="section-lead">Les sujets sur lesquels je travaille en ce moment.</p>
+      <ul class="chantiers">
+        <li class="chantier">
+          <span class="chantier-num">01</span>
+          <h3>Modélisation &amp; simulation</h3>
+          <p>Je reprends vingt ans de modélisation 0D/1D/3D dans des outils ouverts, en commençant par les cycles de conduite et l’énergie.</p>
+          <p class="chantier-lien"><a href="/blog/cyclegen-architecture-pipeline.html">CycleGen →</a></p>
+        </li>
+        <li class="chantier">
+          <span class="chantier-num">02</span>
+          <h3>Web3 &amp; confiance par preuve</h3>
+          <p>Des contrats qui paient quand une preuve est vérifiée, et rendent l’argent si l’échéance passe sans livraison.</p>
+
+          <p class="chantier-lien chantier-bientot">Article à venir</p>
+                  </li>
+        <li class="chantier">
+          <span class="chantier-num">03</span>
+          <h3>Data &amp; IA multi-agents</h3>
+          <p>Des agents qui écrivent du code et se relisent entre eux, sur des données dont on peut retracer l’origine.</p>
+          <p class="chantier-lien chantier-bientot">Article à venir</p>
         </li>
       </ul>
-      <p class="section-suite"><a class="btn btn-ghost" href="/blog/">Tous les articles</a></p>
+      <p class="section-suite"><a class="btn btn-ghost" href="/blog/">Tous les articles du blog</a></p>
     </section>
   </main>
 

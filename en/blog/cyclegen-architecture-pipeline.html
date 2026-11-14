@@ -98,10 +98,10 @@
       <p class="hero-kicker"><time datetime="2026-10-27">October 27, 2026</time> · <span class="tag">project</span></p>
       <h1>CycleGen — driving cycles from a map</h1>
       <p class="section-lead">
-        CycleGen produces a speed and grade profile from a real route,
-        then a force balance at the wheels. It is not regulatory homologation:
-        it is a chain of map → limits along the road → driver → vehicle,
-        with the demo right here in this page.
+        CycleGen takes a real route and turns it into a speed and grade profile,
+        then into a force balance at the wheels. This has nothing to do with homologation.
+        It's a chain, map → limits along the road → driver → vehicle,
+        and you can run the demo right here in the page.
       </p>
 
       <p class="cta-row">
@@ -136,14 +136,14 @@
       <h2>What it is for</h2>
       <p>
         Early in a vehicle program (energy, braking, mountain driving), you want cycles
-        tied to real geography — not just a flat regulatory cycle.
-        CycleGen chains the steps: plot a route, build a speed envelope
-        along the distance, have a driver model “drive” under
-        that envelope, then translate acceleration into forces, torque and power at the wheels.
+        that follow real geography rather than a flat regulatory cycle.
+        CycleGen chains the steps. You plot a route and build a speed envelope
+        along the distance. A driver model then “drives” under
+        that envelope, and its acceleration is translated into forces, torque and power at the wheels.
       </p>
       <p>
-        The web screen is a workbench (map, sliders, charts).
-        The physics runs on a Python server — deliberately outside the browser.
+        The web screen is just a workbench with a map, sliders and charts.
+        I kept the physics out of the browser on purpose: it runs on a Python server.
       </p>
 
       <figure class="shot">
@@ -154,12 +154,12 @@
       <h2>Two cadences</h2>
       <p>
         Rebuilding the geometry (route, elevation, traffic lights) is expensive: network calls,
-        digital elevation models. Changing the driving style or the vehicle, once the corridor
-        is in memory, is cheap — a few tens of milliseconds.
+        digital elevation models. Once the corridor is in memory, changing the driving style
+        or the vehicle costs almost nothing, a few tens of milliseconds.
       </p>
       <p>
-        Product rule: rebuilding the corridor is an explicit action;
-        tweaking the driver is a fast re-simulation, without resetting the map.
+        Hence the product rule. You rebuild the corridor only when you ask for it,
+        whereas tweaking the driver just re-runs the simulation and leaves the map as it is.
       </p>
       <details class="fold">
         <summary>Pipeline (expensive vs cheap)</summary>
@@ -180,15 +180,15 @@
         on a hilly road. CycleGen uses a continuous driver model
         (Intelligent Driver Model): at each step, an acceleration that balances
         “I want to go this fast” against “I keep a safe distance”.
-        Eco / Normal / Sport only change a few knobs (max acceleration, comfortable
-        braking, speed factor) — not a different physics.
+        Eco / Normal / Sport only turn a few knobs (max acceleration, comfortable
+        braking, speed factor). The physics stays the same.
       </p>
       <p>
-        A small optional noise term simulates jitter in free driving; it is switched off
+        There's an optional small noise term to mimic jitter in free driving. It gets switched off
         as soon as the driver brakes hard or a hazard is too close.
       </p>
       <details class="fold">
-        <summary>Equations and code — driver</summary>
+        <summary>Equations and code: driver</summary>
         <p>
           IDM acceleration and desired gap \(s^*\) (\(a_{\max}\) desired acceleration,
           \(b_{\mathrm{comf}}\) comfortable braking, \(T\) time headway, \(s_0\) standstill gap):
@@ -236,11 +236,11 @@ return params.a_max * (free - (s_star / gap) ** 2)</code></pre>
         Before driving, we prepare what lies along the road: grade, speed limits,
         a traffic estimate when available, comfortable cornering speed.
         The resulting envelope is the minimum of these limits.
-        Raw elevation sometimes dips under a bridge: we correct for map structures,
-        smooth, then compute the grade. Shown in % on screen; computed in radians.
+        Raw elevation sometimes dips under a bridge, so we correct for map structures and smooth
+        the data before computing the grade. The screen shows it in %, the maths use radians.
       </p>
       <details class="fold">
-        <summary>Equations — corridor and envelope</summary>
+        <summary>Equations: corridor and envelope</summary>
         <p>Object indexed by distance \(s\):</p>
         \[
         \bigl(S,\;\alpha(s),\;V_{\mathrm{legal}},\;V_{\mathrm{traffic}},\;V_{\mathrm{curve}},\;V_{\mathrm{envelope}},\;S_{\mathrm{feux}}\bigr)
@@ -268,15 +268,15 @@ return params.a_max * (free - (s_star / gap) ** 2)</code></pre>
         The driver proposes an acceleration. The vehicle model bounds what traction
         and brakes can actually deliver: road load (coefficients F0, F1, F2),
         the grade component, then the applied force limited by power and maximum braking.
-        We reconstruct the actual acceleration, then torque and power at the wheels.
+        From that we get the actual acceleration, and from there torque and power at the wheels.
       </p>
       <p>
-        The demo catalog offers ballpark figures for electric vehicles
-        (unofficial). For a critical study, substitute manufacturer data
-        or authorized measurements.
+        The demo catalog has ballpark figures for electric vehicles, and they are
+        unofficial. If the study matters, use manufacturer data
+        or authorized measurements instead.
       </p>
       <details class="fold">
-        <summary>Equations and code — force balance</summary>
+        <summary>Equations and code: force balance</summary>
         \[
         F_{\mathrm{need}}=m\,a_{\mathrm{cmd}}+F_{\mathrm{road}}+F_{\mathrm{grade}}
         \]
@@ -302,7 +302,7 @@ def _road_load_n(v_mps: float, plant: VehiclePlant) -> float:
         To stress braking and downhill speed control, the demo ships with pre-filled packs
         (Pico Veleta, Grossglockner, Iseran, Stelvio): geometry, corridor, first profile.
         On opening, all four screens (Route → Constraints → Driver → Cycle) are populated.
-        Re-running a live generation goes through the compute server.
+        If you re-run a live generation, it goes through the compute server.
       </p>
 
       <figure class="shot">
@@ -313,17 +313,17 @@ def _road_load_n(v_mps: float, plant: VehiclePlant) -> float:
       <h2>Reading the screen</h2>
       <p>
         One main chart (usually speed), a strip of thumbnails to switch
-        quantities, a shared cursor between map ↔ curves. The idea: look at the phenomenon
-        (envelope tracking, torque peak), not rearrange nine panels.
+        quantities, a shared cursor between map ↔ curves. I wanted people to look at what's
+        happening (envelope tracking, a torque peak) instead of rearranging nine panels.
       </p>
 
       <h2>Stack and limitations</h2>
       <p>
         Static front end (Next.js) on GitHub Pages; Python compute (FastAPI) in a container,
-        currently on Render — a cold start is possible after inactivity.
-        CycleGen is not a field test campaign, nor homologation, nor a detailed thermal model
-        of the battery or brakes. Cornering speed is a lateral comfort limit,
-        not the tire grip limit.
+        currently on Render, so expect a cold start after a period of inactivity.
+        CycleGen doesn't replace a field test campaign or homologation, and there is no detailed
+        thermal model of the battery or brakes. One more caveat: the cornering speed is a lateral
+        comfort limit. It is not the tire grip limit.
       </p>
     </article>
   </main>

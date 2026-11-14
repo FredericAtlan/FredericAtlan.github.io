@@ -1294,3 +1294,52 @@ ol.edu li {
   text-decoration: none;
 }
 .tuile-code:hover { color: var(--paper); text-decoration: underline; }
+
+/* ——— Accueil « Lab » ——— */
+.accueil-intro { display: flex; flex-direction: column; padding-top: clamp(3rem, 9vh, 6rem); padding-bottom: 1rem; }
+.accueil-nom {
+  margin: 1rem 0 0;
+  font-family: "Inter Tight", var(--body);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 6.5vw, 4.6rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: var(--paper);
+}
+.accueil-lead { margin: 1.1rem 0 0; font-size: clamp(1.1rem, 2vw, 1.3rem); line-height: 1.55; color: var(--fog); max-width: 40rem; }
+.accueil-liens { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.6rem 0 0; }
+
+.une-kicker { margin: 0 0 0.9rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+.une-carte {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(160deg, rgba(19, 26, 46, 0.9), rgba(7, 11, 20, 0.92));
+}
+.une-visuel { display: block; min-height: 100%; }
+.une-visuel img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.une-corps { padding: clamp(1.25rem, 3vw, 2.25rem); display: flex; flex-direction: column; gap: 0.9rem; }
+.une-corps h2 { margin: 0; font-family: "Inter Tight", var(--body); font-weight: 800; font-size: clamp(1.4rem, 2.6vw, 2rem); line-height: 1.12; letter-spacing: -0.02em; }
+.une-corps h2 a { color: var(--paper); text-decoration: none; }
+.une-corps h2 a:hover { text-decoration: underline; text-underline-offset: 0.15em; }
+.une-corps p { margin: 0; color: var(--fog); line-height: 1.6; }
+.une-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0; padding: 0; list-style: none; }
+.une-tags li { padding: 0.2rem 0.7rem; border: 1px solid var(--line); border-radius: 999px; font-size: 0.8rem; color: var(--muted); }
+.une-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: auto !important; padding-top: 0.4rem; }
+
+.chantiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin: 1.5rem 0 0; padding: 0; list-style: none; }
+.chantier { position: relative; padding: 1.4rem 1.3rem 1.2rem; border: 1px solid var(--line); border-radius: 16px; background: rgba(255, 255, 255, 0.02); display: flex; flex-direction: column; gap: 0.55rem; }
+.chantier-num { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.8rem; color: var(--accent); letter-spacing: 0.08em; }
+.chantier h3 { margin: 0; font-family: "Inter Tight", var(--body); font-weight: 700; font-size: 1.2rem; letter-spacing: -0.01em; color: var(--paper); }
+.chantier p { margin: 0; color: var(--fog); line-height: 1.55; font-size: 0.97rem; }
+.chantier-lien { margin-top: auto !important; padding-top: 0.4rem; font-weight: 600; }
+.chantier-lien a { color: var(--accent); text-decoration: none; }
+.chantier-lien a:hover { text-decoration: underline; }
+.chantier-bientot { color: var(--muted) !important; font-weight: 500; font-style: italic; }
+
+@media (max-width: 760px) {
+  .une-carte { grid-template-columns: 1fr; }
+  .une-visuel img { aspect-ratio: 16 / 10; height: auto; }
+}

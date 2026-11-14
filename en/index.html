@@ -132,38 +132,59 @@
   </header>
 
   <main id="top">
-    <section class="hero hero-v2" aria-labelledby="hero-titre">
-      <p class="hero-badge">Technical leadership • Data • AI • Cybersecurity</p>
-      <h1 class="hero-titre" id="hero-titre">Design, simulate, secure: <span class="hero-accent">from multiphysics modelling to Web2, Web3, Data&nbsp;&amp;&nbsp;AI systems design.</span></h1>
-      <p class="hero-support">Former Digital Synthesis Architect (20+&nbsp;years of 0D/1D/3D modelling for powertrain design), I am now steering my leadership towards technical direction for Data, AI &amp; Cybersecurity. This site is my personal Lab: I experiment, document and open-source my work in Web2 development, Web3 protocols, data engineering and multi-agent systems.</p>
-      <div class="hero-cta">
-        <a class="btn btn-primary" href="https://www.linkedin.com/in/frederic-atlan-97200/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a class="btn btn-ghost" href="/en/blog/">Blog</a>
-        <a class="btn btn-ghost" href="mailto:atlanfrd@gmail.com">atlanfrd@gmail.com</a>
-      </div>
-      <ul class="hero-pills" aria-label="Highlights">
-        <li>20+&nbsp;years Systems Architecture</li>
-        <li>Executive MBA</li>
-        <li>AI Project Manager (Mines Paris – PSL / Dauphine)</li>
-        <li>Open-Source Lab</li>
-      </ul>
+    <section class="section accueil-intro" aria-labelledby="accueil-titre">
+      <p class="hero-badge">Engineering lab · open source</p>
+      <h1 class="accueil-nom" id="accueil-titre">Frédéric Atlan</h1>
+      <p class="accueil-lead">This is where I publish what I build alongside my engineering career: simulation tools, Web3 contracts, experiments with agents. Every project comes with its code and, where it makes sense, a demo you can try.</p>
+      <p class="accueil-liens">
+        <a class="btn btn-primary" href="/en/parcours/">My background</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/frederic-atlan-97200/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a class="btn btn-ghost" href="/en/parcours/#contact">Contact</a>
+      </p>
     </section>
 
-    <section id="articles" class="section" aria-labelledby="articles-title">
-      <h2 id="articles-title">Latest articles</h2>
-      <p class="section-lead">Personal projects and engineering notes, from idea to running code.</p>
-      <ul class="tuiles">
-        <li class="tuile">
-          <span class="card-thumb"><img src="/blog/assets/cyclegen/vignette.jpg" alt="" width="960" height="600" loading="lazy" /></span>
-          <div class="tuile-corps">
-            <p class="project-meta"><time datetime="2026-10-27">Oct 27, 2026</time> · project</p>
-            <h3><a href="/en/blog/cyclegen-architecture-pipeline.html">CycleGen — driving cycles from a map</a></h3>
-            <p>From a route on a map to a speed profile and wheel forces. Live demo in the page.</p>
-            <p class="tuile-liens"><a class="tuile-code" href="https://github.com/FredericAtlan/CycleGen" target="_blank" rel="noopener noreferrer">Code on GitHub ↗</a></p>
-          </div>
+    <section class="section une" aria-labelledby="une-titre">
+      <p class="une-kicker">Featured · live demo</p>
+      <article class="une-carte">
+        <a class="une-visuel" href="/en/blog/cyclegen-architecture-pipeline.html" tabindex="-1" aria-hidden="true"><img src="/blog/assets/cyclegen/vignette.jpg" alt="" width="960" height="600" /></a>
+        <div class="une-corps">
+          <h2 id="une-titre"><a href="/en/blog/cyclegen-architecture-pipeline.html">CycleGen — driving cycles from a map</a></h2>
+          <p>Draw a route on a map and CycleGen turns it into a realistic speed profile (gradient, bends, traffic lights, traffic), then the wheel forces for the vehicle you pick. It is how I took vehicle modelling into an actual web product.</p>
+          <ul class="une-tags" aria-label="Topics"><li>Modelling</li><li>Simulation</li><li>Web2</li></ul>
+          <p class="une-actions">
+            <a class="btn btn-primary" href="https://fredericatlan.github.io/CycleGen/" target="_blank" rel="noopener noreferrer">Try the demo ↗</a>
+            <a class="btn btn-ghost" href="/en/blog/cyclegen-architecture-pipeline.html">Read the article</a>
+            <a class="btn btn-ghost" href="https://github.com/FredericAtlan/CycleGen" target="_blank" rel="noopener noreferrer">Code ↗</a>
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section class="section" aria-labelledby="chantiers-titre">
+      <h2 id="chantiers-titre">What the Lab is working on</h2>
+      <p class="section-lead">The topics I am working on right now.</p>
+      <ul class="chantiers">
+        <li class="chantier">
+          <span class="chantier-num">01</span>
+          <h3>Modelling &amp; simulation</h3>
+          <p>Twenty years of 0D/1D/3D modelling, carried over into open tools, starting with driving cycles and energy.</p>
+          <p class="chantier-lien"><a href="/en/blog/cyclegen-architecture-pipeline.html">CycleGen →</a></p>
+        </li>
+        <li class="chantier">
+          <span class="chantier-num">02</span>
+          <h3>Web3 &amp; proof-based trust</h3>
+          <p>Contracts that pay once a proof is verified, and give the money back if the deadline passes without delivery.</p>
+
+          <p class="chantier-lien chantier-bientot">Article coming soon</p>
+                  </li>
+        <li class="chantier">
+          <span class="chantier-num">03</span>
+          <h3>Data &amp; multi-agent AI</h3>
+          <p>Agents that write code and review each other, working on data whose origin you can trace.</p>
+          <p class="chantier-lien chantier-bientot">Article coming soon</p>
         </li>
       </ul>
-      <p class="section-suite"><a class="btn btn-ghost" href="/en/blog/">All articles</a></p>
+      <p class="section-suite"><a class="btn btn-ghost" href="/en/blog/">All blog articles</a></p>
     </section>
   </main>
 
