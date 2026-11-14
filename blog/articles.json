@@ -14,7 +14,8 @@
       "date": "2026-10-27",
       "summary": "D’un trajet carte à un profil de vitesse et de forces aux roues. Démo embarquée dans la page.",
       "tags": ["projet"],
-      "demo": "https://fredericatlan.github.io/CycleGen/"
+      "demo": "https://fredericatlan.github.io/CycleGen/",
+      "thumbnail": "./assets/cyclegen/vignette.jpg"
     }
   ]
 }

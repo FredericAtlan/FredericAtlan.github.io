@@ -7,6 +7,9 @@
   <meta name="description" content="Notes techniques de Frédéric Atlan : ingénierie numérique, simulation, architecture full-stack. Articles tagués (projet, …)." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://fredericatlan.github.io/blog/" />
+  <link rel="alternate" hreflang="fr" href="https://fredericatlan.github.io/blog/" />
+  <link rel="alternate" hreflang="en" href="https://fredericatlan.github.io/en/blog/" />
+  <link rel="alternate" hreflang="x-default" href="https://fredericatlan.github.io/blog/" />
   <meta name="theme-color" content="#070b14" />
   <meta property="og:site_name" content="Frédéric Atlan" />
   <meta property="og:locale" content="fr_FR" />
@@ -34,17 +37,21 @@
 <body>
   <div class="atmosphere" aria-hidden="true"></div>
 
-    <header class="site-header">
+  <header class="site-header">
     <a class="brand" href="/">Frédéric Atlan</a>
     <nav class="nav" aria-label="Navigation principale">
       <span class="nav-cluster" role="group" aria-label="Profil">
-        <a href="/#parcours">Parcours</a>
-        <a href="/#contact">Contact</a>
+        <a class="nav-page" href="/parcours/">Parcours</a>
+        <a href="/parcours/#contact">Contact</a>
       </span>
       <span class="nav-sep" aria-hidden="true"></span>
       <span class="nav-cluster" role="group" aria-label="Publications">
-        <a class="nav-page" href="/projets/">Projets</a>
         <a class="nav-page" href="/blog/" aria-current="page">Blog</a>
+      </span>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-cluster nav-lang" role="group" aria-label="Langue">
+        <a href="/blog/" hreflang="fr" lang="fr" aria-current="true">FR</a>
+        <a href="/en/blog/" hreflang="en" lang="en">EN</a>
       </span>
     </nav>
   </header>
@@ -65,16 +72,20 @@
     <p class="tag-filter-status" id="filter-status" hidden></p>
 
     <ul class="project-list" id="article-list">
-      <li class="project-card" data-tags="projet" data-id="cyclegen-architecture-pipeline">
-        <p class="project-meta">
-          <time datetime="2026-10-27">27 oct. 2026</time>
-          · <a class="tag" href="./tags/projet.html">projet</a>
-        </p>
-        <h2><a href="./cyclegen-architecture-pipeline.html">CycleGen — cycles de conduite depuis une carte</a></h2>
-        <p>D’un trajet carte à un profil de vitesse et de forces aux roues. Démo embarquée dans la page.</p>
-        <p class="project-actions">
-          <a class="btn btn-primary" href="./cyclegen-architecture-pipeline.html">Lire l’article</a>
-        </p>
+      <li class="project-card has-thumb" data-tags="projet" data-id="cyclegen-architecture-pipeline">
+        <a class="card-thumb" href="./cyclegen-architecture-pipeline.html" tabindex="-1" aria-hidden="true"><img src="./assets/cyclegen/vignette.jpg" alt="" width="960" height="600" loading="lazy" /></a>
+        <div>
+          <p class="project-meta">
+            <time datetime="2026-10-27">27 oct. 2026</time>
+            · <a class="tag" href="./tags/projet.html">projet</a>
+          </p>
+          <h2><a href="./cyclegen-architecture-pipeline.html">CycleGen — cycles de conduite depuis une carte</a></h2>
+          <p>D’un trajet carte à un profil de vitesse et de forces aux roues. Démo embarquée dans la page.</p>
+          <p class="project-actions">
+            <a class="btn btn-primary" href="./cyclegen-architecture-pipeline.html">Lire l’article</a>
+            <a class="btn btn-ghost" href="https://github.com/FredericAtlan/CycleGen" target="_blank" rel="noopener noreferrer">Code sur GitHub ↗</a>
+          </p>
+        </div>
       </li>
     </ul>
   </main>

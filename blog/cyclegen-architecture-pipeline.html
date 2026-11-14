@@ -9,6 +9,9 @@
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Frédéric Atlan" />
   <link rel="canonical" href="https://fredericatlan.github.io/blog/cyclegen-architecture-pipeline.html" />
+  <link rel="alternate" hreflang="fr" href="https://fredericatlan.github.io/blog/cyclegen-architecture-pipeline.html" />
+  <link rel="alternate" hreflang="en" href="https://fredericatlan.github.io/en/blog/cyclegen-architecture-pipeline.html" />
+  <link rel="alternate" hreflang="x-default" href="https://fredericatlan.github.io/blog/cyclegen-architecture-pipeline.html" />
   <meta name="theme-color" content="#070b14" />
 
   <meta property="og:site_name" content="Frédéric Atlan" />
@@ -74,30 +77,37 @@
     <a class="brand" href="/">Frédéric Atlan</a>
     <nav class="nav" aria-label="Navigation principale">
       <span class="nav-cluster" role="group" aria-label="Profil">
-        <a href="/#parcours">Parcours</a>
-        <a href="/#contact">Contact</a>
+        <a class="nav-page" href="/parcours/">Parcours</a>
+        <a href="/parcours/#contact">Contact</a>
       </span>
       <span class="nav-sep" aria-hidden="true"></span>
       <span class="nav-cluster" role="group" aria-label="Publications">
-        <a class="nav-page" href="/projets/">Projets</a>
         <a class="nav-page" href="/blog/" aria-current="page">Blog</a>
+      </span>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-cluster nav-lang" role="group" aria-label="Langue">
+        <a href="/blog/cyclegen-architecture-pipeline.html" hreflang="fr" lang="fr" aria-current="true">FR</a>
+        <a href="/en/blog/cyclegen-architecture-pipeline.html" hreflang="en" lang="en">EN</a>
       </span>
     </nav>
   </header>
 
   <main id="top" class="section page-projects article has-demo">
-    <p class="hero-kicker"><time datetime="2026-10-27">27 octobre 2026</time> · <span class="tag">projet</span></p>
-    <h1>CycleGen — cycles de conduite depuis une carte</h1>
-    <p class="section-lead">
-      CycleGen produit un profil de vitesse et de pente à partir d’un trajet réel,
-      puis un bilan de forces aux roues. Ce n’est pas une homologation réglementaire&nbsp;:
-      c’est une chaîne carte → limites le long de la route → conducteur → véhicule,
-      avec la démo directement dans cette page.
-    </p>
+    <header class="article-hero" style="--hero-img: url('/blog/assets/cyclegen/06-trajet-pico-veleta.jpg')">
+      <p class="hero-kicker"><time datetime="2026-10-27">27 octobre 2026</time> · <span class="tag">projet</span></p>
+      <h1>CycleGen — cycles de conduite depuis une carte</h1>
+      <p class="section-lead">
+        CycleGen produit un profil de vitesse et de pente à partir d’un trajet réel,
+        puis un bilan de forces aux roues. Ce n’est pas une homologation réglementaire&nbsp;:
+        c’est une chaîne carte → limites le long de la route → conducteur → véhicule,
+        avec la démo directement dans cette page.
+      </p>
 
-    <p class="cta-row">
-      <a class="btn btn-primary" href="#demo-live">Essayer dans la page</a>
-    </p>
+      <p class="cta-row">
+        <a class="btn btn-primary" href="#demo-live">Essayer dans la page</a>
+        <a class="btn btn-ghost" href="https://github.com/FredericAtlan/CycleGen" target="_blank" rel="noopener noreferrer">Code sur GitHub</a>
+      </p>
+    </header>
 
     <figure class="demo-embed" id="demo-live">
       <div class="demo-embed__bar">

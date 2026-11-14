@@ -1098,3 +1098,193 @@ ol.edu li {
     transform: none;
   }
 }
+
+/* ---------- Hero d'article ---------- */
+.article-hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: min(62vh, 560px);
+  margin: 0 0 2.5rem;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  overflow: hidden;
+  background: #0b1020;
+}
+.article-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: var(--hero-img) center / cover no-repeat;
+  transform: scale(1.04);
+  filter: brightness(0.75) saturate(0.9);
+  animation: hero-derive 22s ease-in-out infinite alternate;
+}
+.article-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(7, 11, 20, 0.97) 0%, rgba(7, 11, 20, 0.9) 42%, rgba(7, 11, 20, 0.45) 75%, rgba(7, 11, 20, 0.2) 100%),
+    linear-gradient(180deg, transparent 55%, rgba(7, 11, 20, 0.85) 100%),
+    radial-gradient(120% 80% at 0% 100%, var(--accent-soft), transparent 60%);
+}
+@keyframes hero-derive {
+  from { transform: scale(1.04) translate3d(0, 0, 0); }
+  to { transform: scale(1.1) translate3d(-1.5%, -1%, 0); }
+}
+.article-hero .hero-kicker { margin-bottom: 0.75rem; }
+.article-hero h1 { margin: 0 0 1rem; max-width: 22ch; text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5); }
+.article-hero .section-lead { margin: 0; max-width: 62ch; color: var(--paper); }
+.article-hero .cta-row { margin: 1.5rem 0 0; }
+
+/* ---------- Cartes d'articles avec vignette ---------- */
+.project-card.has-thumb {
+  display: grid;
+  grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1rem;
+}
+.card-thumb {
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+}
+.card-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.project-card.has-thumb:hover .card-thumb img,
+.tuile:hover .card-thumb img { transform: scale(1.05); }
+
+/* ---------- Derniers articles (accueil) ---------- */
+.tuiles {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+.tuile {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(16, 24, 42, 0.55);
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.tuile:hover { border-color: var(--accent); transform: translateY(-3px); }
+.tuile .card-thumb { border: 0; border-radius: 0; }
+.tuile-corps { padding: 1rem 1.1rem 1.25rem; }
+.tuile-corps .project-meta { margin-bottom: 0.4rem; }
+.tuile h3 { margin: 0 0 0.5rem; font-family: var(--display); font-size: 1.15rem; line-height: 1.25; }
+.tuile h3 a { color: var(--paper); text-decoration: none; }
+.tuile h3 a::after { content: ""; position: absolute; inset: 0; }
+.tuile { position: relative; }
+.tuile p { margin: 0; color: var(--fog); font-size: 0.92rem; }
+.section-suite { margin: 1.5rem 0 0; }
+
+@media (max-width: 720px) {
+  .article-hero::after { background: linear-gradient(180deg, rgba(7, 11, 20, 0.7) 0%, rgba(7, 11, 20, 0.95) 55%); }
+  .project-card.has-thumb { grid-template-columns: 1fr; gap: 1rem; }
+  .article-hero { min-height: 420px; border-radius: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .article-hero::before { animation: none; }
+  .tuile, .card-thumb img { transition: none; }
+}
+
+/* ---------- Sélecteur de langue ---------- */
+.nav-lang { gap: 0.15rem; }
+.nav-lang a {
+  padding: 0.15rem 0.45rem;
+  border: 1px solid transparent;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.nav-lang a[aria-current="true"] { border-color: var(--line); color: var(--paper); }
+.nav-lang a:hover { color: var(--accent); }
+
+/* ---------- Page Parcours ---------- */
+.page-parcours > .section:first-child { padding-bottom: 0; }
+.page-parcours > .section:first-child h1 { font-family: var(--display); margin: 0.25rem 0 0; }
+
+/* ---------- Hero de l'accueil (v2) ---------- */
+.hero-v2 { max-width: 1100px; }
+.hero-badge {
+  align-self: flex-start;
+  margin: 0 0 1.5rem;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid rgba(69, 169, 156, 0.45);
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.hero-titre {
+  margin: 0;
+  max-width: 23ch;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(1.9rem, 4.1vw, 3.3rem);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  color: var(--paper);
+}
+.hero-accent {
+  background: linear-gradient(90deg, var(--accent), #7aa2ff 60%, #b48cff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero-v2 .hero-support { margin-top: 1.5rem; max-width: 66ch; font-size: 1.05rem; }
+.hero-pills {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 2rem 0 0;
+  padding: 0;
+}
+.hero-pills li {
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(16, 24, 42, 0.6);
+  color: var(--fog);
+  font-size: 0.85rem;
+}
+@media (max-width: 720px) {
+  .hero-badge { letter-spacing: 0.08em; font-size: 0.72rem; }
+  .hero-pills li { font-size: 0.8rem; }
+}
+
+/* Lien « Code » dans les tuiles : au-dessus du lien qui couvre la tuile */
+.tuile-liens { margin: 0.75rem 0 0 !important; }
+.tuile-code {
+  position: relative;
+  z-index: 1;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+}
+.tuile-code:hover { color: var(--paper); text-decoration: underline; }

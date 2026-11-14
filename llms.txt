@@ -1,21 +1,21 @@
 # Frédéric Atlan
 
-> Architecte Synthèse Numérique · Digital Engineering & Transformation
-> Site: https://fredericatlan.github.io/
+> Technical leadership in Data, AI & Cybersecurity · former Digital Synthesis Architect (Ampere / Renault Group)
+> Site: https://fredericatlan.github.io/ (French) · https://fredericatlan.github.io/en/ (English)
+> Background / CV: https://fredericatlan.github.io/en/parcours/
 > LinkedIn: https://www.linkedin.com/in/frederic-atlan-97200/
 > Email: atlanfrd@gmail.com
 > Location: Île-de-France, France (remote according to context)
 
 ## Summary
-Frédéric Atlan turns upstream design and simulation into industrial digital capability: shared operating models, adoption, and measurable results. 20+ years in digital engineering (Renault Group / Ampere). Not a shopfloor / MES digitalization profile.
+Frédéric Atlan has 20+ years of systems architecture and digital synthesis in the automotive industry (Renault Group / Ampere, PSA). He is moving into technical leadership for Data, AI & Cybersecurity, and runs an open R&D lab: he designs, audits and open-sources sovereign multi-agent architectures, reliable data pipelines and proof-based trust mechanisms. Not a shopfloor / MES digitalization profile.
 
-## Current role
-- Title: Architecte Synthèse Numérique
-- Organization: Ampere (Renault Group), Guyancourt
-- Since: April 2024
-- Focus: multiphysics digital synthesis, organization design, model/data maturity at milestones, product ownership of a graph-based model traceability platform, AI-assisted engineering workflows
+## Current focus
+- Moving into technical leadership: Data, AI & Cybersecurity (since November 2026)
+- Open R&D lab (this site): sovereign multi-agent architectures, reliable data pipelines, proof-based trust mechanisms, published as open source
 
 ## Selected experience
+- April 2024 – 16 November 2026 — Digital Synthesis Architect, Ampere (Renault Group), Guyancourt: multiphysics digital synthesis, organization design, model/data maturity at milestones, product ownership of a graph-based traceability platform, AI-assisted engineering workflows
 - 2021–2024 — Corporate Technical Leader & Platform Architect, EV/hybrid simulation, Renault Group (HIL/MIL/SIL industrialization)
 - 2018–2021 — Model Architect; built a France–India digital simulation factory (1 France lead + 11 India engineers); delivery quality from under 30% to ~98%
 - 2010–2018 — Modeling referent hybrid/electric, PSA Group (Stellantis)
@@ -23,7 +23,7 @@ Frédéric Atlan turns upstream design and simulation into industrial digital ca
 
 ## Education (separate credentials)
 - 2025 — Executive MBA (EMBA), ESCP Business School
-- 2026–2027 — AI Project Manager certification (Chef de projet IA), Mines Paris–PSL (enrolled)
+- 2026–2027 — AI Project Manager certification (Chef de projet IA), Mines Paris – PSL / Dauphine
 - 2024 — General Management Program (GMP), ESCP
 - 2005 — Master CFD / thermal-mechanical modeling, Université Paris-Saclay
 - 2005 — Master numerical modeling & image analysis, Université de Cergy-Pontoise
@@ -32,7 +32,7 @@ Frédéric Atlan turns upstream design and simulation into industrial digital ca
 French (native) · English (professional) · Spanish (fluent)
 
 ## Personal projects (open source)
-- Projects index: https://fredericatlan.github.io/projets/
+- Blog (projects are tagged "projet"): https://fredericatlan.github.io/blog/
 - CycleGen — synthetic driving cycles from real routes (one blog post, embedded demo): https://fredericatlan.github.io/blog/cyclegen-architecture-pipeline.html
 
 ## Topics / keywords

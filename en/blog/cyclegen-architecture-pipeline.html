@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <!-- cyclegen-rev:single-post -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CycleGen — driving cycles from a map | Frédéric Atlan’s Blog</title>
+  <meta name="description" content="CycleGen: from a map route to a speed profile and wheel forces. An engineering post, with the demo embedded in the page." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Frédéric Atlan" />
+  <link rel="canonical" href="https://fredericatlan.github.io/en/blog/cyclegen-architecture-pipeline.html" />
+  <link rel="alternate" hreflang="fr" href="https://fredericatlan.github.io/blog/cyclegen-architecture-pipeline.html" />
+  <link rel="alternate" hreflang="en" href="https://fredericatlan.github.io/en/blog/cyclegen-architecture-pipeline.html" />
+  <link rel="alternate" hreflang="x-default" href="https://fredericatlan.github.io/blog/cyclegen-architecture-pipeline.html" />
+  <meta name="theme-color" content="#070b14" />
+
+  <meta property="og:site_name" content="Frédéric Atlan" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="CycleGen — driving cycles from a map" />
+  <meta property="og:description" content="From a map route to a speed profile and wheel forces. Demo embedded in the article." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://fredericatlan.github.io/en/blog/cyclegen-architecture-pipeline.html" />
+  <meta property="og:image" content="https://fredericatlan.github.io/blog/assets/cyclegen/08-analyse-cycle-veleta.jpg" />
+  <meta property="og:image:secure_url" content="https://fredericatlan.github.io/blog/assets/cyclegen/08-analyse-cycle-veleta.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1024" />
+  <meta property="og:image:height" content="494" />
+  <meta property="og:image:alt" content="CycleGen — Pico Veleta analysis, chart and map" />
+  <meta property="article:published_time" content="2026-10-27" />
+  <meta property="article:modified_time" content="2026-10-27" />
+  <meta property="article:author" content="Frédéric Atlan" />
+  <meta property="article:tag" content="projet" />
+  <meta name="keywords" content="CycleGen, simulation, driving cycles, automotive engineering, project" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="CycleGen — driving cycles from a map" />
+  <meta name="twitter:description" content="From a map route to a speed profile and wheel forces. Demo in the page." />
+  <meta name="twitter:image" content="https://fredericatlan.github.io/blog/assets/cyclegen/08-analyse-cycle-veleta.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css?v=20261027f" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "CycleGen — driving cycles from a map",
+    "inLanguage": "en",
+    "datePublished": "2026-10-27",
+    "dateModified": "2026-10-27",
+    "author": {
+      "@type": "Person",
+      "name": "Frédéric Atlan",
+      "url": "https://fredericatlan.github.io/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Frédéric Atlan"
+    },
+    "mainEntityOfPage": "https://fredericatlan.github.io/en/blog/cyclegen-architecture-pipeline.html",
+    "description": "From a map route to a speed profile and wheel forces. Demo embedded.",
+    "keywords": ["project", "CycleGen", "simulation", "driving cycles"],
+    "articleSection": "project",
+    "image": [
+      "https://fredericatlan.github.io/blog/assets/cyclegen/08-analyse-cycle-veleta.jpg",
+      "https://fredericatlan.github.io/blog/assets/cyclegen/06-trajet-pico-veleta.jpg"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="/en/">Frédéric Atlan</a>
+    <nav class="nav" aria-label="Main navigation">
+      <span class="nav-cluster" role="group" aria-label="Profile">
+        <a class="nav-page" href="/en/parcours/">Background</a>
+        <a href="/en/parcours/#contact">Contact</a>
+      </span>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-cluster" role="group" aria-label="Publications">
+        <a class="nav-page" href="/en/blog/" aria-current="page">Blog</a>
+      </span>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-cluster nav-lang" role="group" aria-label="Language">
+        <a href="/blog/cyclegen-architecture-pipeline.html" hreflang="fr" lang="fr">FR</a>
+        <a href="/en/blog/cyclegen-architecture-pipeline.html" hreflang="en" lang="en" aria-current="true">EN</a>
+      </span>
+    </nav>
+  </header>
+
+  <main id="top" class="section page-projects article has-demo">
+    <header class="article-hero" style="--hero-img: url('/blog/assets/cyclegen/06-trajet-pico-veleta.jpg')">
+      <p class="hero-kicker"><time datetime="2026-10-27">October 27, 2026</time> · <span class="tag">project</span></p>
+      <h1>CycleGen — driving cycles from a map</h1>
+      <p class="section-lead">
+        CycleGen produces a speed and grade profile from a real route,
+        then a force balance at the wheels. It is not regulatory homologation:
+        it is a chain of map → limits along the road → driver → vehicle,
+        with the demo right here in this page.
+      </p>
+
+      <p class="cta-row">
+        <a class="btn btn-primary" href="#demo-live">Try it in the page</a>
+        <a class="btn btn-ghost" href="https://github.com/FredericAtlan/CycleGen" target="_blank" rel="noopener noreferrer">Code on GitHub</a>
+      </p>
+    </header>
+
+    <figure class="demo-embed" id="demo-live">
+      <div class="demo-embed__bar">
+        <p class="demo-embed__title">Demo</p>
+        <div class="demo-embed__actions">
+          <button type="button" class="btn btn-ghost demo-embed__btn" id="demo-expand" aria-pressed="false">Expand</button>
+        </div>
+      </div>
+      <div class="demo-embed__stage">
+        <iframe
+          id="demo-frame"
+          title="CycleGen interactive demo"
+          src="https://fredericatlan.github.io/CycleGen/"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allow="clipboard-write; fullscreen"
+        ></iframe>
+      </div>
+      <figcaption>
+        Map, corridor, driver, cycle. The first load can be slow (compute server).
+      </figcaption>
+    </figure>
+
+    <article class="project-detail prose">
+      <h2>What it is for</h2>
+      <p>
+        Early in a vehicle program (energy, braking, mountain driving), you want cycles
+        tied to real geography — not just a flat regulatory cycle.
+        CycleGen chains the steps: plot a route, build a speed envelope
+        along the distance, have a driver model “drive” under
+        that envelope, then translate acceleration into forces, torque and power at the wheels.
+      </p>
+      <p>
+        The web screen is a workbench (map, sliders, charts).
+        The physics runs on a Python server — deliberately outside the browser.
+      </p>
+
+      <figure class="shot">
+        <img src="/blog/assets/cyclegen/06-trajet-pico-veleta.jpg" width="1024" height="493" alt="Route step — Pico Veleta to Granada" loading="lazy" />
+        <figcaption>Route from Pico Veleta → Granada (product screenshot).</figcaption>
+      </figure>
+
+      <h2>Two cadences</h2>
+      <p>
+        Rebuilding the geometry (route, elevation, traffic lights) is expensive: network calls,
+        digital elevation models. Changing the driving style or the vehicle, once the corridor
+        is in memory, is cheap — a few tens of milliseconds.
+      </p>
+      <p>
+        Product rule: rebuilding the corridor is an explicit action;
+        tweaking the driver is a fast re-simulation, without resetting the map.
+      </p>
+      <details class="fold">
+        <summary>Pipeline (expensive vs cheap)</summary>
+        <pre class="code-block" data-lang="pipeline"><code>Web workbench
+  → HTTP client
+      analyze the route              # expensive
+      build the corridor             # expensive
+      start the simulation           # cheap if corridor already there
+  → Python server (thin HTTP routes)
+  → spatial assembly → corridor
+  → driver solver (+ vehicle model)
+  → exportable profile</code></pre>
+      </details>
+
+      <h2>Driver</h2>
+      <p>
+        A classic controller acting on speed error chases a setpoint and often oscillates
+        on a hilly road. CycleGen uses a continuous driver model
+        (Intelligent Driver Model): at each step, an acceleration that balances
+        “I want to go this fast” against “I keep a safe distance”.
+        Eco / Normal / Sport only change a few knobs (max acceleration, comfortable
+        braking, speed factor) — not a different physics.
+      </p>
+      <p>
+        A small optional noise term simulates jitter in free driving; it is switched off
+        as soon as the driver brakes hard or a hazard is too close.
+      </p>
+      <details class="fold">
+        <summary>Equations and code — driver</summary>
+        <p>
+          IDM acceleration and desired gap \(s^*\) (\(a_{\max}\) desired acceleration,
+          \(b_{\mathrm{comf}}\) comfortable braking, \(T\) time headway, \(s_0\) standstill gap):
+        </p>
+        \[
+        a_{\mathrm{IDM}}=a_{\max}\left(
+          1-\left(\frac{v}{v_0}\right)^{\delta}
+          -\left(\frac{s^{*}}{s}\right)^{2}
+        \right)
+        \quad(\delta=4)
+        \]
+        \[
+        s^{*}=s_0+v\,T+\frac{v\,\Delta v}{2\sqrt{a_{\max}\,b_{\mathrm{comf}}}}
+        \]
+        \[
+        v_0=\max\bigl(0{,}1,\; V_{\mathrm{envelope}}(s)\cdot \texttt{speed\_factor}\bigr)
+        \]
+        <p>
+          Noise cut-off and clipping, then Euler integration (\(\Delta t\approx 1\,\mathrm{s}\)):
+        </p>
+        \[
+        d_{\mathrm{brake}}=\max\!\Bigl(\frac{v^{2}}{2\,b_{\mathrm{comf}}},\,25\Bigr)\quad[\mathrm{m}]
+        \]
+        \[
+        a=\operatorname{clip}\bigl(a_{\mathrm{IDM}}+a_{\mathrm{noise}},\;
+          -1{,}5\,b_{\mathrm{comf}},\; a_{\max}\bigr)
+        \]
+        \[
+        v\leftarrow v+a\,\Delta t,\qquad
+        s\leftarrow s+v_{\mathrm{old}}\,\Delta t
+        \]
+        <pre class="code-block" data-lang="python"><code># Excerpt — a_IDM (kinematic_solver.py)
+free = 1.0 - (v / v0) ** DELTA
+dv = v - v_lead
+s_star = params.s0 + max(
+    0.0,
+    v * params.T
+    + (v * dv) / (2.0 * math.sqrt(max(params.a_max * params.b_comf, 1e-6))),
+)
+return params.a_max * (free - (s_star / gap) ** 2)</code></pre>
+      </details>
+
+      <h2>Corridor</h2>
+      <p>
+        Before driving, we prepare what lies along the road: grade, speed limits,
+        a traffic estimate when available, comfortable cornering speed.
+        The resulting envelope is the minimum of these limits.
+        Raw elevation sometimes dips under a bridge: we correct for map structures,
+        smooth, then compute the grade. Shown in % on screen; computed in radians.
+      </p>
+      <details class="fold">
+        <summary>Equations — corridor and envelope</summary>
+        <p>Object indexed by distance \(s\):</p>
+        \[
+        \bigl(S,\;\alpha(s),\;V_{\mathrm{legal}},\;V_{\mathrm{traffic}},\;V_{\mathrm{curve}},\;V_{\mathrm{envelope}},\;S_{\mathrm{feux}}\bigr)
+        \]
+        <p>Grade after smoothing (Savitzky–Golay, denoted SG):</p>
+        \[
+        \alpha_i=\operatorname{atan}\!\left(\frac{z^{\mathrm{SG}}_i-z^{\mathrm{SG}}_{i-1}}{S_i-S_{i-1}}\right)
+        \]
+        <p>Cornering (\(a_y\) lateral comfort, \(R\) radius) and envelope:</p>
+        \[
+        V_{\mathrm{curve}}(s)=\sqrt{a_y\,R(s)}
+        \]
+        \[
+        V_{\mathrm{envelope}}(s)=\min\bigl(V_{\mathrm{legal}}(s),\,V_{\mathrm{traffic}}(s),\,V_{\mathrm{curve}}(s)\bigr)
+        \]
+      </details>
+
+      <figure class="shot">
+        <img src="/blog/assets/cyclegen/07-contraintes-pente.jpg" width="1024" height="489" alt="Constraints — Pico Veleta grade profile" loading="lazy" />
+        <figcaption>Constraints: grade and elevation along the route.</figcaption>
+      </figure>
+
+      <h2>Forces at the wheels</h2>
+      <p>
+        The driver proposes an acceleration. The vehicle model bounds what traction
+        and brakes can actually deliver: road load (coefficients F0, F1, F2),
+        the grade component, then the applied force limited by power and maximum braking.
+        We reconstruct the actual acceleration, then torque and power at the wheels.
+      </p>
+      <p>
+        The demo catalog offers ballpark figures for electric vehicles
+        (unofficial). For a critical study, substitute manufacturer data
+        or authorized measurements.
+      </p>
+      <details class="fold">
+        <summary>Equations and code — force balance</summary>
+        \[
+        F_{\mathrm{need}}=m\,a_{\mathrm{cmd}}+F_{\mathrm{road}}+F_{\mathrm{grade}}
+        \]
+        \[
+        F_{\mathrm{road}}=F_0+F_1\,v_{\mathrm{km/h}}+F_2\,v_{\mathrm{km/h}}^{2},\qquad
+        F_{\mathrm{grade}}=m\,g\,\sin\alpha
+        \]
+        \[
+        a=\frac{F_{\mathrm{applied}}-F_{\mathrm{road}}-F_{\mathrm{grade}}}{m}
+        \]
+        \[
+        T=F\,r_{\mathrm{dyn}},\qquad
+        P=T\,\omega
+        \]
+        <pre class="code-block" data-lang="python"><code># Road-load (kinematic_solver.py)
+def _road_load_n(v_mps: float, plant: VehiclePlant) -> float:
+    vk = max(0.0, v_mps) * 3.6  # m/s → km/h
+    return plant.f0_n + plant.f1_n_per_kph * vk + plant.f2_n_per_kph2 * vk * vk</code></pre>
+      </details>
+
+      <h2>Alpine roads</h2>
+      <p>
+        To stress braking and downhill speed control, the demo ships with pre-filled packs
+        (Pico Veleta, Grossglockner, Iseran, Stelvio): geometry, corridor, first profile.
+        On opening, all four screens (Route → Constraints → Driver → Cycle) are populated.
+        Re-running a live generation goes through the compute server.
+      </p>
+
+      <figure class="shot">
+        <img src="/blog/assets/cyclegen/08-analyse-cycle-veleta.jpg" width="1024" height="494" alt="Cycle analysis — speed chart and synced map" loading="lazy" />
+        <figcaption>Analysis: main chart, envelope limits, synchronized map.</figcaption>
+      </figure>
+
+      <h2>Reading the screen</h2>
+      <p>
+        One main chart (usually speed), a strip of thumbnails to switch
+        quantities, a shared cursor between map ↔ curves. The idea: look at the phenomenon
+        (envelope tracking, torque peak), not rearrange nine panels.
+      </p>
+
+      <h2>Stack and limitations</h2>
+      <p>
+        Static front end (Next.js) on GitHub Pages; Python compute (FastAPI) in a container,
+        currently on Render — a cold start is possible after inactivity.
+        CycleGen is not a field test campaign, nor homologation, nor a detailed thermal model
+        of the battery or brakes. Cornering speed is a lateral comfort limit,
+        not the tire grip limit.
+      </p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="y"></span> Frédéric Atlan · <a href="/en/blog/">Blog</a> · <a href="/en/">Home</a></p>
+  </footer>
+
+  <div class="lightbox" id="lightbox" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="Image preview">
+    <div class="lightbox__inner">
+      <button type="button" class="lightbox__close" id="lightbox-close" aria-label="Close">×</button>
+      <img id="lightbox-img" src="" alt="" />
+      <p class="lightbox__caption" id="lightbox-caption"></p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    (function () {
+      var embed = document.getElementById("demo-live");
+      var btn = document.getElementById("demo-expand");
+      if (embed && btn) {
+        function setExpanded(on) {
+          embed.classList.toggle("is-expanded", on);
+          document.body.classList.toggle("demo-expanded", on);
+          btn.setAttribute("aria-pressed", on ? "true" : "false");
+          btn.textContent = on ? "Collapse" : "Expand";
+          if (on) btn.focus();
+        }
+        btn.addEventListener("click", function () {
+          setExpanded(!embed.classList.contains("is-expanded"));
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && embed.classList.contains("is-expanded")) {
+            setExpanded(false);
+          }
+        });
+      }
+    })();
+
+    (function () {
+      var lb = document.getElementById("lightbox");
+      var lbImg = document.getElementById("lightbox-img");
+      var lbCap = document.getElementById("lightbox-caption");
+      var lbClose = document.getElementById("lightbox-close");
+      if (!lb || !lbImg) return;
+
+      function openLightbox(src, alt, caption) {
+        lbImg.src = src;
+        lbImg.alt = alt || "";
+        lbCap.textContent = caption || "";
+        document.body.appendChild(lb);
+        lb.hidden = false;
+        lb.style.cssText =
+          "position:fixed;inset:0;z-index:4000;display:flex;align-items:center;justify-content:center;padding:1.25rem;margin:0;background:rgba(4,8,16,0.92);";
+        lb.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        lbClose.focus();
+      }
+
+      function closeLightbox() {
+        lb.hidden = true;
+        lb.style.cssText = "";
+        lb.setAttribute("aria-hidden", "true");
+        lbImg.removeAttribute("src");
+        document.body.style.overflow = "";
+      }
+
+      document.querySelectorAll("figure.shot").forEach(function (fig) {
+        var img = fig.querySelector("img");
+        if (!img || img.closest("button.shot-zoom")) return;
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "shot-zoom";
+        btn.setAttribute(
+          "aria-label",
+          "Enlarge: " + (img.getAttribute("alt") || "figure")
+        );
+        img.replaceWith(btn);
+        btn.appendChild(img);
+        btn.addEventListener("click", function () {
+          var cap = fig.querySelector("figcaption");
+          openLightbox(
+            img.currentSrc || img.src,
+            img.alt,
+            cap ? cap.textContent.trim() : ""
+          );
+        });
+      });
+
+      lbClose.addEventListener("click", closeLightbox);
+      lb.addEventListener("click", function (e) {
+        if (e.target === lb || e.target === lbImg) closeLightbox();
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !lb.hidden) closeLightbox();
+      });
+    })();
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"
+    onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}], throwOnError:false});"></script>
+</body>
+</html>
