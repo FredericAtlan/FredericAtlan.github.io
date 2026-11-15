@@ -59,3 +59,4 @@
 #archi-cyclegen .archi-chemin.archi-trace { stroke-opacity: 0.95; stroke-width: 3; filter: drop-shadow(0 0 4px currentColor); }
 .archi-astuce { display: none; margin: 0.4rem 0 0; text-align: center; color: var(--muted); font-size: 0.8rem; }
 @media (max-width: 700px) { .archi-astuce { display: block; } }
+.demo-avertissement a { color: var(--accent); }
