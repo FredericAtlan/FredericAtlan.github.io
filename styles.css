@@ -1462,3 +1462,28 @@ ol.edu li {
 .page-projects.article .shot img { width: 100%; }
 .page-projects.article .fold { max-width: none; }
 .nom-propre { hyphens: none; -webkit-hyphens: none; white-space: nowrap; }
+.page-projects.article .prose .stack li,
+.page-projects.article .prose .archi li,
+.page-projects.article .prose .pipe li { text-align: left; hyphens: manual; -webkit-hyphens: manual; font-size: inherit; }
+
+/* Accueil : le logo du site en grand, à la place du nom */
+.accueil-logo {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-weight: 700;
+  font-size: clamp(1.9rem, 6.2vw, 4.4rem);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+.accueil-logo .brand-cursor { width: 0.5em; height: 0.95em; margin-left: 0.06em; vertical-align: -0.12em; }
+
+/* Rangée d’icônes de la stack (cartes et haut d’article) */
+.tech-icones { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem; margin: 0.9rem 0 0; padding: 0; list-style: none; }
+.tech-icones li { display: inline-flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem; padding: 0 0.45rem; border: 1px solid var(--line); border-radius: 8px; background: rgba(255, 255, 255, 0.03); margin: 0; }
+.tech-ico { display: block; width: 1.05rem; height: 1.05rem; background: var(--paper); -webkit-mask: var(--ico) center / contain no-repeat; mask: var(--ico) center / contain no-repeat; opacity: 0.85; }
+.tech-icones li:hover .tech-ico { background: var(--accent); opacity: 1; }
+.tech-nom { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.tech-icones .tech-texte { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.72rem; color: var(--fog); letter-spacing: 0.01em; }
+.article-hero .tech-icones { margin: 1.1rem 0 0; }
+.article-hero .tech-icones li { background: rgba(7, 11, 20, 0.55); }
+.page-projects.article .article-hero .tech-icones li { text-align: left; }

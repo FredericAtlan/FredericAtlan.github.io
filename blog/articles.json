@@ -8,6 +8,15 @@
   },
   "articles": [
     {
+      "id": "sttns-decision-os",
+      "title": "STTNS — pour qu’aucune ligne de code ne soit écrite pour rien",
+      "path": "./sttns-decision-os.html",
+      "date": "2026-11-15",
+      "summary": "L’outil que j’ai construit chez Data Refiners pour piloter une petite équipe d’experts : chaque story remonte à une douleur réelle, et une feature sans valeur déclarée ne démarre pas.",
+      "tags": ["projet"],
+      "thumbnail": "./assets/sttns/vignette.jpg"
+    },
+    {
       "id": "cyclegen-architecture-pipeline",
       "title": "CycleGen — cycles de conduite depuis une carte",
       "path": "./cyclegen-architecture-pipeline.html",

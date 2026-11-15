@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>STTNS — so that no line of code is written for nothing | Blog Frédéric Atlan</title>
+  <meta name="description" content="STTNS, the tool I built at Data Refiners to steer a small team of experts: every story traces back to a real pain, and an idea without value cannot enter development." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Frédéric Atlan" />
+  <link rel="canonical" href="https://fredericatlan.github.io/en/blog/sttns-decision-os.html" />
+  <link rel="alternate" hreflang="fr" href="https://fredericatlan.github.io/blog/sttns-decision-os.html" />
+  <link rel="alternate" hreflang="en" href="https://fredericatlan.github.io/en/blog/sttns-decision-os.html" />
+  <link rel="alternate" hreflang="x-default" href="https://fredericatlan.github.io/blog/sttns-decision-os.html" />
+  <meta name="theme-color" content="#070b14" />
+
+  <meta property="og:site_name" content="FredericAtlan Lab" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="STTNS — so that no line of code is written for nothing" />
+  <meta property="og:description" content="Steering a team of experts without Excel or Jira: every story traces back to a real pain. Animated framework, local demo." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://fredericatlan.github.io/en/blog/sttns-decision-os.html" />
+  <meta property="og:image" content="https://fredericatlan.github.io/blog/assets/sttns/03-kanban-cycle.jpg" />
+  <meta property="og:image:secure_url" content="https://fredericatlan.github.io/blog/assets/sttns/03-kanban-cycle.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1800" />
+  <meta property="og:image:height" content="1125" />
+  <meta property="og:image:alt" content="STTNS — current cycle Kanban on the fictional Panier Local project" />
+  <meta property="article:published_time" content="2026-11-15" />
+  <meta property="article:modified_time" content="2026-11-15" />
+  <meta property="article:author" content="Frédéric Atlan" />
+  <meta property="article:tag" content="projet" />
+  <meta name="keywords" content="STTNS, product management, jobs-to-be-done, persona, value effort, engineering management, project" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="STTNS — so that no line of code is written for nothing" />
+  <meta name="twitter:description" content="Steering a team of experts without Excel or Jira: every story traces back to a real pain. Animated framework, local demo." />
+  <meta name="twitter:image" content="https://fredericatlan.github.io/blog/assets/sttns/03-kanban-cycle.jpg" />
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Syne:wght@500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css?v=20261115a" />
+  <link rel="stylesheet" href="/blog/assets/cyclegen/archi.css" />
+  <link rel="stylesheet" href="/blog/assets/sttns/chaine.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "STTNS — so that no line of code is written for nothing",
+    "inLanguage": "en",
+    "datePublished": "2026-11-15",
+    "dateModified": "2026-11-15",
+    "author": {
+      "@type": "Person",
+      "name": "Frédéric Atlan",
+      "url": "https://fredericatlan.github.io/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Frédéric Atlan"
+    },
+    "mainEntityOfPage": "https://fredericatlan.github.io/en/blog/sttns-decision-os.html",
+    "description": "Steering a team of experts without Excel or Jira: every story traces back to a real pain. Animated framework, local demo.",
+    "keywords": ["project", "STTNS", "product management", "jobs-to-be-done"],
+    "articleSection": "project",
+    "image": [
+      "https://fredericatlan.github.io/blog/assets/sttns/03-kanban-cycle.jpg"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="/en/" aria-label="FredericAtlan Lab, home"><span class="brand-tilde">~/</span>FredericAtlan<span class="brand-dot">.</span><span class="brand-lab">lab</span><span class="brand-cursor" aria-hidden="true"></span></a>
+    <nav class="nav" aria-label="Main navigation">
+      <span class="nav-cluster" role="group" aria-label="Profile">
+        <a class="nav-page" href="/en/parcours/">Background</a>
+        <a href="/en/parcours/#contact">Contact</a>
+      </span>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-cluster" role="group" aria-label="Publications">
+        <a class="nav-page" href="/en/blog/" aria-current="page">Blog</a>
+      </span>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-cluster nav-lang" role="group" aria-label="Language">
+        <a href="/blog/sttns-decision-os.html" hreflang="fr" lang="fr">FR</a>
+        <a href="/en/blog/sttns-decision-os.html" hreflang="en" lang="en" aria-current="true">EN</a>
+      </span>
+    </nav>
+  </header>
+
+  <main id="top" class="section page-projects article">
+    <header class="article-hero" style="--hero-img: url('/blog/assets/sttns/03-kanban-cycle.jpg')">
+      <p class="hero-kicker"><time datetime="2026-11-15">November 15, 2026</time> · <span class="tag">project</span></p>
+      <h1>STTNS — so that no line of code is written for nothing</h1>
+      <p class="section-lead">
+        Do you get priorities from a CEO or a product manager and have to turn them into development cycles
+        you can defend? STTNS ties every story to the pain of a real user, lets Product put a number on value
+        and Tech on cost, then divides one by the other. A feature with no declared value does not start. I
+        designed it at Data Refiners for a small team of experts; it is open source and the demo runs on your
+        own machine.
+      </p>
+      <!-- tech: sttns-decision-os -->
+      <ul class="tech-icones" aria-label="Technologies"><li title="Next.js"><span class="tech-ico" style="--ico: url('/blog/assets/icones/nextdotjs.svg')" aria-hidden="true"></span><span class="tech-nom">Next.js</span></li><li title="React"><span class="tech-ico" style="--ico: url('/blog/assets/icones/react.svg')" aria-hidden="true"></span><span class="tech-nom">React</span></li><li title="TypeScript"><span class="tech-ico" style="--ico: url('/blog/assets/icones/typescript.svg')" aria-hidden="true"></span><span class="tech-nom">TypeScript</span></li><li title="Tailwind CSS"><span class="tech-ico" style="--ico: url('/blog/assets/icones/tailwindcss.svg')" aria-hidden="true"></span><span class="tech-nom">Tailwind CSS</span></li><li title="Zod"><span class="tech-ico" style="--ico: url('/blog/assets/icones/zod.svg')" aria-hidden="true"></span><span class="tech-nom">Zod</span></li><li class="tech-texte" title="React Flow">React Flow</li><li title="Mermaid"><span class="tech-ico" style="--ico: url('/blog/assets/icones/mermaid.svg')" aria-hidden="true"></span><span class="tech-nom">Mermaid</span></li><li title="Markdown"><span class="tech-ico" style="--ico: url('/blog/assets/icones/markdown.svg')" aria-hidden="true"></span><span class="tech-nom">Markdown</span></li><li class="tech-texte" title="KaTeX">KaTeX</li><li title="Supabase"><span class="tech-ico" style="--ico: url('/blog/assets/icones/supabase.svg')" aria-hidden="true"></span><span class="tech-nom">Supabase</span></li><li title="PostgreSQL"><span class="tech-ico" style="--ico: url('/blog/assets/icones/postgresql.svg')" aria-hidden="true"></span><span class="tech-nom">PostgreSQL</span></li><li class="tech-texte" title="Row Level Security">Row Level Security</li><li title="Vitest"><span class="tech-ico" style="--ico: url('/blog/assets/icones/vitest.svg')" aria-hidden="true"></span><span class="tech-nom">Vitest</span></li><li title="Docker"><span class="tech-ico" style="--ico: url('/blog/assets/icones/docker.svg')" aria-hidden="true"></span><span class="tech-nom">Docker</span></li></ul>
+      <!-- /tech -->
+      <p class="cta-row">
+        <a class="btn btn-primary" href="#framework">See the framework ↓</a>
+        <a class="btn btn-ghost" href="https://github.com/FredericAtlan/STTNS" target="_blank" rel="noopener noreferrer">Code on GitHub</a>
+      </p>
+    </header>
+
+    <article class="project-detail prose">
+      <h2>Why I built it</h2>
+      <p>
+        Leading a handful of experts means deciding every week where their time goes. In a spreadsheet you
+        quickly lose track: who asked for this feature, for which customer, with what expected benefit? The
+        ticketing tools on the market track a ticket’s progress very well, the reason it exists much less so,
+        and setting them up would have cost us more time than we had.
+      </p>
+      <p>
+        I also needed a teaching tool. Starting from the personas’ pain points and their jobs-to-be-done
+        (JTBD, what the user is trying to get done) is something everyone agrees with in a meeting, and far
+        fewer teams actually practise. I wanted the method to be visible on screen, without having to remind
+        people of it at every team meeting.
+      </p>
+      <p>
+        At first I meant to implement the <em>Straight to the North Star</em> framework, hence the name. I did,
+        then found that the North Star Metric, the single metric that acts as a compass, fitted our work
+        poorly. We do software development led by experts, and the value of a week’s work does not fit in one
+        number. The current framework came out of team discussions around a simple question: how do we choose
+        what to code so that we do not code what nobody needs.
+      </p>
+      <p>
+        For us, the result shows mostly in the cycles. They are shorter, we know why we commit to them, and at
+        the end we can see what was delivered and for whom. I follow the whole chain, from need to task,
+        without watching over experts who know better than I do how to split their work.
+      </p>
+      <p>
+        Backlog tools track tickets without knowing why they exist. Product discovery tools link needs and
+        features, with a per-user subscription, but without blocking entry into development. I chose few
+        screens and few fields, with rules that actually block.
+      </p>
+
+      <h2 id="framework">The framework, link by link</h2>
+      <p>
+        Persona and epic are the two roots. Under a persona come their pain points and jobs, and each job
+        declares the pain it solves. Under an epic come features, under a feature stories, under a story tasks.
+        A feature also declares the job it serves. The board below replays this chain on the demo project, then
+        the rules that protect it.
+      </p>
+      <figure class="archi" id="archi-sttns" aria-label="Animated board of the STTNS framework">
+        <noscript><p>The animated board needs JavaScript; the text below describes the same rules.</p></noscript>
+      </figure>
+      <p>
+        The parent-link rules live in the database. PostgreSQL triggers reject a story without a feature, or a
+        feature attached to another feature, whichever screen or import sends it. The other guardrails are
+        checked by the application when a card changes status: a feature with impact 0, or with no job, cannot
+        move to “in progress”, nor can its stories, and the Kanban board accepts no more than five stories in
+        progress.
+      </p>
+
+      <h3>Three hands, three inputs</h3>
+      <p>
+        Nobody enters both value and cost. Product assigns the feature an impact, from 0 (waste) to 3 (vital).
+        Tech estimates each story in days (½, 1, 2, 3 or 5) and in risk (known, likely, unknown). The epic gets
+        no input, so nobody can inflate it by hand. The system adds up what the other two declared, then
+        divides.
+      </p>
+      <p>$$\mathrm{Ratio}_{V/E}=\frac{\sum \mathrm{Impact}_{\mathrm{features}}}{\sum \mathrm{Days}_{\mathrm{stories}}}$$</p>
+      <p>
+        Risk does not enter the ratio. It works as a warning: an unknown risk calls for a spike, a short
+        technical exploration, before any commitment. And the choice of days stops at five; beyond that, the
+        story is badly split. Going against the ratio is still possible, you just have to explain why.
+      </p>
+
+      <h2>Demo: Panier Local</h2>
+      <p>
+        To show the tool without exposing client data, I filled it with a project made up from scratch.
+        Panier Local connects market gardeners with school canteens. Three personas carry it.
+      </p>
+      <ul>
+        <li>Marion, an organic grower on 8&nbsp;ha, who throws away unsold produce in peak season and finds public procurement baffling.</li>
+        <li>Karim, chef at a secondary school serving 600 meals, who plans menus three weeks ahead with €2.10 of food per meal.</li>
+        <li>Sophie, a buyer for 42 schools, who works out her EGalim rate (France’s quota of quality and organic food in public catering) by hand once a year.</li>
+      </ul>
+      <p>
+        In all, 5 pain points, 6 jobs, 3 epics, 9 features and 19 stories, 13 of them planned over 3 cycles,
+        for a team of three people, fictional as well.
+      </p>
+      <figure class="shot">
+        <img src="/blog/assets/sttns/01-matrice-besoins.jpg" width="1800" height="1125" alt="Panier Local needs matrix: personas, pain points and jobs" loading="lazy" />
+        <figcaption>The needs matrix. A persona, their pain points, and what they are trying to get done (“When… I want… so I can…”). Screens are in French.</figcaption>
+      </figure>
+      <p>
+        The ratio has an immediate consequence. “Pilotage EGalim”, the only epic not yet started, has the best
+        value for effort, with 5 impact points for 11 days, against 7 for 19 and 7 for 17 for the other two.
+        The tool does not decide, but the question has to come up when the cycle is planned.
+      </p>
+      <figure class="shot">
+        <img src="/blog/assets/sttns/02-features-impact.jpg" width="1800" height="1125" alt="Panier Local features with their impact" loading="lazy" />
+        <figcaption>Features and their impact. “Gamified school ranking” is at 0: the idea came out of a workshop, no persona asked for it.</figcaption>
+      </figure>
+
+      <h3>Cycles and Kanban</h3>
+      <p>
+        Stories go into fixed-capacity cycles, in the spirit of <em>Shape Up</em>. The Kanban board has only
+        four columns (To do, In progress, In review, Done). Each card shows its feature and epic, so when you
+        move it you always see who you are working for.
+      </p>
+      <figure class="shot">
+        <img src="/blog/assets/sttns/03-kanban-cycle.jpg" width="1800" height="1125" alt="Panier Local current cycle Kanban" loading="lazy" />
+        <figcaption>The current cycle: five stories, two in progress out of five allowed, tasks and owners under each card.</figcaption>
+      </figure>
+
+      <h3>Two flaws planted on purpose</h3>
+      <p>
+        I planted two flaws in the project to see whether the tool would find them. The first is a feature
+        with impact 0, attached to an epic but to no need. The hygiene Radar classifies it as both waste and
+        orphan, and the Health Copilot, a panel in the bottom-right corner of every project screen, flags it
+        too. These are rules, not an AI model.
+      </p>
+      <p>
+        The second is a job no feature serves: Sophie wants to compare local prices with wholesale prices.
+        The dependency graph shows it, with its filter for jobs without a feature. In a real project, the
+        first would have cost time for nothing, and the second would be a need that slipped through. I would
+        rather find both before committing to a cycle.
+      </p>
+      <figure class="shot">
+        <img src="/blog/assets/sttns/04-radar-hygiene.jpg" width="1800" height="1125" alt="Panier Local hygiene Radar" loading="lazy" />
+        <figcaption>The hygiene Radar ranks anomalies by severity.</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="/blog/assets/sttns/05-playbook.jpg" width="1800" height="1125" alt="STTNS built-in Playbook" loading="lazy" />
+        <figcaption>The built-in Playbook explains the rules, formulas included.</figcaption>
+      </figure>
+
+      <h2>Under the hood: the stack</h2>
+      <p>
+        A Next.js application on Supabase. The main choice: the parent-link rules live in PostgreSQL, not in
+        the interface. A CSV import, a script or a new screen therefore go through the same checks. Access is
+        partitioned by project, at the level of database rows, and every change to an object is logged.
+      </p>
+      <div class="stack">
+        <section class="stack-groupe">
+          <h3>Application</h3>
+          <ul class="stack-liste">
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/nextdotjs.svg')" aria-hidden="true"></span><span class="stack-nom">Next.js</span><span class="stack-role">App Router, server-side rendering</span></li>
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/react.svg')" aria-hidden="true"></span><span class="stack-nom">React</span><span class="stack-role">Needs, Portfolio, Kanban and Radar screens</span></li>
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/typescript.svg')" aria-hidden="true"></span><span class="stack-nom">TypeScript</span><span class="stack-role">All the application code</span></li>
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/tailwindcss.svg')" aria-hidden="true"></span><span class="stack-nom">Tailwind CSS</span><span class="stack-role">Interface and components</span></li>
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/zod.svg')" aria-hidden="true"></span><span class="stack-nom">Zod</span><span class="stack-role">Validation of entered data</span></li>
+          </ul>
+        </section>
+        <section class="stack-groupe">
+          <h3>Visualisation</h3>
+          <ul class="stack-liste">
+            <li><span class="stack-ico is-generique" style="--ico: url('/blog/assets/icones/module.svg')" aria-hidden="true"></span><span class="stack-nom">React Flow</span><span class="stack-role">Mind map and dependency graph</span></li>
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/mermaid.svg')" aria-hidden="true"></span><span class="stack-nom">Mermaid</span><span class="stack-role">Playbook diagrams</span></li>
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/markdown.svg')" aria-hidden="true"></span><span class="stack-nom">Markdown</span><span class="stack-role">Rich descriptions for epics, features and stories</span></li>
+            <li><span class="stack-ico is-generique" style="--ico: url('/blog/assets/icones/module.svg')" aria-hidden="true"></span><span class="stack-nom">KaTeX</span><span class="stack-role">Formulas in descriptions and the Playbook</span></li>
+          </ul>
+        </section>
+        <section class="stack-groupe">
+          <h3>Data and security</h3>
+          <ul class="stack-liste">
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/supabase.svg')" aria-hidden="true"></span><span class="stack-nom">Supabase</span><span class="stack-role">Authentication, storage, data access</span></li>
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/postgresql.svg')" aria-hidden="true"></span><span class="stack-nom">PostgreSQL</span><span class="stack-role">Parent-link triggers, audit log</span></li>
+            <li><span class="stack-ico is-generique" style="--ico: url('/blog/assets/icones/module.svg')" aria-hidden="true"></span><span class="stack-nom">Row Level Security</span><span class="stack-role">Everyone sees only the projects they belong to</span></li>
+          </ul>
+        </section>
+        <section class="stack-groupe">
+          <h3>Tests and deployment</h3>
+          <ul class="stack-liste">
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/vitest.svg')" aria-hidden="true"></span><span class="stack-nom">Vitest</span><span class="stack-role">Unit and component tests</span></li>
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/docker.svg')" aria-hidden="true"></span><span class="stack-nom">Docker</span><span class="stack-role">Containerised app, Supabase running locally</span></li>
+          </ul>
+        </section>
+      </div>
+
+      <h2>What STTNS does not do</h2>
+      <p>
+        STTNS does not decide for the team, and it does not check that a pain is real; it only makes sure
+        everything traces back to a declared pain. Committing to a cycle, running a spike or dropping an idea
+        remains our call.
+      </p>
+      <p>
+        It does not yet measure, after a cycle, whether the announced impact happened. That is the next piece
+        of work. Nor does it plug into an existing ticketing tool: you import and export CSV, and it becomes
+        the reference backlog. Finally, it needs Supabase, so there is no online demo for now.
+      </p>
+    </article>
+
+    <section class="section demo-fin prose" id="demo" aria-labelledby="demo-titre">
+      <h2 id="demo-titre">Try it on your machine</h2>
+      <p class="demo-avertissement">
+        <strong>No online demo.</strong> STTNS relies on Supabase: the demo runs locally, in Docker, with the
+        Panier Local project reloaded exactly as shown. The full code and setup steps are on
+        <a href="https://github.com/FredericAtlan/STTNS" target="_blank" rel="noopener noreferrer">my GitHub</a>.
+      </p>
+      <pre class="code-block" data-lang="bash"><code>supabase start            # PostgreSQL, Auth, Storage in Docker
+supabase db reset         # installs the schema
+cp .env.example .env.local  # copy the keys from: supabase status -o env
+docker compose -f docker-compose.local.yml --env-file .env.local up -d --build
+./scripts/demo/seed-panier-local.sh you@example.com   # after creating your account</code></pre>
+      <p>Then open <code>http://localhost:3001</code>.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="y"></span> Frédéric Atlan · <a href="/en/blog/">Blog</a> · <a href="/en/">Home</a></p>
+  </footer>
+
+  <div class="lightbox" id="lightbox" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="Image preview">
+    <div class="lightbox__inner">
+      <button type="button" class="lightbox__close" id="lightbox-close" aria-label="Close">×</button>
+      <img id="lightbox-img" src="" alt="" />
+      <p class="lightbox__caption" id="lightbox-caption"></p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    (function () {
+      var embed = document.getElementById("demo-live");
+      var btn = document.getElementById("demo-expand");
+      if (embed && btn) {
+        function setExpanded(on) {
+          embed.classList.toggle("is-expanded", on);
+          document.body.classList.toggle("demo-expanded", on);
+          btn.setAttribute("aria-pressed", on ? "true" : "false");
+          btn.textContent = on ? "Collapse" : "Expand";
+          if (on) btn.focus();
+        }
+        btn.addEventListener("click", function () {
+          setExpanded(!embed.classList.contains("is-expanded"));
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && embed.classList.contains("is-expanded")) {
+            setExpanded(false);
+          }
+        });
+      }
+    })();
+
+    (function () {
+      var lb = document.getElementById("lightbox");
+      var lbImg = document.getElementById("lightbox-img");
+      var lbCap = document.getElementById("lightbox-caption");
+      var lbClose = document.getElementById("lightbox-close");
+      if (!lb || !lbImg) return;
+
+      function openLightbox(src, alt, caption) {
+        lbImg.src = src;
+        lbImg.alt = alt || "";
+        lbCap.textContent = caption || "";
+        document.body.appendChild(lb);
+        lb.hidden = false;
+        lb.style.cssText =
+          "position:fixed;inset:0;z-index:4000;display:flex;align-items:center;justify-content:center;padding:1.25rem;margin:0;background:rgba(4,8,16,0.92);";
+        lb.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        lbClose.focus();
+      }
+
+      function closeLightbox() {
+        lb.hidden = true;
+        lb.style.cssText = "";
+        lb.setAttribute("aria-hidden", "true");
+        lbImg.removeAttribute("src");
+        document.body.style.overflow = "";
+      }
+
+      document.querySelectorAll("figure.shot").forEach(function (fig) {
+        var img = fig.querySelector("img");
+        if (!img || img.closest("button.shot-zoom")) return;
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "shot-zoom";
+        btn.setAttribute(
+          "aria-label",
+          "Enlarge: " + (img.getAttribute("alt") || "figure")
+        );
+        img.replaceWith(btn);
+        btn.appendChild(img);
+        btn.addEventListener("click", function () {
+          var cap = fig.querySelector("figcaption");
+          openLightbox(
+            img.currentSrc || img.src,
+            img.alt,
+            cap ? cap.textContent.trim() : ""
+          );
+        });
+      });
+
+      lbClose.addEventListener("click", closeLightbox);
+      lb.addEventListener("click", function (e) {
+        if (e.target === lb || e.target === lbImg) closeLightbox();
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !lb.hidden) closeLightbox();
+      });
+    })();
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"
+    onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}], throwOnError:false});"></script>
+  <script defer src="/blog/assets/sttns/chaine.js"></script>
+</body>
+</html>
