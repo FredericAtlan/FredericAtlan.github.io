@@ -88,7 +88,7 @@
 /* Voile du hero renforcé pour la lisibilité */
 .page-projects.article .article-hero::after {
   background:
-    linear-gradient(90deg, rgba(7, 11, 20, 0.97) 0%, rgba(7, 11, 20, 0.94) 50%, rgba(7, 11, 20, 0.6) 78%, rgba(7, 11, 20, 0.35) 100%),
+    linear-gradient(90deg, rgba(7, 11, 20, 0.97) 0%, rgba(7, 11, 20, 0.96) 58%, rgba(7, 11, 20, 0.6) 80%, rgba(7, 11, 20, 0.35) 100%),
     linear-gradient(180deg, transparent 55%, rgba(7, 11, 20, 0.85) 100%),
     radial-gradient(120% 80% at 0% 100%, var(--accent-soft), transparent 60%);
 }
@@ -113,7 +113,7 @@
 .page-projects.article #demo h2::before { content: ""; display: block; width: 2.5rem; height: 3px; border-radius: 2px; background: var(--accent); margin-bottom: 0.9rem; }
 /* Pile technique : 4 colonnes sur bureau, pastilles sur téléphone */
 @media (min-width: 900px) { .page-projects.article .stack-liste { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-.page-projects.article .stack-liste li { align-items: start; }
+.page-projects.article .stack-liste li { align-items: start; align-content: start; }
 @media (max-width: 640px) {
   .page-projects.article .stack-liste { display: flex; flex-wrap: wrap; gap: 0.5rem; }
   .page-projects.article .stack-liste li { padding: 0.4rem 0.7rem; }
