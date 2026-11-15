@@ -1487,3 +1487,5 @@ ol.edu li {
 .article-hero .tech-icones { margin: 1.1rem 0 0; }
 .article-hero .tech-icones li { background: rgba(7, 11, 20, 0.55); }
 .page-projects.article .article-hero .tech-icones li { text-align: left; }
+.tech-icones { gap: 0.35rem; }
+.tech-icones li { min-width: 0; width: 2rem; padding: 0; }
