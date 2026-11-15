@@ -101,14 +101,14 @@
         Vous recevez des priorités d’un CEO ou d’un product manager et devez en faire des cycles de
         développement que vous pourrez défendre&nbsp;? STTNS relie chaque story à la douleur d’un utilisateur
         réel, laisse le Produit chiffrer la valeur et la Tech le coût, puis fait le rapport des deux. Une
-        feature sans valeur déclarée ne démarre pas. Je l’ai conçu chez Data Refiners pour une petite équipe
+        feature sans valeur déclarée ne démarre pas&nbsp;: pas de douleur, pas de produit. Je l’ai conçu chez Data Refiners pour une petite équipe
         d’experts&nbsp;; il est open source et la démonstration tourne sur votre machine.
       </p>
       <!-- tech: sttns-decision-os -->
       <ul class="tech-icones" aria-label="Technologies"><li title="Next.js"><span class="tech-ico" style="--ico: url('/blog/assets/icones/nextdotjs.svg')" aria-hidden="true"></span><span class="tech-nom">Next.js</span></li><li title="React"><span class="tech-ico" style="--ico: url('/blog/assets/icones/react.svg')" aria-hidden="true"></span><span class="tech-nom">React</span></li><li title="TypeScript"><span class="tech-ico" style="--ico: url('/blog/assets/icones/typescript.svg')" aria-hidden="true"></span><span class="tech-nom">TypeScript</span></li><li title="Tailwind CSS"><span class="tech-ico" style="--ico: url('/blog/assets/icones/tailwindcss.svg')" aria-hidden="true"></span><span class="tech-nom">Tailwind CSS</span></li><li title="Zod"><span class="tech-ico" style="--ico: url('/blog/assets/icones/zod.svg')" aria-hidden="true"></span><span class="tech-nom">Zod</span></li><li title="React Flow"><span class="tech-ico is-generique" style="--ico: url('/blog/assets/icones/module.svg')" aria-hidden="true"></span><span class="tech-nom">React Flow</span></li><li title="Mermaid"><span class="tech-ico" style="--ico: url('/blog/assets/icones/mermaid.svg')" aria-hidden="true"></span><span class="tech-nom">Mermaid</span></li><li title="Markdown"><span class="tech-ico" style="--ico: url('/blog/assets/icones/markdown.svg')" aria-hidden="true"></span><span class="tech-nom">Markdown</span></li><li title="KaTeX"><span class="tech-ico is-generique" style="--ico: url('/blog/assets/icones/module.svg')" aria-hidden="true"></span><span class="tech-nom">KaTeX</span></li><li title="Supabase"><span class="tech-ico" style="--ico: url('/blog/assets/icones/supabase.svg')" aria-hidden="true"></span><span class="tech-nom">Supabase</span></li><li title="PostgreSQL"><span class="tech-ico" style="--ico: url('/blog/assets/icones/postgresql.svg')" aria-hidden="true"></span><span class="tech-nom">PostgreSQL</span></li><li title="Row Level Security"><span class="tech-ico is-generique" style="--ico: url('/blog/assets/icones/module.svg')" aria-hidden="true"></span><span class="tech-nom">Row Level Security</span></li></ul>
       <!-- /tech -->
       <p class="cta-row">
-        <a class="btn btn-primary" href="#framework">Voir le framework ↓</a>
+        <a class="btn btn-primary" href="#manifeste">Lire le manifeste ↓</a>
         <a class="btn btn-ghost" href="https://github.com/FredericAtlan/STTNS" target="_blank" rel="noopener noreferrer">Code sur GitHub</a>
       </p>
     </header>
@@ -145,6 +145,46 @@
         discovery relient besoins et fonctionnalités, avec un abonnement par utilisateur, mais sans bloquer
         l’entrée en développement. J’ai préféré peu d’écrans et peu de champs, avec des règles qui bloquent
         vraiment.
+      </p>
+
+      <h2 id="manifeste">Le manifeste&nbsp;: le temps d’ingénierie est un capital</h2>
+      <p>
+        Le framework repose sur un manifeste, sorti des mêmes discussions d’équipe. Il part d’un constat&nbsp;: le risque
+        qui tue un produit ambitieux, ce n’est pas de mal coder, c’est de consacrer du temps d’ingénierie à
+        quelque chose dont personne ne veut. Chaque ligne écrite crée de la dette, un coût, et une maintenance
+        à vie.
+      </p>
+      <p>
+        Le temps est donc la ressource la plus rare de l’équipe, et on le traite comme un capital. Une idée
+        sans douleur identifiée, ou sans valeur démontrable, est gelée ou abandonnée. Elle ne va pas dormir au
+        fond d’un backlog en attendant son tour. La ligne directrice tient en une proportion&nbsp;:
+      </p>
+      <p>$$\mathrm{Impact}_{\text{équipe}} \propto \frac{\text{Valeur livrée}}{\text{Capital-temps investi}}$$</p>
+      <blockquote class="manifeste-regle">
+        <p><strong>Règle d’or</strong>&nbsp;: pas de douleur, pas de produit. Pas de validation, pas de code.</p>
+      </blockquote>
+      <p>
+        Le manifeste pose deux filtres humains, que l’équipe passe avant toute priorisation. Le premier,
+        «&nbsp;No Pain, No Product&nbsp;», vérifie que l’idée répond à une douleur réelle et pas à une préférence
+        interne. Il pose quatre questions&nbsp;: la douleur s’énonce-t-elle en une phrase, sans jargon&nbsp;?
+        revient-elle souvent dans le quotidien du persona&nbsp;? coûte-t-elle quelque chose de chiffrable, en
+        temps, en argent ou en confiance&nbsp;? la résoudre rapproche-t-il le produit de sa promesse&nbsp;?
+      </p>
+      <p>
+        Le second concerne les domaines sensibles&nbsp;: comptabilité, fiscalité, audit, scoring, conformité
+        KYC ou anti-blanchiment. On peut y prototyper pour apprendre, mais rien n’est livré sans la validation
+        d’un expert, décidée par l’équipe. Pas d’expertise, pas de logique réglementaire.
+      </p>
+      <ol class="manifeste-flux" aria-label="Du manifeste au code">
+        <li><span class="mf-etape">Idée brute</span></li>
+        <li><span class="mf-etape is-filtre">Filtre 0<small>douleur réelle&nbsp;?</small></span><span class="mf-stop">non → gel ou abandon</span></li>
+        <li><span class="mf-etape is-filtre">Filtre 0 bis<small>zone sensible validée&nbsp;?</small></span><span class="mf-stop">non → gel ou abandon</span></li>
+        <li><span class="mf-etape is-systeme">STTNS<small>chaîne et garde-fous codés</small></span></li>
+        <li><span class="mf-etape is-code">Code engagé</span></li>
+      </ol>
+      <p>
+        Ces deux filtres restent une discipline d’équipe&nbsp;: un logiciel ne peut pas juger qu’une douleur
+        est vraie. STTNS prend le relais juste après, et impose ce qui peut l’être.
       </p>
 
       <h2 id="framework">Le framework, maillon par maillon</h2>
@@ -287,8 +327,8 @@
 
       <h2>Ce que STTNS ne fait pas</h2>
       <p>
-        STTNS ne décide pas à la place de l’équipe, et il ne vérifie pas qu’une douleur est vraie&nbsp;; il
-        s’assure seulement que tout remonte à une douleur déclarée. Engager un cycle, faire un spike ou
+        STTNS ne décide pas à la place de l’équipe, et il ne vérifie pas qu’une douleur est vraie&nbsp;: c’est le
+        rôle du Filtre&nbsp;0, qui reste humain. L’outil s’assure seulement que tout remonte à une douleur déclarée. Engager un cycle, faire un spike ou
         abandonner une idée reste notre décision.
       </p>
       <p>

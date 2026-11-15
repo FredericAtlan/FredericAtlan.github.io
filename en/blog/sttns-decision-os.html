@@ -101,7 +101,7 @@
       <p class="section-lead">
         Do you get priorities from a CEO or a product manager and have to turn them into development cycles
         you can defend? STTNS ties every story to the pain of a real user, lets Product put a number on value
-        and Tech on cost, then divides one by the other. A feature with no declared value does not start. I
+        and Tech on cost, then divides one by the other. A feature with no declared value does not start: no pain, no product. I
         designed it at Data Refiners for a small team of experts; it is open source and the demo runs on your
         own machine.
       </p>
@@ -109,7 +109,7 @@
       <ul class="tech-icones" aria-label="Technologies"><li title="Next.js"><span class="tech-ico" style="--ico: url('/blog/assets/icones/nextdotjs.svg')" aria-hidden="true"></span><span class="tech-nom">Next.js</span></li><li title="React"><span class="tech-ico" style="--ico: url('/blog/assets/icones/react.svg')" aria-hidden="true"></span><span class="tech-nom">React</span></li><li title="TypeScript"><span class="tech-ico" style="--ico: url('/blog/assets/icones/typescript.svg')" aria-hidden="true"></span><span class="tech-nom">TypeScript</span></li><li title="Tailwind CSS"><span class="tech-ico" style="--ico: url('/blog/assets/icones/tailwindcss.svg')" aria-hidden="true"></span><span class="tech-nom">Tailwind CSS</span></li><li title="Zod"><span class="tech-ico" style="--ico: url('/blog/assets/icones/zod.svg')" aria-hidden="true"></span><span class="tech-nom">Zod</span></li><li title="React Flow"><span class="tech-ico is-generique" style="--ico: url('/blog/assets/icones/module.svg')" aria-hidden="true"></span><span class="tech-nom">React Flow</span></li><li title="Mermaid"><span class="tech-ico" style="--ico: url('/blog/assets/icones/mermaid.svg')" aria-hidden="true"></span><span class="tech-nom">Mermaid</span></li><li title="Markdown"><span class="tech-ico" style="--ico: url('/blog/assets/icones/markdown.svg')" aria-hidden="true"></span><span class="tech-nom">Markdown</span></li><li title="KaTeX"><span class="tech-ico is-generique" style="--ico: url('/blog/assets/icones/module.svg')" aria-hidden="true"></span><span class="tech-nom">KaTeX</span></li><li title="Supabase"><span class="tech-ico" style="--ico: url('/blog/assets/icones/supabase.svg')" aria-hidden="true"></span><span class="tech-nom">Supabase</span></li><li title="PostgreSQL"><span class="tech-ico" style="--ico: url('/blog/assets/icones/postgresql.svg')" aria-hidden="true"></span><span class="tech-nom">PostgreSQL</span></li><li title="Row Level Security"><span class="tech-ico is-generique" style="--ico: url('/blog/assets/icones/module.svg')" aria-hidden="true"></span><span class="tech-nom">Row Level Security</span></li></ul>
       <!-- /tech -->
       <p class="cta-row">
-        <a class="btn btn-primary" href="#framework">See the framework ↓</a>
+        <a class="btn btn-primary" href="#manifeste">Read the manifesto ↓</a>
         <a class="btn btn-ghost" href="https://github.com/FredericAtlan/STTNS" target="_blank" rel="noopener noreferrer">Code on GitHub</a>
       </p>
     </header>
@@ -144,6 +144,45 @@
         Backlog tools track tickets without knowing why they exist. Product discovery tools link needs and
         features, with a per-user subscription, but without blocking entry into development. I chose few
         screens and few fields, with rules that actually block.
+      </p>
+
+      <h2 id="manifeste">The manifesto: engineering time is capital</h2>
+      <p>
+        The framework rests on a manifesto that came out of the same team discussions. It starts from one observation: what kills an
+        ambitious product is not bad code, it is spending engineering time on something nobody wants. Every
+        line written creates debt, cost, and maintenance for life.
+      </p>
+      <p>
+        Time is therefore the team’s scarcest resource, and we treat it as capital. An idea with no identified
+        pain, or no demonstrable value, is frozen or dropped. It does not sit at the bottom of a backlog waiting
+        for its turn. The guiding line fits in one proportion:
+      </p>
+      <p>$$\mathrm{Impact}_{\text{team}} \propto \frac{\text{Value delivered}}{\text{Time capital invested}}$$</p>
+      <blockquote class="manifeste-regle">
+        <p><strong>Golden rule</strong>: no pain, no product. No validation, no code.</p>
+      </blockquote>
+      <p>
+        The manifesto sets two human filters the team goes through before any prioritisation. The first, “No
+        Pain, No Product”, checks that the idea answers a real pain rather than an internal preference. It
+        asks four questions: can the pain be stated in one sentence, without jargon? does it come up often in
+        the persona’s day? does it cost something measurable, in time, money or trust? does solving it bring
+        the product closer to its promise?
+      </p>
+      <p>
+        The second covers sensitive domains: accounting, tax, audit, scoring, KYC or anti-money-laundering
+        compliance. You can prototype there to learn, but nothing ships without an expert’s validation,
+        decided by the team. No expertise, no regulatory logic.
+      </p>
+      <ol class="manifeste-flux" aria-label="From manifesto to code">
+        <li><span class="mf-etape">Raw idea</span></li>
+        <li><span class="mf-etape is-filtre">Filter 0<small>real pain?</small></span><span class="mf-stop">no → freeze or drop</span></li>
+        <li><span class="mf-etape is-filtre">Filter 0 bis<small>sensitive area validated?</small></span><span class="mf-stop">no → freeze or drop</span></li>
+        <li><span class="mf-etape is-systeme">STTNS<small>chain and coded guardrails</small></span></li>
+        <li><span class="mf-etape is-code">Code committed</span></li>
+      </ol>
+      <p>
+        Both filters remain team discipline: software cannot judge whether a pain is real. STTNS takes over
+        right after, and enforces what can be enforced.
       </p>
 
       <h2 id="framework">The framework, link by link</h2>
@@ -284,8 +323,8 @@
 
       <h2>What STTNS does not do</h2>
       <p>
-        STTNS does not decide for the team, and it does not check that a pain is real; it only makes sure
-        everything traces back to a declared pain. Committing to a cycle, running a spike or dropping an idea
+        STTNS does not decide for the team, and it does not check that a pain is real: that is the job of
+        Filter 0, which stays human. The tool only makes sure everything traces back to a declared pain. Committing to a cycle, running a spike or dropping an idea
         remains our call.
       </p>
       <p>

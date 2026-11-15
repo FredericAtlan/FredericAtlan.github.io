@@ -5,3 +5,22 @@
   100% { stroke: rgba(232, 236, 244, 0.18); stroke-width: 1; fill: #131a2e; }
 }
 #demo pre.code-block { overflow-x: auto; max-width: 100%; }
+/* Manifeste : règle d’or et flux idée → code */
+.manifeste-regle { margin: 1.25rem 0; padding: 0.9rem 1.2rem; border-left: 3px solid var(--accent); background: rgba(69, 169, 156, 0.08); border-radius: 0 12px 12px 0; }
+.manifeste-regle p { margin: 0; font-size: 1.15rem; color: var(--paper); text-align: left !important; }
+.manifeste-flux { list-style: none; margin: 1.5rem 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.6rem; counter-reset: none; }
+.manifeste-flux li { position: relative; display: flex; flex-direction: column; gap: 0.4rem; margin: 0; text-align: center !important; }
+.manifeste-flux li:not(:last-child)::after { content: "→"; position: absolute; right: -0.55rem; top: 1.1rem; color: var(--muted); transform: translateX(50%); }
+.mf-etape { display: flex; flex-direction: column; justify-content: center; min-height: 3.6rem; padding: 0.5rem 0.6rem; border: 1px solid var(--line); border-radius: 12px; background: #131a2e; color: var(--paper); font-weight: 600; font-size: 0.95rem; }
+.mf-etape small { display: block; margin-top: 0.15rem; font-weight: 400; font-size: 0.78rem; color: var(--muted); }
+.mf-etape.is-filtre { border-color: rgba(245, 185, 74, 0.55); }
+.mf-etape.is-systeme { border-color: rgba(69, 169, 156, 0.7); }
+.mf-etape.is-code { background: #004d40; border-color: #004d40; }
+.mf-stop { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.72rem; color: #ef6b6b; }
+@media (max-width: 720px) {
+  .manifeste-flux { grid-template-columns: 1fr; }
+  .manifeste-flux li:not(:last-child)::after { content: "↓"; position: static; transform: none; }
+}
+.manifeste-flux li:not(:last-child)::after { font-size: 1.15rem; color: var(--accent); top: 1.15rem; right: -0.3rem; }
+.mf-stop { letter-spacing: 0; word-spacing: 0; }
+@media (max-width: 720px) { .manifeste-flux li:not(:last-child)::after { top: auto; right: auto; } }
