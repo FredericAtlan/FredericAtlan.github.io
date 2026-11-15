@@ -122,7 +122,7 @@
       </span>
       <span class="nav-sep" aria-hidden="true"></span>
       <span class="nav-cluster" role="group" aria-label="Publications">
-        <a class="nav-page" href="/en/blog/">Blog</a>
+        <a class="nav-page" href="/en/">Blog</a>
       </span>
       <span class="nav-sep" aria-hidden="true"></span>
       <span class="nav-cluster nav-lang" role="group" aria-label="Language">
@@ -144,51 +144,54 @@
       </p>
     </section>
 
-    <section class="section une" aria-labelledby="une-titre">
-      <p class="une-kicker">Featured · live demo</p>
-      <article class="une-carte">
-        <a class="une-visuel" href="/en/blog/cyclegen-architecture-pipeline.html" tabindex="-1" aria-hidden="true"><img src="/blog/assets/cyclegen/vignette.jpg" alt="" width="960" height="600" /></a>
-        <div class="une-corps">
-          <h2 id="une-titre"><a href="/en/blog/cyclegen-architecture-pipeline.html">CycleGen — driving cycles from a map</a></h2>
-          <p>Draw a route on a map and CycleGen turns it into a realistic speed profile (gradient, bends, traffic lights, traffic), then the wheel forces for the vehicle you pick. It is how I took vehicle modelling into an actual web product.</p>
-          <!-- tech: cyclegen-architecture-pipeline -->
-          <ul class="tech-icones" aria-label="Technologies"><li title="Next.js"><span class="tech-ico" style="--ico: url('/blog/assets/icones/nextdotjs.svg')" aria-hidden="true"></span><span class="tech-nom">Next.js</span></li><li title="React"><span class="tech-ico" style="--ico: url('/blog/assets/icones/react.svg')" aria-hidden="true"></span><span class="tech-nom">React</span></li><li title="TypeScript"><span class="tech-ico" style="--ico: url('/blog/assets/icones/typescript.svg')" aria-hidden="true"></span><span class="tech-nom">TypeScript</span></li><li title="Tailwind CSS"><span class="tech-ico" style="--ico: url('/blog/assets/icones/tailwindcss.svg')" aria-hidden="true"></span><span class="tech-nom">Tailwind CSS</span></li><li title="Leaflet"><span class="tech-ico" style="--ico: url('/blog/assets/icones/leaflet.svg')" aria-hidden="true"></span><span class="tech-nom">Leaflet</span></li><li title="Python"><span class="tech-ico" style="--ico: url('/blog/assets/icones/python.svg')" aria-hidden="true"></span><span class="tech-nom">Python</span></li><li title="FastAPI"><span class="tech-ico" style="--ico: url('/blog/assets/icones/fastapi.svg')" aria-hidden="true"></span><span class="tech-nom">FastAPI</span></li><li title="NumPy"><span class="tech-ico" style="--ico: url('/blog/assets/icones/numpy.svg')" aria-hidden="true"></span><span class="tech-nom">NumPy</span></li><li title="SciPy"><span class="tech-ico" style="--ico: url('/blog/assets/icones/scipy.svg')" aria-hidden="true"></span><span class="tech-nom">SciPy</span></li><li title="Pydantic"><span class="tech-ico" style="--ico: url('/blog/assets/icones/pydantic.svg')" aria-hidden="true"></span><span class="tech-nom">Pydantic</span></li><li title="OpenStreetMap"><span class="tech-ico" style="--ico: url('/blog/assets/icones/openstreetmap.svg')" aria-hidden="true"></span><span class="tech-nom">OpenStreetMap</span></li><li title="Mapbox"><span class="tech-ico" style="--ico: url('/blog/assets/icones/mapbox.svg')" aria-hidden="true"></span><span class="tech-nom">Mapbox</span></li><li title="HERE"><span class="tech-ico" style="--ico: url('/blog/assets/icones/here.svg')" aria-hidden="true"></span><span class="tech-nom">HERE</span></li></ul>
+    <section class="section articles-accueil" aria-labelledby="articles-titre">
+      <h2 id="articles-titre">Articles</h2>
+      <p class="section-lead">What I build, with the code and, when possible, a demo to try.</p>
+      <div class="tag-filter" role="navigation" aria-label="Filter by tag">
+        <span class="tag-filter-label">Tags</span>
+        <a class="tag tag-filter-btn is-active" href="/en/" data-filter="all">all</a>
+        <a class="tag tag-filter-btn" href="/en/?tag=projet" data-filter="projet">projet</a>
+        <a class="tag tag-filter-btn tag-ghost" href="/en/blog/tags/projet.html">project view →</a>
+      </div>
+
+      <p class="tag-filter-status" id="filter-status" hidden></p>
+
+      <ul class="project-list" id="article-list">
+
+        <li class="project-card has-thumb" data-tags="projet" data-id="sttns-decision-os">
+          <a class="card-thumb" href="/en/blog/sttns-decision-os.html" tabindex="-1" aria-hidden="true"><img src="/blog/assets/sttns/vignette.jpg" alt="" width="960" height="600" loading="lazy" /></a>
+          <div>
+            <p class="project-meta"><time datetime="2026-11-15">Nov 15, 2026</time> · <a class="tag" href="/en/blog/tags/projet.html">project</a></p>
+            <h2><a href="/en/blog/sttns-decision-os.html">STTNS — so that no line of code is written for nothing</a></h2>
+            <p>The tool I built at Data Refiners to steer a small team of experts: every story traces back to a real pain, and a feature with no declared value does not start.</p>
+          <!-- tech: sttns-decision-os -->
+          <ul class="tech-icones" aria-label="Technologies"><li title="Next.js"><span class="tech-ico" style="--ico: url('/blog/assets/icones/nextdotjs.svg')" aria-hidden="true"></span><span class="tech-nom">Next.js</span></li><li title="React"><span class="tech-ico" style="--ico: url('/blog/assets/icones/react.svg')" aria-hidden="true"></span><span class="tech-nom">React</span></li><li title="TypeScript"><span class="tech-ico" style="--ico: url('/blog/assets/icones/typescript.svg')" aria-hidden="true"></span><span class="tech-nom">TypeScript</span></li><li title="Tailwind CSS"><span class="tech-ico" style="--ico: url('/blog/assets/icones/tailwindcss.svg')" aria-hidden="true"></span><span class="tech-nom">Tailwind CSS</span></li><li title="Zod"><span class="tech-ico" style="--ico: url('/blog/assets/icones/zod.svg')" aria-hidden="true"></span><span class="tech-nom">Zod</span></li><li title="React Flow"><span class="tech-ico is-generique" style="--ico: url('/blog/assets/icones/module.svg')" aria-hidden="true"></span><span class="tech-nom">React Flow</span></li><li title="Mermaid"><span class="tech-ico" style="--ico: url('/blog/assets/icones/mermaid.svg')" aria-hidden="true"></span><span class="tech-nom">Mermaid</span></li><li title="Markdown"><span class="tech-ico" style="--ico: url('/blog/assets/icones/markdown.svg')" aria-hidden="true"></span><span class="tech-nom">Markdown</span></li><li title="KaTeX"><span class="tech-ico is-generique" style="--ico: url('/blog/assets/icones/module.svg')" aria-hidden="true"></span><span class="tech-nom">KaTeX</span></li><li title="Supabase"><span class="tech-ico" style="--ico: url('/blog/assets/icones/supabase.svg')" aria-hidden="true"></span><span class="tech-nom">Supabase</span></li><li title="PostgreSQL"><span class="tech-ico" style="--ico: url('/blog/assets/icones/postgresql.svg')" aria-hidden="true"></span><span class="tech-nom">PostgreSQL</span></li><li title="Row Level Security"><span class="tech-ico is-generique" style="--ico: url('/blog/assets/icones/module.svg')" aria-hidden="true"></span><span class="tech-nom">Row Level Security</span></li></ul>
           <!-- /tech -->
-          <ul class="une-tags" aria-label="Topics"><li>Modelling</li><li>Simulation</li><li>Web2</li></ul>
-          <p class="une-actions">
-            <a class="btn btn-primary" href="https://fredericatlan.github.io/CycleGen/" target="_blank" rel="noopener noreferrer">Try the demo ↗</a>
-            <a class="btn btn-ghost" href="/en/blog/cyclegen-architecture-pipeline.html">Read the article</a>
-            <a class="btn btn-ghost" href="https://github.com/FredericAtlan/CycleGen" target="_blank" rel="noopener noreferrer">Code ↗</a>
-          </p>
-        </div>
-      </article>
-    </section>
-
-    <section class="section" aria-labelledby="chantiers-titre">
-      <h2 id="chantiers-titre">What the Lab is working on</h2>
-      <p class="section-lead">The topics I am working on right now.</p>
-      <ul class="chantiers">
-        <li class="chantier">
-          <span class="chantier-num">01</span>
-          <h3>Modelling &amp; simulation</h3>
-          <p>Twenty years of 0D/1D/3D modelling, carried over into open tools, starting with driving cycles and energy.</p>
-          <p class="chantier-lien"><a href="/en/blog/cyclegen-architecture-pipeline.html">CycleGen →</a></p>
+            <p class="project-actions">
+              <a class="btn btn-primary" href="/en/blog/sttns-decision-os.html">Read the article</a>
+              <a class="btn btn-ghost" href="https://github.com/FredericAtlan/STTNS" target="_blank" rel="noopener noreferrer">Code on GitHub ↗</a>
+            </p>
+          </div>
         </li>
-        <li class="chantier">
-          <span class="chantier-num">02</span>
-          <h3>Web3 &amp; proof-based trust</h3>
-          <p>Contracts that pay once a proof is verified, and give the money back if the deadline passes without delivery.</p>
-
-          <p class="chantier-lien chantier-bientot">Article coming soon</p>
-                  </li>
-        <li class="chantier">
-          <span class="chantier-num">03</span>
-          <h3>Data &amp; multi-agent AI</h3>
-          <p>Agents that write code and review each other, working on data whose origin you can trace.</p>
-          <p class="chantier-lien chantier-bientot">Article coming soon</p>
+                <li class="project-card has-thumb" data-tags="projet" data-id="cyclegen-architecture-pipeline">
+          <a class="card-thumb" href="/en/blog/cyclegen-architecture-pipeline.html" tabindex="-1" aria-hidden="true"><img src="/blog/assets/cyclegen/vignette.jpg" alt="" width="960" height="600" loading="lazy" /></a>
+          <div>
+            <p class="project-meta">
+              <time datetime="2026-10-27">Oct 27, 2026</time>
+              · <a class="tag" href="/en/blog/tags/projet.html">project</a>
+            </p>
+            <h2><a href="/en/blog/cyclegen-architecture-pipeline.html">CycleGen — driving cycles from a map</a></h2>
+            <p>From a route on a map to a speed profile and wheel forces. Live demo embedded in the page.</p>
+          <!-- tech: cyclegen-architecture-pipeline -->
+          <ul class="tech-icones" aria-label="Technologies"><li title="Next.js"><span class="tech-ico" style="--ico: url('/blog/assets/icones/nextdotjs.svg')" aria-hidden="true"></span><span class="tech-nom">Next.js</span></li><li title="React"><span class="tech-ico" style="--ico: url('/blog/assets/icones/react.svg')" aria-hidden="true"></span><span class="tech-nom">React</span></li><li title="TypeScript"><span class="tech-ico" style="--ico: url('/blog/assets/icones/typescript.svg')" aria-hidden="true"></span><span class="tech-nom">TypeScript</span></li><li title="Tailwind CSS"><span class="tech-ico" style="--ico: url('/blog/assets/icones/tailwindcss.svg')" aria-hidden="true"></span><span class="tech-nom">Tailwind CSS</span></li><li title="Leaflet"><span class="tech-ico" style="--ico: url('/blog/assets/icones/leaflet.svg')" aria-hidden="true"></span><span class="tech-nom">Leaflet</span></li><li title="Recharts"><span class="tech-ico is-generique" style="--ico: url('/blog/assets/icones/module.svg')" aria-hidden="true"></span><span class="tech-nom">Recharts</span></li><li title="Python"><span class="tech-ico" style="--ico: url('/blog/assets/icones/python.svg')" aria-hidden="true"></span><span class="tech-nom">Python</span></li><li title="FastAPI"><span class="tech-ico" style="--ico: url('/blog/assets/icones/fastapi.svg')" aria-hidden="true"></span><span class="tech-nom">FastAPI</span></li><li title="NumPy"><span class="tech-ico" style="--ico: url('/blog/assets/icones/numpy.svg')" aria-hidden="true"></span><span class="tech-nom">NumPy</span></li><li title="SciPy"><span class="tech-ico" style="--ico: url('/blog/assets/icones/scipy.svg')" aria-hidden="true"></span><span class="tech-nom">SciPy</span></li><li title="Pydantic"><span class="tech-ico" style="--ico: url('/blog/assets/icones/pydantic.svg')" aria-hidden="true"></span><span class="tech-nom">Pydantic</span></li><li title="OpenStreetMap"><span class="tech-ico" style="--ico: url('/blog/assets/icones/openstreetmap.svg')" aria-hidden="true"></span><span class="tech-nom">OpenStreetMap</span></li><li title="OSRM"><span class="tech-ico is-generique" style="--ico: url('/blog/assets/icones/api.svg')" aria-hidden="true"></span><span class="tech-nom">OSRM</span></li><li title="Overpass"><span class="tech-ico is-generique" style="--ico: url('/blog/assets/icones/api.svg')" aria-hidden="true"></span><span class="tech-nom">Overpass</span></li><li title="Photon · Nominatim"><span class="tech-ico is-generique" style="--ico: url('/blog/assets/icones/api.svg')" aria-hidden="true"></span><span class="tech-nom">Photon · Nominatim</span></li><li title="Open-Meteo · Open-Elevation · OpenTopoData"><span class="tech-ico is-generique" style="--ico: url('/blog/assets/icones/api.svg')" aria-hidden="true"></span><span class="tech-nom">Open-Meteo · Open-Elevation · OpenTopoData</span></li><li title="Mapbox"><span class="tech-ico" style="--ico: url('/blog/assets/icones/mapbox.svg')" aria-hidden="true"></span><span class="tech-nom">Mapbox</span></li><li title="HERE"><span class="tech-ico" style="--ico: url('/blog/assets/icones/here.svg')" aria-hidden="true"></span><span class="tech-nom">HERE</span></li></ul>
+          <!-- /tech -->
+            <p class="project-actions">
+              <a class="btn btn-primary" href="/en/blog/cyclegen-architecture-pipeline.html">Read the article</a>
+              <a class="btn btn-ghost" href="https://github.com/FredericAtlan/CycleGen" target="_blank" rel="noopener noreferrer">Code on GitHub ↗</a>
+            </p>
+          </div>
         </li>
       </ul>
-      <p class="section-suite"><a class="btn btn-ghost" href="/en/blog/">All blog articles</a></p>
     </section>
   </main>
 
@@ -198,6 +201,49 @@
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var tag = (params.get("tag") || "").trim().toLowerCase();
+      var cards = document.querySelectorAll("#article-list .project-card");
+      var buttons = document.querySelectorAll(".tag-filter-btn[data-filter]");
+      var status = document.getElementById("filter-status");
+
+      function apply(filter) {
+        var n = 0;
+        cards.forEach(function (card) {
+          var tags = (card.getAttribute("data-tags") || "")
+            .split(/\s+/)
+            .filter(Boolean);
+          var show = !filter || filter === "all" || tags.indexOf(filter) !== -1;
+          card.hidden = !show;
+          if (show) n += 1;
+        });
+        buttons.forEach(function (btn) {
+          var f = btn.getAttribute("data-filter");
+          btn.classList.toggle(
+            "is-active",
+            (filter === "all" && f === "all") || f === filter
+          );
+        });
+        if (status) {
+          if (filter && filter !== "all") {
+            status.hidden = false;
+            status.textContent =
+              n +
+              " article" +
+              (n > 1 ? "s" : "") +
+              " · tag “" +
+              filter +
+              "”";
+          } else {
+            status.hidden = true;
+            status.textContent = "";
+          }
+        }
+      }
+
+      apply(tag || "all");
+    })();
   </script>
 </body>
 </html>
