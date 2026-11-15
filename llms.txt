@@ -34,6 +34,7 @@ French · English · Spanish
 ## Personal projects (open source)
 - Blog (home page; projects are tagged "projet"): https://fredericatlan.github.io/
 - CycleGen — synthetic driving cycles from real routes (one blog post, embedded demo): https://fredericatlan.github.io/blog/cyclegen-architecture-pipeline.html
+- STTNS — open-source product steering tool where every story traces back to a persona's pain (one blog post, code on GitHub: https://github.com/FredericAtlan/STTNS): https://fredericatlan.github.io/blog/sttns-decision-os.html
 
 ## Topics / keywords
 digital engineering, digital transformation, simulation factories, multiphysics synthesis, model governance, engineering productivity, AI applied to industrial operations, France–India delivery, Ampere, Renault, electrification, CycleGen, driving cycles

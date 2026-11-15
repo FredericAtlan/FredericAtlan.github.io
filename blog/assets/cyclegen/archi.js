@@ -15,7 +15,7 @@
     script:   { x: 30,  y: 400, t: T("Script ou pipeline", "Script or pipeline"), s: T("appel HTTP, sans écran", "HTTP calls, no screen") },
     api:      { x: 400, y: 70,  t: "API FastAPI", s: T("serveur Python", "Python server") },
     corridor: { x: 400, y: 220, t: "Corridor", s: T("gardé en mémoire 1 h", "kept in memory 1 h") },
-    idm:      { x: 400, y: 400, t: T("Solveur conducteur", "Driver solver"), s: "IDM · Eco / Normal / Sport" },
+    idm:      { x: 400, y: 400, t: T("Solveur conducteur", "Driver solver"), s: "IDM · Eco / Normal / Sportif" },
     photon:   { x: 770, y: 30,  t: "Photon", s: T("adresses → GPS", "addresses → GPS") },
     osrm:     { x: 770, y: 120, t: "OSRM", s: T("itinéraire", "routing") },
     altitude: { x: 770, y: 210, t: T("Altitude", "Elevation"), s: "Open-Meteo · OpenTopoData" },
@@ -45,7 +45,7 @@
       legende: T("La voie rapide : le corridor est déjà en mémoire, aucun service extérieur n’est rappelé.",
                  "The fast lane: the corridor is already in memory, no external service is called."),
       etapes: [
-        ["atelier", "api", "POST /api/simulate/start", T("Nouveau profil de conducteur : Eco, Normal ou Sport.", "New driver profile: Eco, Normal or Sport.")],
+        ["atelier", "api", "POST /api/simulate/start", T("Nouveau profil de conducteur : Eco, Normal ou Sportif.", "New driver profile: Eco, Normal or Sportif.")],
         ["corridor", "idm", T("corridor en cache", "cached corridor"), T("Le solveur relit le corridor sans rappeler les services.", "The solver reads the corridor without calling the services again.")],
         ["idm", "api", "t, v, s, a", T("Le conducteur IDM roule sous l’enveloppe, seconde par seconde.", "The IDM driver runs under the envelope, second by second.")],
         ["api", "atelier", T("cycle", "cycle"), T("Le cycle revient à l’atelier.", "The cycle comes back to the workbench.")],
@@ -55,7 +55,7 @@
       legende: T("Tout se passe dans l’atelier : aucun appel au serveur.",
                  "Everything happens in the workbench: no server call."),
       etapes: [
-        ["atelier", "vehicule", T("masse, F0 F1 F2", "mass, F0 F1 F2"), T("Seuls la masse et la loi de route changent.", "Only mass and road-load law change.")],
+        ["atelier", "vehicule", T("masse, F0 F1 F2, rayon", "mass, F0 F1 F2, radius"), T("Seuls changent la masse, la loi de route et le rayon de roue.", "Only mass, road-load law and wheel radius change.")],
         ["vehicule", "atelier", T("forces, couple, puissance", "forces, torque, power"), T("Recalcul instantané des courbes, le cycle reste le même.", "Curves are recomputed instantly; the cycle stays the same.")]
       ] },
     { id: "serie", nom: T("Série par script", "Batch by script"), c: "#b48cff",
