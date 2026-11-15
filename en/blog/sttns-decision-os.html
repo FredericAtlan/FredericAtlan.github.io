@@ -302,12 +302,6 @@
         Panier Local project reloaded exactly as shown. The full code and setup steps are on
         <a href="https://github.com/FredericAtlan/STTNS" target="_blank" rel="noopener noreferrer">my GitHub</a>.
       </p>
-      <pre class="code-block" data-lang="bash"><code>supabase start            # PostgreSQL, Auth, Storage in Docker
-supabase db reset         # installs the schema
-cp .env.example .env.local  # copy the keys from: supabase status -o env
-docker compose -f docker-compose.local.yml --env-file .env.local up -d --build
-./scripts/demo/seed-panier-local.sh you@example.com   # after creating your account</code></pre>
-      <p>Then open <code>http://localhost:3001</code>.</p>
     </section>
   </main>
 
