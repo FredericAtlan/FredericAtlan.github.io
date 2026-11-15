@@ -41,7 +41,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Syne:wght@500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=20261027f" />
+  <link rel="stylesheet" href="../styles.css?v=20261115a" />
   <link rel="stylesheet" href="/blog/assets/cyclegen/archi.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous" />
 
@@ -97,11 +97,11 @@
   <main id="top" class="section page-projects article has-demo">
     <header class="article-hero" style="--hero-img: url('/blog/assets/cyclegen/06-trajet-pico-veleta.jpg')">
       <p class="hero-kicker"><time datetime="2026-10-27">27 octobre 2026</time> · <span class="tag">projet</span></p>
-      <h1>CycleGen — cycles de conduite depuis une carte</h1>
+      <h1><span class="nom-propre">CycleGen</span> — cycles de conduite depuis une carte</h1>
       <p class="section-lead">
-        Tracez un trajet, choisissez un véhicule et un style de conduite&nbsp;: CycleGen produit le cycle
+        Tracez un trajet, choisissez un véhicule et un style de conduite&nbsp;: <span class="nom-propre">CycleGen</span> produit le cycle
         de roulage qui alimente les modèles servant à dimensionner freins, régénération et batterie. Les outils du commerce que
-        j’utilisais pour ça coûtent plusieurs dizaines de milliers d’euros par an. CycleGen est open source,
+        j’utilisais pour ça coûtent plusieurs dizaines de milliers d’euros par an. <span class="nom-propre">CycleGen</span> est open source,
         et la démo vous attend en fin d’article.
       </p>
 
@@ -121,7 +121,7 @@
         des cycles qui ressemblent à l’usage réel, et savoir quels points de fonctionnement reviennent souvent.
       </p>
       <p>
-        CycleGen part d’un trajet sur une carte. Il lit les limitations de vitesse (OpenStreetMap, OSRM).
+        <span class="nom-propre">CycleGen</span> part d’un trajet sur une carte. Il lit les limitations de vitesse (OpenStreetMap, OSRM).
         La courbure de la route borne la vitesse en virage par un confort latéral. Pour les feux, les grands
         axes ont une onde verte&nbsp;; ailleurs, l’état rouge ou vert est tiré avec une graine fixe, donc le
         même trajet donne le même cycle. Avec une clé
@@ -372,7 +372,7 @@ def _road_load_n(v_mps: float, plant: VehiclePlant) -> float:
         Ce qui m’intéressait surtout, c’était la montagne. La démo ouvre une étude énergie sur
         une trace de référence du Grossglockner (14&nbsp;km, 1&nbsp;250&nbsp;m de dénivelé négatif, vitesse
         synthétisée à partir de la pente et des virages). Les captures ci-dessous viennent d’un trajet
-        calculé par CycleGen sur le Pico Veleta.
+        calculé par <span class="nom-propre">CycleGen</span> sur le Pico Veleta.
       </p>
 
       <figure class="shot">
@@ -387,12 +387,12 @@ def _road_load_n(v_mps: float, plant: VehiclePlant) -> float:
         (suivi d’enveloppe, pic de couple) au lieu de passer son temps à réorganiser neuf panneaux.
       </p>
 
-      <h2>Ce que CycleGen ne fait pas</h2>
+      <h2>Ce que <span class="nom-propre">CycleGen</span> ne fait pas</h2>
       <p>
-        CycleGen calcule le profil de roulage et l’effort total aux roues, pas sa répartition.
+        <span class="nom-propre">CycleGen</span> calcule le profil de roulage et l’effort total aux roues, pas sa répartition.
         Le partage entre frein mécanique et régénération dépend des limites thermiques et de l’état
         de charge du groupe motopropulseur&nbsp;: c’est le travail d’un autre modèle, qui prend les
-        profils de CycleGen en entrée.
+        profils de <span class="nom-propre">CycleGen</span> en entrée.
       </p>
       <p>
         Autres limites&nbsp;: il ne remplace ni une campagne terrain ni une homologation. Il ignore la

@@ -41,7 +41,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Syne:wght@500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css?v=20261027f" />
+  <link rel="stylesheet" href="/styles.css?v=20261115a" />
   <link rel="stylesheet" href="/blog/assets/cyclegen/archi.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous" />
 
@@ -98,11 +98,11 @@
   <main id="top" class="section page-projects article has-demo">
     <header class="article-hero" style="--hero-img: url('/blog/assets/cyclegen/06-trajet-pico-veleta.jpg')">
       <p class="hero-kicker"><time datetime="2026-10-27">October 27, 2026</time> · <span class="tag">project</span></p>
-      <h1>CycleGen — driving cycles from a map</h1>
+      <h1><span class="nom-propre">CycleGen</span> — driving cycles from a map</h1>
       <p class="section-lead">
-        Draw a route, pick a vehicle and a driving style: CycleGen produces the driving cycle that feeds
+        Draw a route, pick a vehicle and a driving style: <span class="nom-propre">CycleGen</span> produces the driving cycle that feeds
         the models used to size brakes, regeneration and the battery. The commercial tools I used for
-        this cost tens of thousands of euros a year. CycleGen is open source, and the demo is waiting at the end of the article.
+        this cost tens of thousands of euros a year. <span class="nom-propre">CycleGen</span> is open source, and the demo is waiting at the end of the article.
       </p>
 
       <p class="cta-row">
@@ -121,7 +121,7 @@
         use, and you need to know which operating points come up often.
       </p>
       <p>
-        CycleGen starts from a route on a map. It reads the speed limits (OpenStreetMap, OSRM).
+        <span class="nom-propre">CycleGen</span> starts from a route on a map. It reads the speed limits (OpenStreetMap, OSRM).
         Road curvature caps cornering speed through a lateral comfort limit. For traffic lights, major
         roads get a green wave; elsewhere, red or green is drawn with a fixed seed, so the same route
         always gives the same cycle. With a Mapbox key, you can add traffic slowdowns based on the
@@ -370,7 +370,7 @@ def _road_load_n(v_mps: float, plant: VehiclePlant) -> float:
       <p>
         What I cared about most was the mountains. The demo opens an energy study on a Grossglockner
         reference trace (14&nbsp;km, 1,250&nbsp;m of descent, speed synthesized from the grade and the bends).
-        The screenshots below come from a route that CycleGen computed on Pico Veleta.
+        The screenshots below come from a route that <span class="nom-propre">CycleGen</span> computed on Pico Veleta.
       </p>
 
       <figure class="shot">
@@ -385,11 +385,11 @@ def _road_load_n(v_mps: float, plant: VehiclePlant) -> float:
         happening (envelope tracking, a torque peak) instead of spending their time rearranging nine panels.
       </p>
 
-      <h2>What CycleGen does not do</h2>
+      <h2>What <span class="nom-propre">CycleGen</span> does not do</h2>
       <p>
-        CycleGen computes the driving profile and the total effort at the wheels, not how that effort
+        <span class="nom-propre">CycleGen</span> computes the driving profile and the total effort at the wheels, not how that effort
         is split. The split between friction brakes and regeneration depends on the thermal limits and
-        the state of charge of the powertrain. That is the job of another model, which takes CycleGen
+        the state of charge of the powertrain. That is the job of another model, which takes <span class="nom-propre">CycleGen</span>
         profiles as input.
       </p>
       <p>
