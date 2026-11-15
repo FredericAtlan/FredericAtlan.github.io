@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>STTNS — so that no line of code is written for nothing | Blog Frédéric Atlan</title>
-  <meta name="description" content="STTNS, the tool I built at Data Refiners to steer a small team of experts: every story traces back to a real pain, and an idea without value cannot enter development." />
+  <title>STTNS — starting from persona needs to decide what gets coded | Blog Frédéric Atlan</title>
+  <meta name="description" content="STTNS, the open-source tool I built at Data Refiners: every story traces back to a persona’s pain, Product scores value, experts estimate cost, and the tool does the division." />
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Frédéric Atlan" />
   <link rel="canonical" href="https://fredericatlan.github.io/en/blog/sttns-decision-os.html" />
@@ -15,8 +15,8 @@
 
   <meta property="og:site_name" content="FredericAtlan Lab" />
   <meta property="og:locale" content="en_US" />
-  <meta property="og:title" content="STTNS — so that no line of code is written for nothing" />
-  <meta property="og:description" content="Steering a team of experts without Excel or Jira: every story traces back to a real pain. Animated framework, local demo." />
+  <meta property="og:title" content="STTNS — starting from persona needs to decide what gets coded" />
+  <meta property="og:description" content="Deciding what gets coded from persona needs: animated chain, demo project and public code." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://fredericatlan.github.io/en/blog/sttns-decision-os.html" />
   <meta property="og:image" content="https://fredericatlan.github.io/blog/assets/sttns/03-kanban-cycle.jpg" />
@@ -32,8 +32,8 @@
   <meta name="keywords" content="STTNS, product management, jobs-to-be-done, persona, value effort, engineering management, project" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="STTNS — so that no line of code is written for nothing" />
-  <meta name="twitter:description" content="Steering a team of experts without Excel or Jira: every story traces back to a real pain. Animated framework, local demo." />
+  <meta name="twitter:title" content="STTNS — starting from persona needs to decide what gets coded" />
+  <meta name="twitter:description" content="Deciding what gets coded from persona needs: animated chain, demo project and public code." />
   <meta name="twitter:image" content="https://fredericatlan.github.io/blog/assets/sttns/03-kanban-cycle.jpg" />
 
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
@@ -49,7 +49,7 @@
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "STTNS — so that no line of code is written for nothing",
+    "headline": "STTNS — starting from persona needs to decide what gets coded",
     "inLanguage": "en",
     "datePublished": "2026-11-15",
     "dateModified": "2026-11-15",
@@ -63,7 +63,7 @@
       "name": "Frédéric Atlan"
     },
     "mainEntityOfPage": "https://fredericatlan.github.io/en/blog/sttns-decision-os.html",
-    "description": "Steering a team of experts without Excel or Jira: every story traces back to a real pain. Animated framework, local demo.",
+    "description": "Deciding what gets coded from persona needs: animated chain, demo project and public code.",
     "keywords": ["project", "STTNS", "product management", "jobs-to-be-done"],
     "articleSection": "project",
     "image": [
@@ -83,10 +83,6 @@
         <a href="/en/parcours/#contact">Contact</a>
       </span>
       <span class="nav-sep" aria-hidden="true"></span>
-      <span class="nav-cluster" role="group" aria-label="Publications">
-        <a class="nav-page" href="/en/" aria-current="page">Blog</a>
-      </span>
-      <span class="nav-sep" aria-hidden="true"></span>
       <span class="nav-cluster nav-lang" role="group" aria-label="Language">
         <a href="/blog/sttns-decision-os.html" hreflang="fr" lang="fr">FR</a>
         <a href="/en/blog/sttns-decision-os.html" hreflang="en" lang="en" aria-current="true">EN</a>
@@ -95,194 +91,209 @@
   </header>
 
   <main id="top" class="section page-projects article">
-    <header class="article-hero" style="--hero-img: url('/blog/assets/sttns/03-kanban-cycle.jpg')">
+    <header class="article-hero" style="--hero-img: url('/blog/assets/sttns/01-matrice-besoins.jpg')">
       <p class="hero-kicker"><time datetime="2026-11-15">November 15, 2026</time> · <span class="tag">project</span></p>
-      <h1>STTNS — so that no line of code is written for nothing</h1>
+      <h1>STTNS — starting from persona needs to decide what gets coded</h1>
       <p class="section-lead">
-        Do you get priorities from a CEO or a product manager and have to turn them into development cycles
-        you can defend? STTNS ties every story to the pain of a real user, lets Product put a number on value
-        and Tech on cost, then divides one by the other. A feature with no declared value does not start: no pain, no product. I
-        designed it at Data Refiners for a small team of experts; it is open source and the demo runs on your
-        own machine.
+        Every week I have to decide where a few experts spend their time. At Data Refiners, a spreadsheet was no
+        longer enough and ticketing tools asked too much of us. So I built STTNS: every story traces back to
+        the pain of a real user, Product scores the value, the experts estimate the cost, and the tool does
+        the division. The code is public.
       </p>
       <!-- tech: sttns-decision-os -->
       <ul class="tech-icones" aria-label="Technologies"><li title="Next.js"><span class="tech-ico" style="--ico: url('/blog/assets/icones/nextdotjs.svg')" aria-hidden="true"></span><span class="tech-nom">Next.js</span></li><li title="React"><span class="tech-ico" style="--ico: url('/blog/assets/icones/react.svg')" aria-hidden="true"></span><span class="tech-nom">React</span></li><li title="TypeScript"><span class="tech-ico" style="--ico: url('/blog/assets/icones/typescript.svg')" aria-hidden="true"></span><span class="tech-nom">TypeScript</span></li><li title="Tailwind CSS"><span class="tech-ico" style="--ico: url('/blog/assets/icones/tailwindcss.svg')" aria-hidden="true"></span><span class="tech-nom">Tailwind CSS</span></li><li title="Zod"><span class="tech-ico" style="--ico: url('/blog/assets/icones/zod.svg')" aria-hidden="true"></span><span class="tech-nom">Zod</span></li><li title="React Flow"><span class="tech-ico is-generique" style="--ico: url('/blog/assets/icones/module.svg')" aria-hidden="true"></span><span class="tech-nom">React Flow</span></li><li title="Mermaid"><span class="tech-ico" style="--ico: url('/blog/assets/icones/mermaid.svg')" aria-hidden="true"></span><span class="tech-nom">Mermaid</span></li><li title="Markdown"><span class="tech-ico" style="--ico: url('/blog/assets/icones/markdown.svg')" aria-hidden="true"></span><span class="tech-nom">Markdown</span></li><li title="KaTeX"><span class="tech-ico is-generique" style="--ico: url('/blog/assets/icones/module.svg')" aria-hidden="true"></span><span class="tech-nom">KaTeX</span></li><li title="Supabase"><span class="tech-ico" style="--ico: url('/blog/assets/icones/supabase.svg')" aria-hidden="true"></span><span class="tech-nom">Supabase</span></li><li title="PostgreSQL"><span class="tech-ico" style="--ico: url('/blog/assets/icones/postgresql.svg')" aria-hidden="true"></span><span class="tech-nom">PostgreSQL</span></li><li title="Row Level Security"><span class="tech-ico is-generique" style="--ico: url('/blog/assets/icones/module.svg')" aria-hidden="true"></span><span class="tech-nom">Row Level Security</span></li></ul>
       <!-- /tech -->
       <p class="cta-row">
-        <a class="btn btn-primary" href="#manifeste">Read the manifesto ↓</a>
+        <a class="btn btn-primary" href="#chaine">See the animated chain ↓</a>
         <a class="btn btn-ghost" href="https://github.com/FredericAtlan/STTNS" target="_blank" rel="noopener noreferrer">Code on GitHub</a>
       </p>
     </header>
 
+    <aside class="en-bref" aria-label="In short">
+      <p class="en-bref-titre">In short</p>
+      <ul>
+        <li><strong>What.</strong> An open-source product steering tool where nothing gets coded unless it traces back to a declared need.</li>
+        <li><strong>For whom.</strong> A CTO or engineering manager who takes priorities from a CEO or a product manager.</li>
+        <li><strong>Adopting it.</strong> The code is on GitHub and the demo runs locally in Docker. You import your existing backlog as CSV: STTNS replaces it rather than plugging into it.</li>
+      </ul>
+      <nav class="sommaire" aria-label="Contents">
+        <p class="en-bref-titre">Contents</p>
+        <ol>
+          <li><a href="#depart">The starting point</a></li>
+          <li><a href="#services">The services we owe our personas</a></li>
+          <li><a href="#manifeste">The manifesto</a></li>
+          <li><a href="#chaine">The animated chain</a></li>
+          <li><a href="#valeur-cout">Value, cost, ratio</a></li>
+          <li><a href="#panier-local">Demo</a></li>
+          <li><a href="#sous-le-capot">Under the hood</a></li>
+          <li><a href="#limites">Limits</a></li>
+        </ol>
+      </nav>
+    </aside>
+
     <article class="project-detail prose">
-      <h2>Why I built it</h2>
+      <h2 id="depart">The starting point: where the experts’ time goes</h2>
       <p>
-        Leading a handful of experts means deciding every week where their time goes. In a spreadsheet you
-        quickly lose track: who asked for this feature, for which customer, with what expected benefit? The
-        ticketing tools on the market track a ticket’s progress very well, the reason it exists much less so,
-        and setting them up would have cost us more time than we had.
+        In a spreadsheet, I kept losing the thread. Who asked for this function, for which customer, with what
+        expected benefit? Ticketing tools track a ticket’s progress very well, its reason for existing much
+        less so, and configuring them would have taken more time than we had. I also needed a teaching tool,
+        so that working from personas and their <em>jobs-to-be-done</em> (JTBD, what the user is trying to
+        get done) showed up on screen instead of staying a principle stated in meetings.
       </p>
       <p>
-        I also needed a teaching tool. Starting from the personas’ pain points and their jobs-to-be-done
-        (JTBD, what the user is trying to get done) is something everyone agrees with in a meeting, and far
-        fewer teams actually practise. I wanted the method to be visible on screen, without having to remind
-        people of it at every team meeting.
-      </p>
-      <p>
-        At first I meant to implement the <em>Straight to the North Star</em> framework, hence the name. I did,
-        then found that the North Star Metric, the single metric that acts as a compass, fitted our work
-        poorly. We do software development led by experts, and the value of a week’s work does not fit in one
-        number. The current framework came out of team discussions around a simple question: how do we choose
-        what to code so that we do not code what nobody needs.
-      </p>
-      <p>
-        For us, the result shows mostly in the cycles. They are shorter, we know why we commit to them, and at
-        the end we can see what was delivered and for whom. I follow the whole chain, from need to task,
-        without watching over experts who know better than I do how to split their work.
-      </p>
-      <p>
-        Backlog tools track tickets without knowing why they exist. Product discovery tools link needs and
-        features, with a per-user subscription, but without blocking entry into development. I chose few
-        screens and few fields, with rules that actually block.
+        I first applied the <em>Straight to the North Star</em> method, hence the name. The single metric did
+        not hold. The value of a week of expert work does not boil down to one number. We kept JTBD,
+        <em>Shape Up</em>-style cycles and the work-in-progress limit. We dropped the single metric, and with
+        it the reach and confidence of the usual scoring grids. The North Star still exists in the tool, as an
+        optional page, but we no longer steer by it.
       </p>
 
-      <h2 id="manifeste">The manifesto: engineering time is capital</h2>
+      <h2 id="services">The services we owe our personas</h2>
       <p>
-        The framework rests on a manifesto that came out of the same team discussions. It starts from one observation: what kills an
-        ambitious product is not bad code, it is spending engineering time on something nobody wants. Every
-        line written creates debt, cost, and maintenance for life.
+        The real value, for us, was anchoring ourselves to the services we owe our personas. That is what
+        shapes the product, and what ties the code to real needs. With that chain in front of us, we rank
+        ideas, sort concepts, and start with what really matters.
       </p>
       <p>
-        Time is therefore the team’s scarcest resource, and we treat it as capital. An idea with no identified
-        pain, or no demonstrable value, is frozen or dropped. It does not sit at the bottom of a backlog waiting
-        for its turn. The guiding line fits in one proportion:
+        The split of roles followed. The CEO or product manager scores the features’ impact. The experts
+        estimate their stories in days and risk. I follow the chain from need to task without having to watch
+        closely over people who know better than I do how to break down their work. I measured nothing: I am
+        reporting what the team observed.
       </p>
-      <p>$$\mathrm{Impact}_{\text{team}} \propto \frac{\text{Value delivered}}{\text{Time capital invested}}$$</p>
+
+      <h2 id="manifeste">The manifesto, in a few lines</h2>
+      <p>
+        STTNS rests on a manifesto that came out of the same discussions. What costs an ambitious product the
+        most is time spent on what nobody wants, and every line written will have to be maintained. An idea
+        with no identified pain, or no demonstrable value, is therefore frozen or dropped, instead of waiting
+        at the bottom of a backlog.
+      </p>
       <blockquote class="manifeste-regle">
         <p><strong>Golden rule</strong>: no pain, no product. No validation, no code.</p>
       </blockquote>
+      <p>Two human filters come before anything is entered in the tool, hence their number zero. Filter 0 checks that a pain is real:</p>
+      <ul>
+        <li>Can it be stated in one sentence, without jargon?</li>
+        <li>Does it come up often in the persona’s daily life?</li>
+        <li>Does it cost something you can put a figure on, in time, money or trust?</li>
+        <li>Does solving it bring the product closer to its promise?</li>
+      </ul>
       <p>
-        The manifesto sets two human filters the team goes through before any prioritisation. The first, “No
-        Pain, No Product”, checks that the idea answers a real pain rather than an internal preference. It
-        asks four questions: can the pain be stated in one sentence, without jargon? does it come up often in
-        the persona’s day? does it cost something measurable, in time, money or trust? does solving it bring
-        the product closer to its promise?
-      </p>
-      <p>
-        The second covers sensitive domains: accounting, tax, audit, scoring, KYC or anti-money-laundering
-        compliance. You can prototype there to learn, but nothing ships without an expert’s validation,
-        decided by the team. No expertise, no regulatory logic.
+        Filter 0 bis applies to sensitive domains, such as accounting, audit or KYC compliance. You may
+        prototype there to learn, but nothing ships without an expert’s validation.
       </p>
       <ol class="manifeste-flux" aria-label="From manifesto to code">
         <li><span class="mf-etape">Raw idea</span></li>
         <li><span class="mf-etape is-filtre">Filter 0<small>real pain?</small></span><span class="mf-stop">no → freeze or drop</span></li>
         <li><span class="mf-etape is-filtre">Filter 0 bis<small>sensitive area validated?</small></span><span class="mf-stop">no → freeze or drop</span></li>
-        <li><span class="mf-etape is-systeme">STTNS<small>chain and coded guardrails</small></span></li>
+        <li><span class="mf-etape is-systeme">STTNS<small>coded guardrails</small></span></li>
         <li><span class="mf-etape is-code">Code committed</span></li>
       </ol>
-      <p>
-        Both filters remain team discipline: software cannot judge whether a pain is real. STTNS takes over
-        right after, and enforces what can be enforced.
-      </p>
 
-      <h2 id="framework">The framework, link by link</h2>
+      <h2 id="chaine">The chain: every story traces back to a pain</h2>
       <p>
-        Persona and epic are the two roots. Under a persona come their pain points and jobs, and each job
-        declares the pain it solves. Under an epic come features, under a feature stories, under a story tasks.
-        A feature also declares the job it serves. The board below replays this chain on the demo project, then
-        the rules that protect it.
+        It always starts with a person and what gets in their way. Under a persona come their pains and jobs;
+        under an epic, the features, then the stories, then the tasks. Every feature names the job it serves.
+        The board replays this chain on the demo project, then what the tool refuses and what it flags.
       </p>
       <figure class="archi" id="archi-sttns" aria-label="Animated board of the STTNS framework">
-        <noscript><p>The animated board needs JavaScript; the text below describes the same rules.</p></noscript>
+        <noscript><p>The animated board needs JavaScript; the box below sums up the same rules.</p></noscript>
       </figure>
-      <p>
-        The parent-link rules live in the database. PostgreSQL triggers reject a story without a feature, or a
-        feature attached to another feature, whichever screen or import sends it. The other guardrails are
-        checked by the application when a card changes status: a feature with impact 0, or with no job, cannot
-        move to “in progress”, nor can its stories, and the Kanban board accepts no more than five stories in
-        progress.
-      </p>
+      <div class="regles-dures">
+        <p class="regles-titre">What the tool refuses</p>
+        <ul>
+          <li><strong>A story without a feature</strong> is rejected by a PostgreSQL trigger, whichever screen or import sends it.</li>
+          <li><strong>A feature without a job</strong> is refused by the application, on creation as on edit.</li>
+          <li><strong>A feature with impact 0</strong> cannot move to “in progress”, and neither can its stories.</li>
+          <li><strong>Past five stories in progress</strong> (the project’s default setting), the Kanban blocks.</li>
+        </ul>
+      </div>
 
-      <h3>Three hands, three inputs</h3>
+      <h2 id="valeur-cout">Product scores value, experts the cost, the system divides</h2>
+      <div class="roles-trio" role="list">
+        <div class="role" role="listitem"><p class="role-qui">Product</p><p class="role-quoi">feature impact</p><p class="role-val">0 to 3</p></div>
+        <div class="role" role="listitem"><p class="role-qui">Experts</p><p class="role-quoi">story days and risk</p><p class="role-val">½ to 5 d · known, likely, unknown</p></div>
+        <div class="role is-systeme" role="listitem"><p class="role-qui">System</p><p class="role-quoi">epic ratio</p><p class="role-val">computed, never entered</p></div>
+      </div>
       <p>
-        Nobody enters both value and cost. Product assigns the feature an impact, from 0 (waste) to 3 (vital).
-        Tech estimates each story in days (½, 1, 2, 3 or 5) and in risk (known, likely, unknown). The epic gets
-        no input, so nobody can inflate it by hand. The system adds up what the other two declared, then
-        divides.
+        The tool’s Playbook puts it in one sentence: “Two hands never enter the same score.” Product does not
+        set the days, the experts do not set the impact, and the epic receives no input, so nobody can inflate
+        it by hand.
       </p>
       <p>$$\mathrm{Ratio}_{V/E}=\frac{\sum \mathrm{Impact}_{\mathrm{features}}}{\sum \mathrm{Days}_{\mathrm{stories}}}$$</p>
       <p>
-        Risk does not enter the ratio. It works as a warning: an unknown risk calls for a spike, a short
-        technical exploration, before any commitment. And the choice of days stops at five; beyond that, the
-        story is badly split. Going against the ratio is still possible, you just have to explain why.
+        A feature with no story yet counts its own days. That is the case of the gamified ranking, which
+        explains the 11 days of the EGalim reporting epic below.
+      </p>
+      <p>
+        Objections come quickly. Split a feature to inflate impact? Each piece must name the job it serves, and
+        Product does the scoring. A 0-to-3 scale, too coarse? That is deliberate: zero exists to say no plainly.
+        Risk left out of the ratio? An unknown risk cannot be weighted, it calls for a <em>spike</em>, a short
+        technical exploration before any commitment.
+      </p>
+      <p>
+        The ratio compares epics with one another; it does not decide. The Playbook reads it with three verbs:
+        commit when impact is high and risk known or likely, learn when impact is uncertain or risk unknown,
+        drop when impact is zero or the job cannot be found.
       </p>
 
-      <h2>Demo: Panier Local</h2>
+      <h2 id="panier-local">Demo on a fictional project: Panier Local</h2>
       <p>
-        To show the tool without exposing client data, I filled it with a project made up from scratch.
-        Panier Local connects market gardeners with school canteens. Three personas carry it.
+        To show the tool without exposing customer data, I filled it with an invented project. Panier Local
+        connects market gardeners with school canteens, with three personas: Marion, a grower who throws away
+        her unsold produce at the height of the season; Karim, a canteen chef who plans his menus three weeks
+        ahead; Sophie, a buyer for 42 secondary schools, who computes her EGalim rate (the French law on local
+        and organic sourcing) by hand. Of its 19 stories, 13 are planned over 3 cycles.
       </p>
-      <ul>
-        <li>Marion, an organic grower on 8&nbsp;ha, who throws away unsold produce in peak season and finds public procurement baffling.</li>
-        <li>Karim, chef at a secondary school serving 600 meals, who plans menus three weeks ahead with €2.10 of food per meal.</li>
-        <li>Sophie, a buyer for 42 schools, who works out her EGalim rate (France’s quota of quality and organic food in public catering) by hand once a year.</li>
+      <ul class="compteurs" aria-label="The Panier Local project in figures">
+        <li><strong>3</strong> personas</li><li><strong>5</strong> pains</li><li><strong>6</strong> jobs</li><li><strong>3</strong> epics</li><li><strong>9</strong> features</li><li><strong>19</strong> stories</li>
       </ul>
-      <p>
-        In all, 5 pain points, 6 jobs, 3 epics, 9 features and 19 stories, 13 of them planned over 3 cycles,
-        for a team of three people, fictional as well.
-      </p>
       <figure class="shot">
-        <img src="/blog/assets/sttns/01-matrice-besoins.jpg" width="1800" height="1125" alt="Panier Local needs matrix: personas, pain points and jobs" loading="lazy" />
-        <figcaption>The needs matrix. A persona, their pain points, and what they are trying to get done (“When… I want… so I can…”). Screens are in French.</figcaption>
+        <img src="/blog/assets/sttns/01-matrice-besoins.jpg" width="1800" height="1125" alt="Panier Local needs matrix: personas, pains and jobs" loading="lazy" />
+        <figcaption>The needs matrix: a persona, their pains, and what they are trying to get done (“When… I want… so that…”). Screens in French.</figcaption>
       </figure>
+      <table class="epics">
+        <caption>The three Panier Local epics, as computed by the tool</caption>
+        <thead><tr><th scope="col">Epic</th><th scope="col">Total impact</th><th scope="col">Days</th><th scope="col">Ratio</th></tr></thead>
+        <tbody>
+          <tr class="is-mis-en-avant"><th scope="row">EGalim reporting <span class="epic-etat">not started</span></th><td>5</td><td>11</td><td>0.45</td></tr>
+          <tr><th scope="row">Group order &amp; single delivery round <span class="epic-etat">in progress</span></th><td>7</td><td>17</td><td>0.41</td></tr>
+          <tr><th scope="row">Live producer catalogue <span class="epic-etat">in progress</span></th><td>7</td><td>19</td><td>0.37</td></tr>
+        </tbody>
+      </table>
       <p>
-        The ratio has an immediate consequence. “Pilotage EGalim”, the only epic not yet started, has the best
-        value for effort, with 5 impact points for 11 days, against 7 for 19 and 7 for 17 for the other two.
-        The tool does not decide, but the question has to come up when the cycle is planned.
+        The three ratios are close, and the table names no winner. On the other hand, the smallest piece of
+        work, which nobody had started yet, returns as much per day as the two big ones. That is the kind of
+        finding the tool puts on the table when it is time to plan.
       </p>
-      <figure class="shot">
-        <img src="/blog/assets/sttns/02-features-impact.jpg" width="1800" height="1125" alt="Panier Local features with their impact" loading="lazy" />
-        <figcaption>Features and their impact. “Gamified school ranking” is at 0: the idea came out of a workshop, no persona asked for it.</figcaption>
-      </figure>
 
-      <h3>Cycles and Kanban</h3>
+      <h3>Two planted defects, two defects found</h3>
       <p>
-        Stories go into fixed-capacity cycles, in the spirit of <em>Shape Up</em>. The Kanban board has only
-        four columns (To do, In progress, In review, Done). Each card shows its feature and epic, so when you
-        move it you always see who you are working for.
-      </p>
-      <figure class="shot">
-        <img src="/blog/assets/sttns/03-kanban-cycle.jpg" width="1800" height="1125" alt="Panier Local current cycle Kanban" loading="lazy" />
-        <figcaption>The current cycle: five stories, two in progress out of five allowed, tasks and owners under each card.</figcaption>
-      </figure>
-
-      <h3>Two flaws planted on purpose</h3>
-      <p>
-        I planted two flaws in the project to see whether the tool would find them. The first is a feature
-        with impact 0, attached to an epic but to no need. The hygiene Radar classifies it as both waste and
-        orphan, and the Health Copilot, a panel in the bottom-right corner of every project screen, flags it
-        too. These are rules, not an AI model.
-      </p>
-      <p>
-        The second is a job no feature serves: Sophie wants to compare local prices with wholesale prices.
-        The dependency graph shows it, with its filter for jobs without a feature. In a real project, the
-        first would have cost time for nothing, and the second would be a need that slipped through. I would
-        rather find both before committing to a cycle.
+        I slipped two defects into the project. The first is an impact-0 feature, “Gamified school ranking”,
+        born in a workshop and tied to no need. It cannot move to “in progress”. The hygiene Radar classifies
+        it as waste and as an orphan, and the Health Copilot flags it on the project’s screens. These are
+        written rules, with no language model.
       </p>
       <figure class="shot">
         <img src="/blog/assets/sttns/04-radar-hygiene.jpg" width="1800" height="1125" alt="Panier Local hygiene Radar" loading="lazy" />
         <figcaption>The hygiene Radar ranks anomalies by severity.</figcaption>
       </figure>
+      <p>
+        The second is a job no feature serves: Sophie wants to compare local prices with wholesale prices. The
+        dependency graph brings it out with its filter for jobs without a feature. The first defect would have
+        cost time for nothing; the second was a need that had fallen through the cracks.
+      </p>
       <figure class="shot">
-        <img src="/blog/assets/sttns/05-playbook.jpg" width="1800" height="1125" alt="STTNS built-in Playbook" loading="lazy" />
-        <figcaption>The built-in Playbook explains the rules, formulas included.</figcaption>
+        <img src="/blog/assets/sttns/03-kanban-cycle.jpg" width="1800" height="1125" alt="Panier Local current cycle Kanban" loading="lazy" />
+        <figcaption>The current cycle’s Kanban: four columns, two stories in progress out of five allowed, and for each card its feature and epic.</figcaption>
       </figure>
 
-      <h2>Under the hood: the stack</h2>
+      <h2 id="sous-le-capot">Under the hood: the rules live in PostgreSQL</h2>
       <p>
-        A Next.js application on Supabase. The main choice: the parent-link rules live in PostgreSQL, not in
-        the interface. A CSV import, a script or a new screen therefore go through the same checks. Access is
-        partitioned by project, at the level of database rows, and every change to an object is logged.
+        A Next.js application on Supabase. The parent-link rules are PostgreSQL triggers: a CSV import or a
+        script is subject to them just like a screen. The mandatory job and the status guardrails are checked
+        by the application. Access is isolated per project at the database row level, and every change to a
+        backlog item is logged.
       </p>
       <div class="stack">
         <section class="stack-groupe">
@@ -320,17 +331,24 @@
           </ul>
         </section>
       </div>
+      <h3>The code to read</h3>
+      <ul class="code-liens">
+        <li><a href="https://github.com/FredericAtlan/STTNS/blob/main/supabase/migrations/00000000000000_schema.sql#L1449-L1491" target="_blank" rel="noopener noreferrer">The parent-link trigger</a>: persona and epic have no parent, everything else has a single parent type.</li>
+        <li><a href="https://github.com/FredericAtlan/STTNS/blob/main/src/lib/sttns/workflowGovernance.ts#L34-L183" target="_blank" rel="noopener noreferrer">The status guardrails</a>: impact 0 and the work-in-progress limit.</li>
+        <li><a href="https://github.com/FredericAtlan/STTNS/blob/main/src/lib/sttns/valueEffort.ts#L14-L36" target="_blank" rel="noopener noreferrer">The value and effort scales</a>, with the ratio a little further down the file.</li>
+        <li><a href="https://github.com/FredericAtlan/STTNS/blob/main/src/lib/sttns/radarAnomalies.ts#L86-L144" target="_blank" rel="noopener noreferrer">The Radar and Health Copilot rules</a>, with no call to a language model.</li>
+        <li><a href="https://github.com/FredericAtlan/STTNS/blob/main/docs/aide/sttns-aide-framework.md" target="_blank" rel="noopener noreferrer">The manifesto and the filters</a>, as the Playbook presents them (in French).</li>
+        <li><a href="https://github.com/FredericAtlan/STTNS/blob/main/scripts/demo/panier-local.sql" target="_blank" rel="noopener noreferrer">The Panier Local project</a>, with its two defects commented.</li>
+      </ul>
 
-      <h2>What STTNS does not do</h2>
+      <h2 id="limites">Limits</h2>
       <p>
-        STTNS does not decide for the team, and it does not check that a pain is real: that is the job of
-        Filter 0, which stays human. The tool only makes sure everything traces back to a declared pain. Committing to a cycle, running a spike or dropping an idea
-        remains our call.
-      </p>
-      <p>
-        It does not yet measure, after a cycle, whether the announced impact happened. That is the next piece
-        of work. Nor does it plug into an existing ticketing tool: you import and export CSV, and it becomes
-        the reference backlog. Finally, it needs Supabase, so there is no online demo for now.
+        STTNS does not judge whether a pain is real: that is the job of the first filter, which stays human. The
+        tool checks that everything ties back to a declared need, and flags what does not trace back to a
+        pain. It does not yet measure, after a cycle, whether the announced impact happened. The Playbook asks
+        you to justify a choice that goes against the ratio, but the tool does not store that justification
+        yet. Finally, it does not plug into an existing ticketing tool: you import and export CSV, and it
+        becomes the reference backlog.
       </p>
     </article>
 
@@ -338,14 +356,17 @@
       <h2 id="demo-titre">Try it on your machine</h2>
       <p class="demo-avertissement">
         <strong>No online demo.</strong> STTNS relies on Supabase: the demo runs locally, in Docker, with the
-        Panier Local project reloaded exactly as shown. The full code and setup steps are on
-        <a href="https://github.com/FredericAtlan/STTNS" target="_blank" rel="noopener noreferrer">my GitHub</a>.
+        Panier Local project reloaded identically. The full code and the steps to follow are on my GitHub.
+      </p>
+      <p class="cta-row">
+        <a class="btn btn-primary" href="https://github.com/FredericAtlan/STTNS" target="_blank" rel="noopener noreferrer">Code on GitHub ↗</a>
+        <a class="btn btn-ghost" href="#chaine">Replay the animated chain ↑</a>
       </p>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>© <span id="y"></span> Frédéric Atlan · <a href="/en/">Blog</a> · <a href="/en/">Home</a></p>
+    <p>© <span id="y"></span> Frédéric Atlan · <a href="/en/">Home</a></p>
   </footer>
 
   <div class="lightbox" id="lightbox" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="Image preview">

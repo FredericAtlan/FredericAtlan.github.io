@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>STTNS — pour qu’aucune ligne de code ne soit écrite pour rien | Blog Frédéric Atlan</title>
-  <meta name="description" content="STTNS, l’outil que j’ai construit chez Data Refiners pour piloter une petite équipe d’experts : chaque story remonte jusqu’à une douleur réelle, et une idée sans valeur ne peut pas entrer en développement." />
+  <title>STTNS — partir des besoins des personas pour décider ce qu’on code | Blog Frédéric Atlan</title>
+  <meta name="description" content="STTNS, l’outil open source que j’ai construit chez Data Refiners : chaque story remonte à la douleur d’un persona, le Produit chiffre la valeur, les experts le coût, et l’outil fait la division." />
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Frédéric Atlan" />
   <link rel="canonical" href="https://fredericatlan.github.io/blog/sttns-decision-os.html" />
@@ -15,8 +15,8 @@
 
   <meta property="og:site_name" content="FredericAtlan Lab" />
   <meta property="og:locale" content="fr_FR" />
-  <meta property="og:title" content="STTNS — pour qu’aucune ligne de code ne soit écrite pour rien" />
-  <meta property="og:description" content="Piloter une équipe d’experts sans Excel ni Jira : chaque story remonte à une douleur réelle. Framework animé, démo locale." />
+  <meta property="og:title" content="STTNS — partir des besoins des personas pour décider ce qu’on code" />
+  <meta property="og:description" content="Décider ce qu’on code à partir des besoins des personas : chaîne animée, démonstration et code public." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://fredericatlan.github.io/blog/sttns-decision-os.html" />
   <meta property="og:image" content="https://fredericatlan.github.io/blog/assets/sttns/03-kanban-cycle.jpg" />
@@ -32,8 +32,8 @@
   <meta name="keywords" content="STTNS, pilotage produit, jobs-to-be-done, persona, valeur effort, engineering management, projet" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="STTNS — pour qu’aucune ligne de code ne soit écrite pour rien" />
-  <meta name="twitter:description" content="Piloter une équipe d’experts sans Excel ni Jira : chaque story remonte à une douleur réelle. Framework animé, démo locale." />
+  <meta name="twitter:title" content="STTNS — partir des besoins des personas pour décider ce qu’on code" />
+  <meta name="twitter:description" content="Décider ce qu’on code à partir des besoins des personas : chaîne animée, démonstration et code public." />
   <meta name="twitter:image" content="https://fredericatlan.github.io/blog/assets/sttns/03-kanban-cycle.jpg" />
 
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
@@ -49,7 +49,7 @@
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "STTNS — pour qu’aucune ligne de code ne soit écrite pour rien",
+    "headline": "STTNS — partir des besoins des personas pour décider ce qu’on code",
     "datePublished": "2026-11-15",
     "dateModified": "2026-11-15",
     "author": {
@@ -62,7 +62,7 @@
       "name": "Frédéric Atlan"
     },
     "mainEntityOfPage": "https://fredericatlan.github.io/blog/sttns-decision-os.html",
-    "description": "Piloter une équipe d’experts sans Excel ni Jira : chaque story remonte à une douleur réelle. Framework animé, démo locale.",
+    "description": "Décider ce qu’on code à partir des besoins des personas : chaîne animée, démonstration et code public.",
     "keywords": ["projet", "STTNS", "pilotage produit", "jobs-to-be-done"],
     "articleSection": "projet",
     "image": [
@@ -82,10 +82,6 @@
         <a href="/parcours/#contact">Contact</a>
       </span>
       <span class="nav-sep" aria-hidden="true"></span>
-      <span class="nav-cluster" role="group" aria-label="Publications">
-        <a class="nav-page" href="/" aria-current="page">Blog</a>
-      </span>
-      <span class="nav-sep" aria-hidden="true"></span>
       <span class="nav-cluster nav-lang" role="group" aria-label="Langue">
         <a href="/blog/sttns-decision-os.html" hreflang="fr" lang="fr" aria-current="true">FR</a>
         <a href="/en/blog/sttns-decision-os.html" hreflang="en" lang="en">EN</a>
@@ -94,199 +90,210 @@
   </header>
 
   <main id="top" class="section page-projects article">
-    <header class="article-hero" style="--hero-img: url('/blog/assets/sttns/03-kanban-cycle.jpg')">
+    <header class="article-hero" style="--hero-img: url('/blog/assets/sttns/01-matrice-besoins.jpg')">
       <p class="hero-kicker"><time datetime="2026-11-15">15 novembre 2026</time> · <span class="tag">projet</span></p>
-      <h1>STTNS — pour qu’aucune ligne de code ne soit écrite pour rien</h1>
+      <h1>STTNS — partir des besoins des personas pour décider ce qu’on code</h1>
       <p class="section-lead">
-        Vous recevez des priorités d’un CEO ou d’un product manager et devez en faire des cycles de
-        développement que vous pourrez défendre&nbsp;? STTNS relie chaque story à la douleur d’un utilisateur
-        réel, laisse le Produit chiffrer la valeur et la Tech le coût, puis fait le rapport des deux. Une
-        feature sans valeur déclarée ne démarre pas&nbsp;: pas de douleur, pas de produit. Je l’ai conçu chez Data Refiners pour une petite équipe
-        d’experts&nbsp;; il est open source et la démonstration tourne sur votre machine.
+        Chaque semaine, je dois décider où va le temps de quelques experts. Chez Data Refiners, un tableur ne
+        suffisait plus et les outils de ticketing en demandaient trop. J’ai donc construit STTNS&nbsp;: chaque
+        story y remonte jusqu’à la douleur d’un utilisateur réel, le Produit chiffre la valeur, les experts
+        chiffrent le coût, et l’outil fait la division. Le code est public.
       </p>
       <!-- tech: sttns-decision-os -->
       <ul class="tech-icones" aria-label="Technologies"><li title="Next.js"><span class="tech-ico" style="--ico: url('/blog/assets/icones/nextdotjs.svg')" aria-hidden="true"></span><span class="tech-nom">Next.js</span></li><li title="React"><span class="tech-ico" style="--ico: url('/blog/assets/icones/react.svg')" aria-hidden="true"></span><span class="tech-nom">React</span></li><li title="TypeScript"><span class="tech-ico" style="--ico: url('/blog/assets/icones/typescript.svg')" aria-hidden="true"></span><span class="tech-nom">TypeScript</span></li><li title="Tailwind CSS"><span class="tech-ico" style="--ico: url('/blog/assets/icones/tailwindcss.svg')" aria-hidden="true"></span><span class="tech-nom">Tailwind CSS</span></li><li title="Zod"><span class="tech-ico" style="--ico: url('/blog/assets/icones/zod.svg')" aria-hidden="true"></span><span class="tech-nom">Zod</span></li><li title="React Flow"><span class="tech-ico is-generique" style="--ico: url('/blog/assets/icones/module.svg')" aria-hidden="true"></span><span class="tech-nom">React Flow</span></li><li title="Mermaid"><span class="tech-ico" style="--ico: url('/blog/assets/icones/mermaid.svg')" aria-hidden="true"></span><span class="tech-nom">Mermaid</span></li><li title="Markdown"><span class="tech-ico" style="--ico: url('/blog/assets/icones/markdown.svg')" aria-hidden="true"></span><span class="tech-nom">Markdown</span></li><li title="KaTeX"><span class="tech-ico is-generique" style="--ico: url('/blog/assets/icones/module.svg')" aria-hidden="true"></span><span class="tech-nom">KaTeX</span></li><li title="Supabase"><span class="tech-ico" style="--ico: url('/blog/assets/icones/supabase.svg')" aria-hidden="true"></span><span class="tech-nom">Supabase</span></li><li title="PostgreSQL"><span class="tech-ico" style="--ico: url('/blog/assets/icones/postgresql.svg')" aria-hidden="true"></span><span class="tech-nom">PostgreSQL</span></li><li title="Row Level Security"><span class="tech-ico is-generique" style="--ico: url('/blog/assets/icones/module.svg')" aria-hidden="true"></span><span class="tech-nom">Row Level Security</span></li></ul>
       <!-- /tech -->
       <p class="cta-row">
-        <a class="btn btn-primary" href="#manifeste">Lire le manifeste ↓</a>
+        <a class="btn btn-primary" href="#chaine">Voir la chaîne animée ↓</a>
         <a class="btn btn-ghost" href="https://github.com/FredericAtlan/STTNS" target="_blank" rel="noopener noreferrer">Code sur GitHub</a>
       </p>
     </header>
 
+    <aside class="en-bref" aria-label="En bref">
+      <p class="en-bref-titre">En bref</p>
+      <ul>
+        <li><strong>Quoi.</strong> Un outil de pilotage produit open source où rien ne se code sans remonter à un besoin déclaré.</li>
+        <li><strong>Pour qui.</strong> Un CTO ou un engineering manager qui reçoit ses priorités d’un CEO ou d’un product manager.</li>
+        <li><strong>L’adopter.</strong> Le code est sur GitHub, la démonstration tourne en local dans Docker. On importe le backlog existant en CSV&nbsp;: STTNS le remplace, il ne s’y branche pas.</li>
+      </ul>
+      <nav class="sommaire" aria-label="Sommaire">
+        <p class="en-bref-titre">Sommaire</p>
+        <ol>
+          <li><a href="#depart">Le point de départ</a></li>
+          <li><a href="#services">Les services rendus aux personas</a></li>
+          <li><a href="#manifeste">Le manifeste</a></li>
+          <li><a href="#chaine">La chaîne animée</a></li>
+          <li><a href="#valeur-cout">Valeur, coût, ratio</a></li>
+          <li><a href="#panier-local">Démonstration</a></li>
+          <li><a href="#sous-le-capot">Sous le capot</a></li>
+          <li><a href="#limites">Limites</a></li>
+        </ol>
+      </nav>
+    </aside>
+
     <article class="project-detail prose">
-      <h2>Pourquoi je l’ai construit</h2>
+      <h2 id="depart">Le point de départ&nbsp;: où va le temps des experts</h2>
       <p>
-        Piloter quelques experts, c’est décider chaque semaine où va leur temps. Dans un tableur, on perd vite
-        le fil&nbsp;: qui a demandé cette fonction, pour quel client, avec quel bénéfice attendu&nbsp;? Les outils
-        de ticketing du marché suivent très bien l’avancement d’un ticket, beaucoup moins la raison de son
-        existence, et leur configuration nous aurait coûté plus de temps que nous n’en avions.
+        Dans un tableur, je perdais le fil. Qui avait demandé cette fonction, pour quel client, avec quel
+        bénéfice attendu&nbsp;? Les outils de ticketing suivent très bien l’avancement d’un ticket, beaucoup
+        moins la raison de son existence, et les configurer nous aurait pris plus de temps que nous n’en
+        avions. Il me fallait aussi un outil pédagogique, pour que la démarche par les personas et leurs
+        <em>jobs-to-be-done</em> (JTBD, ce que l’utilisateur cherche à accomplir) se voie à l’écran au lieu de
+        rester un principe affiché en réunion.
       </p>
       <p>
-        Il me fallait aussi un outil pédagogique. Partir des douleurs des personas et de leurs
-        jobs-to-be-done (JTBD, ce que l’utilisateur cherche à accomplir), tout le monde l’approuve en réunion,
-        mais bien moins d’équipes le pratiquent ensuite. Je voulais que la méthode soit visible à l’écran, sans
-        avoir à la rappeler à chaque point d’équipe.
-      </p>
-      <p>
-        Au départ, je comptais implémenter le framework <em>Straight to the North Star</em>, d’où le nom. Je
-        l’ai fait, puis j’ai constaté que la North Star Metric, cette métrique unique qui sert de boussole,
-        collait mal à notre activité. Nous faisons du développement logiciel mené par des experts, et la
-        valeur d’une semaine de travail ne tient pas dans un seul chiffre. Le framework actuel est sorti de nos
-        discussions d’équipe sur une question simple&nbsp;: comment choisir ce qu’on code pour ne pas coder ce qui
-        ne sert à personne.
-      </p>
-      <p>
-        Chez nous, le résultat se voit surtout dans les cycles. Ils sont plus courts, on sait pourquoi on s’y
-        engage, et à la fin on voit ce qui a été livré et pour qui. Je suis toute la chaîne, du besoin à la
-        tâche, sans surveiller de près des experts qui savent mieux que moi découper leur travail.
-      </p>
-      <p>
-        Les outils de backlog suivent des tickets sans savoir pourquoi ils existent. Les outils de product
-        discovery relient besoins et fonctionnalités, avec un abonnement par utilisateur, mais sans bloquer
-        l’entrée en développement. J’ai préféré peu d’écrans et peu de champs, avec des règles qui bloquent
-        vraiment.
+        J’ai d’abord appliqué la méthode <em>Straight to the North Star</em>, d’où le nom. La métrique unique
+        ne tenait pas. La valeur d’une semaine de travail d’experts ne se résume pas à un chiffre. Nous avons
+        gardé les JTBD, les cycles à la <em>Shape Up</em> et la limite de travail en cours. Nous avons retiré
+        la métrique unique, et avec elle la portée et la confiance des grilles de scoring habituelles. La
+        North Star existe encore dans l’outil, comme page facultative, mais nous ne pilotons plus avec.
       </p>
 
-      <h2 id="manifeste">Le manifeste&nbsp;: le temps d’ingénierie est un capital</h2>
+      <h2 id="services">Les services rendus aux personas</h2>
       <p>
-        Le framework repose sur un manifeste, sorti des mêmes discussions d’équipe. Il part d’un constat&nbsp;: le risque
-        qui tue un produit ambitieux, ce n’est pas de mal coder, c’est de consacrer du temps d’ingénierie à
-        quelque chose dont personne ne veut. Chaque ligne écrite crée de la dette, un coût, et une maintenance
-        à vie.
+        La vraie valeur, pour nous, a été de nous raccrocher aux services que nous devons rendre à nos
+        personas. C’est ce qui donne sa forme au produit, et ce qui relie le code à de vrais besoins. Avec
+        cette chaîne sous les yeux, on hiérarchise les idées, on trie les concepts, et on commence par ce qui
+        compte vraiment.
       </p>
       <p>
-        Le temps est donc la ressource la plus rare de l’équipe, et on le traite comme un capital. Une idée
-        sans douleur identifiée, ou sans valeur démontrable, est gelée ou abandonnée. Elle ne va pas dormir au
-        fond d’un backlog en attendant son tour. La ligne directrice tient en une proportion&nbsp;:
+        Le partage des rôles a suivi. Le CEO ou le product manager note l’impact des features. Les experts
+        estiment leurs stories en jours et en risque. Je suis la chaîne du besoin à la tâche sans avoir à
+        surveiller de près des gens qui savent mieux que moi découper leur travail. Je n’ai rien mesuré&nbsp;: je rapporte ce que l’équipe a constaté.
       </p>
-      <p>$$\mathrm{Impact}_{\text{équipe}} \propto \frac{\text{Valeur livrée}}{\text{Capital-temps investi}}$$</p>
+
+      <h2 id="manifeste">Le manifeste, en quelques lignes</h2>
+      <p>
+        STTNS repose sur un manifeste sorti des mêmes discussions. Ce qui coûte le plus à un produit ambitieux,
+        c’est le temps passé sur ce dont personne ne veut, et chaque ligne écrite devra être maintenue. Une idée sans douleur identifiée, ou sans valeur démontrable, est donc gelée ou
+        abandonnée, au lieu d’attendre au fond d’un backlog.
+      </p>
       <blockquote class="manifeste-regle">
         <p><strong>Règle d’or</strong>&nbsp;: pas de douleur, pas de produit. Pas de validation, pas de code.</p>
       </blockquote>
+      <p>Deux filtres humains passent avant toute saisie dans l’outil, d’où leur numéro zéro. Le Filtre&nbsp;0 vérifie qu’une douleur est réelle&nbsp;:</p>
+      <ul>
+        <li>Peut-on l’énoncer en une phrase, sans jargon&nbsp;?</li>
+        <li>Revient-elle souvent dans le quotidien du persona&nbsp;?</li>
+        <li>Coûte-t-elle quelque chose de chiffrable, en temps, en argent ou en confiance&nbsp;?</li>
+        <li>Résoudre cette douleur rapproche-t-il le produit de sa promesse&nbsp;?</li>
+      </ul>
       <p>
-        Le manifeste pose deux filtres humains, que l’équipe passe avant toute priorisation. Le premier,
-        «&nbsp;No Pain, No Product&nbsp;», vérifie que l’idée répond à une douleur réelle et pas à une préférence
-        interne. Il pose quatre questions&nbsp;: la douleur s’énonce-t-elle en une phrase, sans jargon&nbsp;?
-        revient-elle souvent dans le quotidien du persona&nbsp;? coûte-t-elle quelque chose de chiffrable, en
-        temps, en argent ou en confiance&nbsp;? la résoudre rapproche-t-il le produit de sa promesse&nbsp;?
-      </p>
-      <p>
-        Le second concerne les domaines sensibles&nbsp;: comptabilité, fiscalité, audit, scoring, conformité
-        KYC ou anti-blanchiment. On peut y prototyper pour apprendre, mais rien n’est livré sans la validation
-        d’un expert, décidée par l’équipe. Pas d’expertise, pas de logique réglementaire.
+        Le Filtre&nbsp;0&nbsp;bis vaut pour les domaines sensibles, comme la comptabilité, l’audit ou la conformité KYC. On
+        peut y prototyper pour apprendre, mais rien n’est livré sans la validation d’un expert.
       </p>
       <ol class="manifeste-flux" aria-label="Du manifeste au code">
         <li><span class="mf-etape">Idée brute</span></li>
         <li><span class="mf-etape is-filtre">Filtre 0<small>douleur réelle&nbsp;?</small></span><span class="mf-stop">non → gel ou abandon</span></li>
         <li><span class="mf-etape is-filtre">Filtre 0 bis<small>zone sensible validée&nbsp;?</small></span><span class="mf-stop">non → gel ou abandon</span></li>
-        <li><span class="mf-etape is-systeme">STTNS<small>chaîne et garde-fous codés</small></span></li>
+        <li><span class="mf-etape is-systeme">STTNS<small>garde-fous codés</small></span></li>
         <li><span class="mf-etape is-code">Code engagé</span></li>
       </ol>
-      <p>
-        Ces deux filtres restent une discipline d’équipe&nbsp;: un logiciel ne peut pas juger qu’une douleur
-        est vraie. STTNS prend le relais juste après, et impose ce qui peut l’être.
-      </p>
 
-      <h2 id="framework">Le framework, maillon par maillon</h2>
+      <h2 id="chaine">La chaîne&nbsp;: chaque story remonte à une douleur</h2>
       <p>
-        Persona et epic sont les deux racines. Sous un persona viennent ses douleurs et ses jobs, et chaque
-        job déclare la douleur qu’il résout. Sous un epic viennent les features, sous une feature les
-        stories, sous une story les tâches. Une feature déclare en plus le job qu’elle sert. La planche
-        ci-dessous rejoue cette chaîne sur le projet de démonstration, puis les règles qui la protègent.
+        On part toujours d’une personne et de ce qui la gêne. Sous un persona viennent ses douleurs et ses
+        jobs&nbsp;; sous un epic, les features, puis les stories, puis les tâches. Chaque feature nomme le job
+        qu’elle sert. La planche rejoue cette chaîne sur le projet de démonstration, puis ce que l’outil
+        refuse et ce qu’il signale.
       </p>
       <figure class="archi" id="archi-sttns" aria-label="Planche animée du framework STTNS">
-        <noscript><p>La planche animée demande JavaScript&nbsp;; le texte qui suit décrit les mêmes règles.</p></noscript>
+        <noscript><p>La planche animée demande JavaScript&nbsp;; l’encadré qui suit résume les mêmes règles.</p></noscript>
       </figure>
-      <p>
-        Les règles de filiation vivent dans la base. Des déclencheurs PostgreSQL refusent une story sans
-        feature, ou une feature rattachée à une autre feature, quel que soit l’écran ou l’import qui
-        l’envoie. Les autres garde-fous sont vérifiés par l’application quand une carte change de statut&nbsp;:
-        une feature d’impact&nbsp;0, ou sans job, ne passe pas «&nbsp;en cours&nbsp;», ses stories non plus, et le
-        Kanban n’accepte pas plus de cinq stories en cours.
-      </p>
+      <div class="regles-dures">
+        <p class="regles-titre">Ce que l’outil refuse</p>
+        <ul>
+          <li><strong>Une story sans feature</strong> est refusée par un déclencheur PostgreSQL, quel que soit l’écran ou l’import qui l’envoie.</li>
+          <li><strong>Une feature sans job</strong> est refusée par l’application, à la création comme à la modification.</li>
+          <li><strong>Une feature d’impact&nbsp;0</strong> ne passe pas «&nbsp;en cours&nbsp;», ses stories non plus.</li>
+          <li><strong>Au-delà de cinq stories en cours</strong> (réglage par défaut du projet), le Kanban bloque.</li>
+        </ul>
+      </div>
 
-      <h3>Trois mains, trois saisies</h3>
+      <h2 id="valeur-cout">Le Produit chiffre la valeur, les experts le coût, le système divise</h2>
+      <div class="roles-trio" role="list">
+        <div class="role" role="listitem"><p class="role-qui">Produit</p><p class="role-quoi">impact de la feature</p><p class="role-val">0 à 3</p></div>
+        <div class="role" role="listitem"><p class="role-qui">Experts</p><p class="role-quoi">jours et risque de la story</p><p class="role-val">½ à 5 j · connu, probable, inconnu</p></div>
+        <div class="role is-systeme" role="listitem"><p class="role-qui">Système</p><p class="role-quoi">ratio de l’epic</p><p class="role-val">calculé, jamais saisi</p></div>
+      </div>
       <p>
-        Personne ne saisit à la fois la valeur et le coût. Le Produit attribue un impact à la feature, de 0
-        (gaspillage) à 3 (vital). La Tech estime chaque story en jours (½, 1, 2, 3 ou 5) et en risque (connu,
-        probable, inconnu). L’epic ne reçoit aucune saisie, pour qu’on ne puisse pas le gonfler à la main. Le
-        système additionne ce que les deux autres ont déclaré, puis divise.
+        Le Playbook de l’outil le dit en une phrase&nbsp;: «&nbsp;Deux mains ne saisissent jamais le même score.&nbsp;»
+        Le Produit ne fixe pas les jours, les experts ne fixent pas l’impact, et l’epic ne reçoit aucune
+        saisie, pour qu’on ne puisse pas le gonfler à la main.
       </p>
       <p>$$\mathrm{Ratio}_{V/E}=\frac{\sum \mathrm{Impact}_{\mathrm{features}}}{\sum \mathrm{Jours}_{\mathrm{stories}}}$$</p>
       <p>
-        Le risque n’entre pas dans le ratio. Il sert d’alerte&nbsp;: un risque inconnu appelle un spike, une
-        courte exploration technique, avant tout engagement. Et le choix des jours s’arrête à cinq&nbsp;; au-delà,
-        la story est mal découpée. Aller contre le ratio reste possible, il faut juste l’expliquer.
+        Une feature encore sans story compte ses propres jours. C’est le cas du Classement gamifié, qui
+        explique les 11 jours de l’epic Pilotage EGalim plus bas.
+      </p>
+      <p>
+        Les objections arrivent vite. Découper une feature pour gonfler l’impact&nbsp;? Chaque morceau doit
+        nommer le job qu’il sert, et c’est le Produit qui note. Une échelle de 0 à 3, trop grossière&nbsp;? C’est
+        voulu&nbsp;: le zéro existe pour dire non sans détour. Le risque hors du ratio&nbsp;? Un risque inconnu ne
+        se pondère pas, il appelle un <em>spike</em>, une courte exploration technique avant tout engagement.
+      </p>
+      <p>
+        Le ratio compare les epics entre eux, il ne décide pas. Le Playbook le lit avec trois verbes&nbsp;:
+        engager quand l’impact est fort et le risque connu ou probable, apprendre quand l’impact est incertain ou le risque
+        inconnu, abandonner quand l’impact est nul ou le job introuvable.
       </p>
 
-      <h2>Démonstration&nbsp;: Panier Local</h2>
+      <h2 id="panier-local">Démonstration sur un projet fictif&nbsp;: Panier Local</h2>
       <p>
-        Pour montrer l’outil sans exposer de données clientes, je l’ai rempli avec un projet inventé de
-        toutes pièces. Panier Local relie des maraîchers à des cantines scolaires. Trois personas le
-        portent.
+        Pour montrer l’outil sans exposer de données clientes, je l’ai rempli avec un projet inventé.
+        Panier Local relie des maraîchers à des cantines scolaires, avec trois personas&nbsp;: Marion,
+        maraîchère qui jette ses invendus en pleine saison&nbsp;; Karim, chef de cantine qui compose ses menus
+        trois semaines à l’avance&nbsp;; Sophie, acheteuse pour 42 collèges, qui calcule son taux EGalim à la
+        main. Sur ses 19 stories, 13 sont planifiées sur 3 cycles.
       </p>
-      <ul>
-        <li>Marion, maraîchère bio sur 8&nbsp;ha, qui jette des invendus en pleine saison et ne comprend rien aux marchés publics.</li>
-        <li>Karim, chef d’un collège de 600 couverts, qui compose ses menus trois semaines à l’avance avec 2,10&nbsp;€ de denrées par repas.</li>
-        <li>Sophie, acheteuse pour 42 collèges, qui calcule son taux EGalim à la main une fois par an.</li>
+      <ul class="compteurs" aria-label="Le projet Panier Local en chiffres">
+        <li><strong>3</strong> personas</li><li><strong>5</strong> douleurs</li><li><strong>6</strong> jobs</li><li><strong>3</strong> epics</li><li><strong>9</strong> features</li><li><strong>19</strong> stories</li>
       </ul>
-      <p>
-        En tout, 5 douleurs, 6 jobs, 3 epics, 9 features et 19 stories, dont 13 planifiées sur 3 cycles, pour
-        une équipe de trois personnes, fictives elles aussi.
-      </p>
       <figure class="shot">
         <img src="./assets/sttns/01-matrice-besoins.jpg" width="1800" height="1125" alt="Matrice Besoins de Panier Local : personas, douleurs et jobs" loading="lazy" />
-        <figcaption>La Matrice Besoins. Un persona, ses douleurs, et ce qu’il cherche à accomplir («&nbsp;Quand… je veux… afin de…&nbsp;»).</figcaption>
+        <figcaption>La Matrice Besoins&nbsp;: un persona, ses douleurs, et ce qu’il cherche à accomplir («&nbsp;Quand… je veux… afin de…&nbsp;»).</figcaption>
       </figure>
+      <table class="epics">
+        <caption>Les trois epics de Panier Local, calculés par l’outil</caption>
+        <thead><tr><th scope="col">Epic</th><th scope="col">Impact cumulé</th><th scope="col">Jours</th><th scope="col">Ratio</th></tr></thead>
+        <tbody>
+          <tr class="is-mis-en-avant"><th scope="row">Pilotage EGalim <span class="epic-etat">pas commencé</span></th><td>5</td><td>11</td><td>0,45</td></tr>
+          <tr><th scope="row">Commande groupée &amp; tournée unique <span class="epic-etat">en cours</span></th><td>7</td><td>17</td><td>0,41</td></tr>
+          <tr><th scope="row">Catalogue vivant des producteurs <span class="epic-etat">en cours</span></th><td>7</td><td>19</td><td>0,37</td></tr>
+        </tbody>
+      </table>
       <p>
-        Le ratio a une conséquence immédiate. «&nbsp;Pilotage EGalim&nbsp;», le seul epic pas encore commencé, a le
-        meilleur rapport, avec 5 points d’impact pour 11 jours, contre 7 pour 19 et 7 pour 17 pour les deux
-        autres. L’outil ne tranche pas, mais on est bien obligé d’en parler au moment de planifier le cycle.
+        Les trois ratios sont proches, et le tableau ne désigne pas de vainqueur. En revanche, le
+        plus petit chantier, que personne n’avait encore commencé, rapporte autant par jour que les deux gros.
+        C’est ce genre de constat que l’outil met sur la table au moment de planifier.
       </p>
-      <figure class="shot">
-        <img src="./assets/sttns/02-features-impact.jpg" width="1800" height="1125" alt="Liste des features de Panier Local avec leur impact" loading="lazy" />
-        <figcaption>Les features et leur impact. «&nbsp;Classement gamifié des collèges&nbsp;» est à 0&nbsp;: l’idée est née en atelier, aucun persona ne l’a demandée.</figcaption>
-      </figure>
 
-      <h3>Cycles et Kanban</h3>
+      <h3>Deux défauts plantés, deux défauts trouvés</h3>
       <p>
-        Les stories se rangent dans des cycles à capacité fixe, à la manière de <em>Shape Up</em>. Le Kanban
-        n’a que quatre colonnes (À faire, En cours, En revue, Terminé). Chaque carte rappelle sa feature et son
-        epic, si bien qu’en la déplaçant on voit toujours pour qui on travaille.
-      </p>
-      <figure class="shot">
-        <img src="./assets/sttns/03-kanban-cycle.jpg" width="1800" height="1125" alt="Kanban du cycle en cours de Panier Local" loading="lazy" />
-        <figcaption>Le cycle en cours&nbsp;: cinq stories, deux en cours sur cinq autorisées, les tâches et leurs responsables sous chaque carte.</figcaption>
-      </figure>
-
-      <h3>Deux défauts glissés exprès</h3>
-      <p>
-        J’ai glissé deux défauts dans le projet, pour voir si l’outil les trouverait. Le premier est une
-        feature d’impact&nbsp;0, rattachée à un epic mais à aucun besoin. Le Radar d’hygiène la classe comme
-        gaspillage et comme orpheline, et le Copilot Santé, un encart en bas à droite de chaque écran du
-        projet, la signale aussi. Ce sont des règles, pas un modèle d’IA.
-      </p>
-      <p>
-        Le second est un job qu’aucune feature ne sert&nbsp;: Sophie veut comparer les prix locaux aux prix
-        grossistes. C’est le graphe de dépendances qui le montre, avec son filtre des jobs sans feature. Dans
-        un vrai projet, le premier aurait coûté du temps pour rien, et le second serait un besoin passé à la
-        trappe. Je préfère les découvrir avant d’engager un cycle.
+        J’ai glissé deux défauts dans le projet. Le premier est une feature d’impact&nbsp;0, «&nbsp;Classement gamifié
+        des collèges&nbsp;», née en atelier et rattachée à aucun besoin. Elle ne peut pas passer «&nbsp;en cours&nbsp;».
+        Le Radar d’hygiène la classe comme gaspillage et comme orpheline, et le Copilot Santé la signale dans
+        les écrans du projet. Ce sont des règles écrites, sans modèle de langage.
       </p>
       <figure class="shot">
         <img src="./assets/sttns/04-radar-hygiene.jpg" width="1800" height="1125" alt="Radar d’hygiène de Panier Local" loading="lazy" />
         <figcaption>Le Radar d’hygiène classe les anomalies par gravité.</figcaption>
       </figure>
+      <p>
+        Le second est un job qu’aucune feature ne sert&nbsp;: Sophie veut comparer les prix locaux aux prix
+        grossistes. Le graphe de dépendances le fait apparaître avec son filtre des jobs sans feature. Le
+        premier défaut aurait coûté du temps pour rien, le second était un besoin passé à la trappe.
+      </p>
       <figure class="shot">
-        <img src="./assets/sttns/05-playbook.jpg" width="1800" height="1125" alt="Playbook intégré de STTNS" loading="lazy" />
-        <figcaption>Le Playbook intégré explique les règles, formules comprises.</figcaption>
+        <img src="./assets/sttns/03-kanban-cycle.jpg" width="1800" height="1125" alt="Kanban du cycle en cours de Panier Local" loading="lazy" />
+        <figcaption>Le Kanban du cycle en cours&nbsp;: quatre colonnes, deux stories en cours sur cinq autorisées, et pour chaque carte sa feature et son epic.</figcaption>
       </figure>
 
-      <h2>Sous le capot&nbsp;: la stack</h2>
+      <h2 id="sous-le-capot">Sous le capot&nbsp;: les règles vivent dans PostgreSQL</h2>
       <p>
-        Une application Next.js sur Supabase. Le choix principal&nbsp;: les règles de filiation vivent dans
-        PostgreSQL, pas dans l’interface. Un import CSV, un script ou un nouvel écran passent donc par les
-        mêmes contrôles. L’accès est cloisonné par projet, au niveau des lignes de la base, et chaque
-        modification d’un objet est journalisée.
+        Une application Next.js sur Supabase. Les règles de filiation sont des déclencheurs PostgreSQL&nbsp;: un
+        import CSV ou un script les subit comme un écran. Le job obligatoire et les garde-fous de statut sont
+        vérifiés par l’application. L’accès est cloisonné par
+        projet au niveau des lignes de la base, et chaque changement sur un élément du backlog est journalisé.
       </p>
       <div class="stack">
         <section class="stack-groupe">
@@ -324,18 +331,24 @@
           </ul>
         </section>
       </div>
+      <h3>Le code à lire</h3>
+      <ul class="code-liens">
+        <li><a href="https://github.com/FredericAtlan/STTNS/blob/main/supabase/migrations/00000000000000_schema.sql#L1449-L1491" target="_blank" rel="noopener noreferrer">Le déclencheur de filiation</a>&nbsp;: persona et epic sans parent, un seul type de parent pour tout le reste.</li>
+        <li><a href="https://github.com/FredericAtlan/STTNS/blob/main/src/lib/sttns/workflowGovernance.ts#L34-L183" target="_blank" rel="noopener noreferrer">Les garde-fous de statut</a>&nbsp;: impact&nbsp;0 et limite de travail en cours.</li>
+        <li><a href="https://github.com/FredericAtlan/STTNS/blob/main/src/lib/sttns/valueEffort.ts#L14-L36" target="_blank" rel="noopener noreferrer">Les échelles de valeur et d’effort</a>, et le ratio un peu plus bas dans le fichier.</li>
+        <li><a href="https://github.com/FredericAtlan/STTNS/blob/main/src/lib/sttns/radarAnomalies.ts#L86-L144" target="_blank" rel="noopener noreferrer">Les règles du Radar et du Copilot Santé</a>, sans aucun appel à un modèle de langage.</li>
+        <li><a href="https://github.com/FredericAtlan/STTNS/blob/main/docs/aide/sttns-aide-framework.md" target="_blank" rel="noopener noreferrer">Le manifeste et les filtres</a>, tels que le Playbook les présente.</li>
+        <li><a href="https://github.com/FredericAtlan/STTNS/blob/main/scripts/demo/panier-local.sql" target="_blank" rel="noopener noreferrer">Le projet Panier Local</a>, avec ses deux défauts commentés.</li>
+      </ul>
 
-      <h2>Ce que STTNS ne fait pas</h2>
+      <h2 id="limites">Limites</h2>
       <p>
-        STTNS ne décide pas à la place de l’équipe, et il ne vérifie pas qu’une douleur est vraie&nbsp;: c’est le
-        rôle du Filtre&nbsp;0, qui reste humain. L’outil s’assure seulement que tout remonte à une douleur déclarée. Engager un cycle, faire un spike ou
-        abandonner une idée reste notre décision.
-      </p>
-      <p>
-        Il ne mesure pas encore, après un cycle, si l’impact annoncé s’est produit. C’est le prochain chantier.
-        Il ne se branche pas non plus sur un outil de tickets existant&nbsp;: on importe et on exporte en CSV, et
-        il devient le backlog de référence. Enfin, il demande Supabase, donc pas de démo en ligne pour
-        l’instant.
+        STTNS ne juge pas qu’une douleur est vraie&nbsp;: c’est le rôle du premier filtre, qui reste humain.
+        L’outil vérifie que tout se rattache à un besoin déclaré, et signale ce qui ne remonte pas jusqu’à une
+        douleur. Il ne mesure pas encore, après un cycle, si l’impact annoncé s’est produit. Le Playbook
+        demande de justifier un choix qui irait contre le ratio, mais l’outil n’enregistre pas encore cette
+        justification. Enfin, il ne se branche pas sur un outil de tickets existant&nbsp;: on importe et on
+        exporte en CSV, et il devient le backlog de référence.
       </p>
     </article>
 
@@ -344,13 +357,17 @@
       <p class="demo-avertissement">
         <strong>Pas de démo en ligne.</strong> STTNS s’appuie sur Supabase&nbsp;: la démonstration tourne en
         local, dans Docker, avec le projet Panier Local rechargé à l’identique. Le code complet et la marche
-        à suivre sont sur <a href="https://github.com/FredericAtlan/STTNS" target="_blank" rel="noopener noreferrer">mon GitHub</a>.
+        à suivre sont sur mon GitHub.
+      </p>
+      <p class="cta-row">
+        <a class="btn btn-primary" href="https://github.com/FredericAtlan/STTNS" target="_blank" rel="noopener noreferrer">Code sur GitHub ↗</a>
+        <a class="btn btn-ghost" href="#chaine">Revoir la chaîne animée ↑</a>
       </p>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>© <span id="y"></span> Frédéric Atlan · <a href="/">Blog</a> · <a href="../">Accueil</a></p>
+    <p>© <span id="y"></span> Frédéric Atlan · <a href="/">Accueil</a></p>
   </footer>
 
   <div class="lightbox" id="lightbox" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="Aperçu image">

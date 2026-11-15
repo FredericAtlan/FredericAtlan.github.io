@@ -24,3 +24,152 @@
 .manifeste-flux li:not(:last-child)::after { font-size: 1.15rem; color: var(--accent); top: 1.15rem; right: -0.3rem; }
 .mf-stop { letter-spacing: 0; word-spacing: 0; }
 @media (max-width: 720px) { .manifeste-flux li:not(:last-child)::after { top: auto; right: auto; } }
+/* v2 : contraste des nœuds atténués */
+#archi-sttns .archi-noeud.is-muet { opacity: 0.55; }
+/* En bref */
+.en-bref { max-width: var(--prose-max, 760px); margin: 0 auto 2rem; padding: 1rem 1.25rem; border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 12px; background: rgba(19, 26, 46, 0.7); }
+.en-bref-titre { margin: 0 0 0.4rem; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+.en-bref ul { margin: 0; padding-left: 1.1rem; }
+.en-bref li { margin: 0.3rem 0; text-align: left !important; }
+/* Règles dures */
+.regles-dures { margin: 1.5rem 0; padding: 1rem 1.25rem; border: 1px solid rgba(239, 107, 107, 0.45); border-radius: 12px; background: rgba(239, 107, 107, 0.06); }
+.regles-titre { margin: 0 0 0.5rem !important; font-weight: 600; color: #ef6b6b; text-align: left !important; }
+.regles-dures ul { margin: 0; padding-left: 1.1rem; }
+.regles-dures li { margin: 0.35rem 0; text-align: left !important; }
+/* Trois rôles */
+.roles-trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; margin: 1.25rem 0 1.5rem; }
+.role { padding: 0.8rem 0.9rem; border: 1px solid var(--line); border-radius: 12px; background: #131a2e; }
+.role.is-systeme { border-color: rgba(69, 169, 156, 0.7); }
+.role p { margin: 0 !important; text-align: left !important; }
+.role-qui { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.role-quoi { margin-top: 0.3rem !important; color: var(--paper); font-weight: 600; }
+.role-val { margin-top: 0.2rem !important; color: var(--muted); font-size: 0.9rem; }
+@media (max-width: 720px) { .roles-trio { grid-template-columns: 1fr; } }
+/* Tableau des epics */
+table.epics { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
+table.epics caption { caption-side: top; text-align: left; margin-bottom: 0.5rem; color: var(--muted); font-size: 0.9rem; }
+table.epics th, table.epics td { padding: 0.55rem 0.6rem; border-bottom: 1px solid var(--line); text-align: right; }
+table.epics th[scope="row"], table.epics thead th:first-child { text-align: left; font-weight: 500; }
+table.epics thead th { color: var(--muted); font-weight: 500; font-size: 0.85rem; }
+table.epics td { font-variant-numeric: tabular-nums; white-space: nowrap; }
+table.epics tr.is-mis-en-avant { background: rgba(69, 169, 156, 0.1); }
+table.epics tr.is-mis-en-avant th, table.epics tr.is-mis-en-avant td:last-child { color: var(--paper); font-weight: 600; }
+.epic-etat { display: inline-block; margin-left: 0.4rem; padding: 0.05rem 0.45rem; border: 1px solid var(--line); border-radius: 999px; font-size: 0.72rem; font-weight: 400; color: var(--muted); white-space: nowrap; }
+@media (max-width: 520px) { table.epics { font-size: 0.85rem; } table.epics th, table.epics td { padding: 0.45rem 0.35rem; } .epic-etat { display: block; margin: 0.2rem 0 0; width: max-content; } }
+/* Liens vers le code */
+.code-liens li { text-align: left !important; margin: 0.4rem 0; }
+
+/* ===== Mise en page v3 (revue croisée) — article STTNS uniquement ===== */
+/* Hiérarchie des titres */
+.page-projects.article .project-detail h2 { font-size: clamp(1.45rem, 1.1rem + 1.2vw, 1.85rem); line-height: 1.2; letter-spacing: -0.01em; margin: 3.5rem 0 1.1rem; }
+.page-projects.article .project-detail h2::before { content: ""; display: block; width: 2.5rem; height: 3px; border-radius: 2px; background: var(--accent); margin-bottom: 0.9rem; }
+.page-projects.article .project-detail h3 { font-size: 1.2rem; color: var(--accent); margin: 2.25rem 0 0.7rem; }
+.page-projects.article .project-detail h2:first-child { margin-top: 0.5rem; }
+
+/* Un socle commun aux encadrés : même rayon, même fond, filet gauche coloré */
+.en-bref, .regles-dures, .page-projects.article .demo-avertissement {
+  border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 12px;
+  background: rgba(19, 26, 46, 0.7); padding: 1.1rem 1.35rem;
+}
+.regles-dures { border-left-color: #ef6b6b; background: rgba(239, 107, 107, 0.05); }
+.page-projects.article .demo-avertissement { border-left-color: #f5b94a; }
+
+/* En bref aligné sur la colonne, avec sommaire */
+.en-bref { max-width: none; margin: 0 0 1rem; display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 1.5rem; }
+.sommaire { border-left: 1px solid var(--line); padding-left: 1.5rem; }
+.sommaire ol { margin: 0; padding-left: 1.2rem; font-size: 0.95rem; }
+.sommaire li { margin: 0.25rem 0; text-align: left !important; }
+.sommaire li::marker { color: var(--muted); font-size: 0.85em; }
+.sommaire a { color: var(--fog); text-decoration: none; border-bottom: 1px solid transparent; }
+.sommaire a:hover, .sommaire a:focus-visible { color: var(--paper); border-bottom-color: var(--accent); }
+@media (max-width: 760px) {
+  .en-bref { grid-template-columns: 1fr; gap: 1rem; }
+  .sommaire { border-left: 0; border-top: 1px solid var(--line); padding: 1rem 0 0; }
+}
+
+/* Règle d’or en exergue */
+.manifeste-regle { border: 0; background: none; padding: 0.5rem 0 0.5rem 1.35rem; border-left: 3px solid var(--accent); border-radius: 0; margin: 2rem 0; }
+.manifeste-regle p { font-family: var(--display); font-size: clamp(1.25rem, 1rem + 1vw, 1.6rem); line-height: 1.3; font-weight: 600; }
+
+/* Captures plus larges que la colonne sur grand écran, avec ombre */
+.page-projects.article .shot img { border-radius: 12px; box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.75); }
+.page-projects.article .shot figcaption { font-size: 0.92rem; margin-top: 0.75rem; }
+@media (min-width: 1180px) {
+  .page-projects.article .project-detail .shot { margin: 2.75rem -5rem; max-width: none; }
+  .page-projects.article .project-detail .shot figcaption { padding: 0 5rem; }
+}
+
+/* Compteurs du projet de démonstration */
+.compteurs { list-style: none; padding: 0; margin: 1.5rem 0 2rem; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.5rem; }
+.page-projects.article .prose .compteurs li { margin: 0; padding: 0.7rem 0.4rem; border: 1px solid var(--line); border-radius: 12px; background: #131a2e; text-align: center !important; font-size: 0.85rem; line-height: 1.3; color: var(--muted); hyphens: manual; }
+.compteurs strong { display: block; font-family: var(--display); font-size: 1.6rem; line-height: 1.1; color: var(--paper); }
+@media (max-width: 640px) { .compteurs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* Pile technique plus compacte */
+.page-projects.article .stack-liste { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+@media (max-width: 640px) {
+  .page-projects.article .stack-liste { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .page-projects.article .stack-role { display: none; }
+}
+
+/* Tableau des epics sur téléphone */
+@media (max-width: 520px) { table.epics thead th { white-space: nowrap; font-size: 0.72rem; } }
+
+/* Liste des liens vers le code */
+.code-liens li { margin: 0.7rem 0; }
+
+/* Clôture : carte de fin alignée, boutons */
+.page-projects.article #demo.demo-fin { border-top: 1px solid var(--line); margin-top: 3.5rem; padding-top: 2.5rem; }
+.page-projects.article #demo .cta-row { margin-top: 1.25rem; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+/* Voile du hero renforcé pour la lisibilité */
+.page-projects.article .article-hero::after {
+  background:
+    linear-gradient(90deg, rgba(7, 11, 20, 0.97) 0%, rgba(7, 11, 20, 0.94) 50%, rgba(7, 11, 20, 0.6) 78%, rgba(7, 11, 20, 0.35) 100%),
+    linear-gradient(180deg, transparent 55%, rgba(7, 11, 20, 0.85) 100%),
+    radial-gradient(120% 80% at 0% 100%, var(--accent-soft), transparent 60%);
+}
+@media (max-width: 720px) { .page-projects.article .article-hero::after { background: linear-gradient(180deg, rgba(7, 11, 20, 0.88) 0%, rgba(7, 11, 20, 0.97) 45%); } }
+
+/* Téléphone : alignement à gauche pour éviter les blancs du justifié sur colonne étroite */
+@media (max-width: 520px) {
+  .page-projects.article .prose p, .page-projects.article .prose li,
+  .page-projects.article .article-hero .section-lead, .page-projects.article .demo-avertissement { text-align: left; }
+}
+.page-projects.article .prose p { text-wrap: pretty; }
+.en-bref { row-gap: 0.4rem; margin-bottom: 2.75rem; }
+.en-bref > .en-bref-titre { grid-column: 1 / -1; }
+.en-bref > ul { align-self: start; }
+.sommaire .en-bref-titre { margin-top: 0; }
+@media (max-width: 760px) { .en-bref { row-gap: 1rem; } }
+
+/* ===== Revue 2 ===== */
+/* Clôture alignée sur la colonne, titre au même style */
+.page-projects.article #demo.demo-fin { padding: 2.5rem 0 1rem; }
+.page-projects.article #demo h2 { font-size: clamp(1.45rem, 1.1rem + 1.2vw, 1.85rem); line-height: 1.2; margin: 0 0 1.1rem; }
+.page-projects.article #demo h2::before { content: ""; display: block; width: 2.5rem; height: 3px; border-radius: 2px; background: var(--accent); margin-bottom: 0.9rem; }
+/* Flux du manifeste : cartes de même hauteur */
+.manifeste-flux { align-items: stretch; }
+.mf-etape { min-height: 4.25rem; }
+/* Pile technique : 4 colonnes sur bureau, pastilles sur téléphone */
+@media (min-width: 900px) { .page-projects.article .stack-liste { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.page-projects.article .stack-liste li { align-items: start; }
+@media (max-width: 640px) {
+  .page-projects.article .stack-liste { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .page-projects.article .stack-liste li { padding: 0.4rem 0.7rem; }
+}
+/* Légende du tableau sous le tableau, comme les captures */
+table.epics caption { caption-side: bottom; font-size: 0.92rem; margin: 0.75rem 0 0; }
+/* Indice d’agrandissement sur les captures */
+.page-projects.article .shot button.shot-zoom { position: relative; }
+.page-projects.article .shot button.shot-zoom::after { content: "⤢ Agrandir"; position: absolute; right: 0.6rem; bottom: 0.6rem; padding: 0.3rem 0.65rem; border-radius: 999px; background: rgba(7, 11, 20, 0.85); border: 1px solid var(--line); font-size: 0.75rem; color: var(--paper); pointer-events: none; }
+html[lang="en"] .page-projects.article .shot button.shot-zoom::after { content: "⤢ Enlarge"; }
+/* Téléphone : pas de césure sur texte aligné à gauche, cibles tactiles de 44 px */
+@media (max-width: 520px) {
+  .page-projects.article .prose p, .page-projects.article .prose li,
+  .page-projects.article .article-hero .section-lead, .page-projects.article .demo-avertissement { hyphens: manual; -webkit-hyphens: manual; }
+  .sommaire li { margin: 0; }
+  .sommaire a { display: block; padding: 0.45rem 0; }
+  #archi-sttns .archi-commandes button, #archi-sttns .archi-onglets button { min-height: 44px; }
+}
+@media (max-width: 640px) { .page-projects.article .stack-liste li { align-items: center; } }

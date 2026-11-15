@@ -22,7 +22,7 @@
     ratio:    { x: 770, y: 70,  t: T("Ratio valeur / effort", "Value / effort ratio"), s: T("∑ impact ÷ ∑ jours", "∑ impact ÷ ∑ days") },
     kanban:   { x: 770, y: 175, t: T("Cycles · Kanban", "Cycles · Kanban"), s: T("4 colonnes · 5 en cours max", "4 columns · max 5 in progress") },
     radar:    { x: 770, y: 268, t: T("Radar · Copilot Santé", "Radar · Health Copilot"), s: T("gaspillage, orphelins", "waste, orphans") },
-    trace:    { x: 770, y: 349, t: T("Graphe de dépendances", "Dependency graph"), s: T("jobs sans feature", "jobs without a feature") },
+    trace:    { x: 770, y: 349, t: T("Dépendances", "Dependencies"), s: T("jobs sans feature", "jobs without a feature") },
     base:     { x: 770, y: 450, t: "PostgreSQL", s: T("déclencheurs · RLS", "triggers · RLS") }
   };
   var ZONES = [
@@ -37,9 +37,9 @@
                  "Persona and epic are the roots; every other object has a single allowed parent type. It always starts with a person and what gets in their way."),
       etapes: [
         ["persona", "douleur", T("sa douleur", "their pain"), T("Karim compose ses menus trois semaines à l’avance, sans savoir ce que les maraîchers auront.", "Karim plans menus three weeks ahead without knowing what the growers will have.")],
-        ["douleur", "job", T("ce qu’il veut accomplir", "what they want done"), T("La douleur devient un job à accomplir, qui déclare la douleur qu’il résout.", "The pain becomes a job to be done, which declares the pain it solves.")],
+        ["douleur", "job", T("ce qu’il veut accomplir", "what they want done"), T("La douleur devient un job à accomplir, relié à la douleur qu’il résout.", "The pain becomes a job to be done, linked to the pain it solves.")],
         ["epic", "feature", T("parent : un epic", "parent: an epic"), T("La feature « Prévisions de disponibilité à 3 semaines » naît sous un epic.", "The feature “3-week availability forecasts” is created under an epic.")],
-        ["job", "feature", T("sert ce job", "serves this job"), T("Elle doit déclarer le job qu’elle sert, sinon elle ne peut être ni finalisée ni passée en cours.", "It must declare the job it serves, or it can be neither finalised nor moved to in progress.")],
+        ["job", "feature", T("sert ce job", "serves this job"), T("Elle doit nommer le job qu’elle sert, sinon l’application refuse de l’enregistrer.", "It must name the job it serves, or the application refuses to save it.")],
         ["feature", "story", T("≤ 5 jours", "≤ 5 days"), T("Elle se découpe en stories de cinq jours au plus.", "It is split into stories of five days at most.")],
         ["story", "tache", T("qui fait quoi", "who does what"), T("Chaque story porte ses tâches et leurs responsables.", "Each story carries its tasks and their owners.")],
         ["story", "kanban", T("cycle à capacité fixe", "fixed-capacity cycle"), T("La story entre dans un cycle, puis sur le Kanban.", "The story enters a cycle, then the Kanban board.")]
@@ -49,7 +49,7 @@
                  "Nobody enters both value and cost. The epic gets no input at all."),
       etapes: [
         ["produit", "feature", T("impact 0 à 3", "impact 0 to 3"), T("Le Produit attribue un impact à la feature, de 0 (gaspillage) à 3 (vital).", "Product assigns the feature an impact, from 0 (waste) to 3 (vital).")],
-        ["tech", "story", T("jours + risque", "days + risk"), T("La Tech estime chaque story en jours et en risque : connu, probable ou inconnu.", "Tech estimates each story in days and risk: known, likely or unknown.")],
+        ["tech", "story", T("jours + risque", "days + risk"), T("Les experts estiment chaque story en jours et en risque : connu, probable ou inconnu.", "The experts estimate each story in days and risk: known, likely or unknown.")],
         ["feature", "epic", T("∑ impact · ∑ jours", "∑ impact · ∑ days"), T("Impacts et jours remontent vers l’epic.", "Impacts and days roll up to the epic.")],
         ["epic", "ratio", T("calculé, jamais saisi", "computed, never entered"), T("Le système calcule le ratio valeur / effort de l’epic.", "The system computes the epic’s value / effort ratio.")]
       ] },
@@ -60,9 +60,9 @@
         ["story", "base", T("story sans feature", "story without a feature"), T("Une story arrive en base sans feature…", "A story reaches the database without a feature…")],
         ["base", "story", T("✕ refusée", "✕ rejected"), T("… et le déclencheur PostgreSQL la refuse, quel que soit l’écran qui l’envoie.", "… and the PostgreSQL trigger rejects it, whichever screen sent it."), "rejet"],
         ["kanban", "feature", T("✕ impact 0 → en cours", "✕ impact 0 → in progress"), T("Une feature d’impact 0 ne peut pas passer « en cours », ni ses stories.", "A feature with impact 0 cannot move to “in progress”, nor can its stories."), "rejet"],
-        ["kanban", "story", T("✕ 6ᵉ story en cours", "✕ 6th story in progress"), T("Au-delà de cinq stories en cours, le Kanban bloque.", "Past five stories in progress, the board blocks."), "rejet"]
+        ["kanban", "story", T("✕ 6ᵉ story en cours", "✕ 6th story in progress"), T("Au-delà de cinq stories en cours (réglage par défaut), le Kanban bloque.", "Past five stories in progress (default setting), the board blocks."), "rejet"]
       ] },
-    { id: "radar", nom: T("Le Radar veille", "The Radar watches"), c: "#f5b94a",
+    { id: "radar", nom: T("Ce que l’outil signale", "What the tool flags"), c: "#f5b94a",
       legende: T("Le Radar et le Copilot Santé repèrent les features sans besoin ; le graphe de dépendances montre les besoins sans feature.",
                  "The Radar and the Health Copilot spot features without a need; the dependency graph shows needs without a feature."),
       etapes: [

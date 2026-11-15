@@ -9,10 +9,10 @@
   "articles": [
     {
       "id": "sttns-decision-os",
-      "title": "STTNS — pour qu’aucune ligne de code ne soit écrite pour rien",
+      "title": "STTNS — partir des besoins des personas pour décider ce qu’on code",
       "path": "./sttns-decision-os.html",
       "date": "2026-11-15",
-      "summary": "L’outil que j’ai construit chez Data Refiners pour piloter une petite équipe d’experts : chaque story remonte à une douleur réelle, et une feature sans valeur déclarée ne démarre pas.",
+      "summary": "L’outil open source que j’ai construit chez Data Refiners : chaque story remonte à la douleur d’un persona, le Produit chiffre la valeur, les experts le coût, l’outil fait la division.",
       "tags": ["projet"],
       "thumbnail": "./assets/sttns/vignette.jpg"
     },
