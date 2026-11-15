@@ -1357,3 +1357,83 @@ ol.edu li {
   .une-carte { grid-template-columns: 1fr; }
   .une-visuel img { aspect-ratio: 16 / 10; height: auto; }
 }
+
+/* ——— Bloc « stack » des articles ——— */
+.stack { margin: 1.5rem 0 2rem; display: grid; gap: 1.25rem; }
+.stack-groupe h3 { margin: 0 0 0.6rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.stack-liste { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 0.6rem; margin: 0; padding: 0; list-style: none; }
+.stack-liste li {
+  display: grid;
+  grid-template-columns: 2.25rem 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 0.7rem;
+  align-items: center;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.025);
+}
+.stack-ico {
+  grid-row: 1 / 3;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.06);
+  position: relative;
+}
+.stack-ico::after {
+  content: "";
+  position: absolute;
+  inset: 0.45rem;
+  background: var(--paper);
+  -webkit-mask: var(--ico) center / contain no-repeat;
+  mask: var(--ico) center / contain no-repeat;
+}
+.stack-ico.is-generique::after { background: var(--accent); }
+.stack-nom { font-weight: 600; color: var(--paper); font-size: 0.95rem; line-height: 1.2; }
+.stack-role { color: var(--muted); font-size: 0.85rem; line-height: 1.35; }
+.stack-optionnel .stack-liste li { border-style: dashed; }
+
+/* ——— Schéma pipeline (articles) ——— */
+.pipe { margin: 1.5rem 0 2rem; }
+.pipe-voies { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
+.pipe-voie { border: 1px solid var(--line); border-radius: 16px; padding: 1rem 1rem 1.1rem; background: rgba(255, 255, 255, 0.02); }
+.pipe-lente { border-color: rgba(122, 162, 255, 0.35); }
+.pipe-rapide { border-color: rgba(69, 169, 156, 0.5); background: rgba(69, 169, 156, 0.05); }
+.pipe-titre { margin: 0 0 0.9rem; font-weight: 700; color: var(--paper); display: flex; flex-direction: column; gap: 0.15rem; }
+.pipe-titre span { font-weight: 400; font-size: 0.85rem; color: var(--muted); }
+.pipe-voie ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
+.pipe-voie li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.7rem 1fr auto;
+  grid-template-areas: "num nom ou" "num det det";
+  column-gap: 0.6rem;
+  align-items: center;
+  padding: 0.55rem 0.7rem;
+  border-radius: 10px;
+  background: rgba(7, 11, 20, 0.55);
+  border: 1px solid var(--line);
+}
+.pipe-voie li + li::before {
+  content: "";
+  position: absolute;
+  left: calc(0.7rem + 0.85rem - 1px);
+  top: -0.6rem;
+  width: 2px;
+  height: 0.6rem;
+  background: var(--line);
+}
+.pipe-num { grid-area: num; width: 1.7rem; height: 1.7rem; border-radius: 50%; display: grid; place-items: center; font: 600 0.8rem "IBM Plex Mono", ui-monospace, monospace; color: var(--ink); background: #7aa2ff; }
+.pipe-rapide .pipe-num { background: var(--accent); }
+.pipe-voie b { grid-area: nom; color: var(--paper); font-size: 0.95rem; }
+.pipe-det { grid-area: det; color: var(--muted); font-size: 0.85rem; line-height: 1.35; }
+.pipe-ou { grid-area: ou; font: 500 0.7rem "IBM Plex Mono", ui-monospace, monospace; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0.1rem 0.45rem; }
+.pipe-ou.is-atelier { color: var(--accent); border-color: rgba(69, 169, 156, 0.5); }
+.pipe-cache { margin: 0.8rem 0 0; padding: 0.5rem 0.7rem; border: 1px dashed rgba(69, 169, 156, 0.6); border-radius: 10px; color: var(--accent); font-size: 0.88rem; font-weight: 600; text-align: center; }
+.pipe-cache::after { content: " →"; }
+.pipe figcaption { margin-top: 0.7rem; color: var(--muted); font-size: 0.9rem; }
+@media (max-width: 760px) {
+  .pipe-voies { grid-template-columns: 1fr; }
+  .pipe-cache::after { content: " ↓"; }
+}

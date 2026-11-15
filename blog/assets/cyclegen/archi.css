@@ -1,0 +1,61 @@
+/* Planche d’architecture animée CycleGen */
+.archi {
+  margin: 2rem 0 2.5rem;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(19, 26, 46, 0.85), rgba(7, 11, 20, 0.9));
+  padding: 1rem 1rem 1.25rem;
+}
+.archi-barre {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.archi-onglets { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.archi-onglets button { cursor: pointer; font: inherit; font-size: 0.85rem; }
+.archi-commandes { display: flex; gap: 0.4rem; }
+.archi-commandes button { cursor: pointer; font-size: 0.85rem; padding: 0.35rem 0.9rem; }
+.archi-legende { margin: 0 0 0.75rem; color: var(--fog); font-size: 0.95rem; }
+.archi-scene { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.archi-svg { display: block; width: 100%; min-width: 640px; height: auto; font-family: var(--body); }
+
+.archi-zone { fill: rgba(255, 255, 255, 0.015); stroke-opacity: 0.35; stroke-dasharray: 6 6; }
+.archi-zone-titre { font-size: 13px; letter-spacing: 0.12em; font-weight: 600; }
+.archi-boite { fill: #131a2e; stroke: rgba(232, 236, 244, 0.18); }
+.archi-titre-noeud { fill: var(--paper); font-size: 18px; font-weight: 600; }
+.archi-sous-titre { fill: var(--muted); font-size: 13px; }
+.archi-noeud { transition: opacity 0.4s; transform-box: fill-box; transform-origin: center; }
+.archi-noeud.is-muet { opacity: 0.35; }
+.archi-noeud.is-pulse .archi-boite { animation: archi-pulse 0.9s ease-out; }
+@keyframes archi-pulse {
+  0% { stroke: #fff; stroke-width: 3; }
+  100% { stroke: rgba(232, 236, 244, 0.18); stroke-width: 1; }
+}
+.archi-chemin { fill: none; stroke: rgba(232, 236, 244, 0.14); stroke-width: 2; stroke-dasharray: 5 7; transition: stroke 0.4s; }
+.archi-chemin.is-actif { stroke-width: 2.5; stroke-dasharray: none; stroke-opacity: 0.55; }
+.archi-chemin.is-ignore { stroke-dasharray: 3 6; }
+.archi-trace { stroke-width: 3.5; stroke-linecap: round; }
+.archi-etiq-txt { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; font-weight: 500; }
+.archi-badge { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; font-weight: 600; letter-spacing: 0.05em; }
+.archi-rejet { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 14px; font-weight: 600; }
+
+.archi-etapes { margin: 1rem 0 0; padding-left: 1.4rem; color: var(--muted); font-size: 0.95rem; }
+.archi-etapes li { margin: 0.35rem 0; transition: color 0.3s; }
+.archi-etapes li.is-done { color: var(--fog); }
+.archi-etapes li.is-current { color: var(--paper); font-weight: 600; }
+.archi-etapes li.is-current::marker { color: var(--accent); }
+.archi-noeud.is-optionnel .archi-boite { stroke-dasharray: 6 5; }
+.archi-etiq { transition: opacity 0.3s; pointer-events: none; }
+.demo-fin { padding-top: 1rem; }
+.demo-avertissement {
+  margin: 0 0 1rem; padding: 0.75rem 1rem; max-width: 72ch;
+  border: 1px solid rgba(245, 185, 74, 0.45); border-radius: 12px;
+  background: rgba(245, 185, 74, 0.08); color: var(--fog);
+}
+.demo-avertissement strong { color: #f5b94a; }
+#archi-cyclegen .archi-chemin.archi-trace { stroke-opacity: 0.95; stroke-width: 3; filter: drop-shadow(0 0 4px currentColor); }
+.archi-astuce { display: none; margin: 0.4rem 0 0; text-align: center; color: var(--muted); font-size: 0.8rem; }
+@media (max-width: 700px) { .archi-astuce { display: block; } }

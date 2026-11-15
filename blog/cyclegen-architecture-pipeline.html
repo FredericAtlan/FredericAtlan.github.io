@@ -42,6 +42,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Syne:wght@500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css?v=20261027f" />
+  <link rel="stylesheet" href="/blog/assets/cyclegen/archi.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous" />
 
   <script type="application/ld+json">
@@ -98,90 +99,159 @@
       <p class="hero-kicker"><time datetime="2026-10-27">27 octobre 2026</time> · <span class="tag">projet</span></p>
       <h1>CycleGen — cycles de conduite depuis une carte</h1>
       <p class="section-lead">
-        CycleGen produit un profil de vitesse et de pente à partir d’un trajet réel,
-        puis un bilan de forces aux roues. Rien à voir avec une homologation réglementaire.
-        Le principe tient en une chaîne carte → limites le long de la route → conducteur → véhicule,
-        et la démo tourne directement dans cette page.
+        Tracez un trajet, choisissez un véhicule et un style de conduite&nbsp;: CycleGen produit le cycle
+        de roulage qui alimente les modèles servant à dimensionner freins, régénération et batterie. Les outils du commerce que
+        j’utilisais pour ça coûtent plusieurs dizaines de milliers d’euros par an. CycleGen est open source,
+        et la démo vous attend en fin d’article.
       </p>
 
       <p class="cta-row">
-        <a class="btn btn-primary" href="#demo-live">Essayer dans la page</a>
+        <a class="btn btn-primary" href="#demo">Essayer la démo ↓</a>
         <a class="btn btn-ghost" href="https://github.com/FredericAtlan/CycleGen" target="_blank" rel="noopener noreferrer">Code sur GitHub</a>
       </p>
     </header>
 
-    <figure class="demo-embed" id="demo-live">
-      <div class="demo-embed__bar">
-        <p class="demo-embed__title">Démo</p>
-        <div class="demo-embed__actions">
-          <button type="button" class="btn btn-ghost demo-embed__btn" id="demo-expand" aria-pressed="false">Agrandir</button>
-        </div>
-      </div>
-      <div class="demo-embed__stage">
-        <iframe
-          id="demo-frame"
-          title="Démo interactive CycleGen"
-          src="https://fredericatlan.github.io/CycleGen/"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          allow="clipboard-write; fullscreen"
-        ></iframe>
-      </div>
-      <figcaption>
-        Carte, corridor, conducteur, cycle. Premier chargement parfois lent (serveur de calcul).
-      </figcaption>
-    </figure>
 
     <article class="project-detail prose">
-      <h2>À quoi ça sert</h2>
+      <h2>Pourquoi un cycle sur mesure</h2>
       <p>
-        En amont d’un projet véhicule (énergie, freinage, montagne), on veut des cycles
-        liés à une géographie réelle, et pas seulement un cycle plat réglementaire.
-        CycleGen enchaîne&nbsp;: tracer un itinéraire, construire une enveloppe de vitesse
-        le long de la distance, faire «&nbsp;conduire&nbsp;» un modèle de conducteur sous
-        cette enveloppe, puis traduire l’accélération en forces, couple et puissance aux roues.
+        Un simulateur véhicule se nourrit de profils vitesse, temps et pente. Avec un cycle
+        réglementaire plat, on ne voit jamais la descente de col, alors que c’est là que le frein chauffe
+        et que la régénération d’un véhicule électrique sature. Pour dimensionner ces systèmes, il faut
+        des cycles qui ressemblent à l’usage réel, et savoir quels points de fonctionnement reviennent souvent.
       </p>
       <p>
-        L’écran web est un atelier (carte, curseurs, graphiques).
-        La physique tourne côté serveur Python. Je l’ai gardée hors du navigateur exprès.
+        CycleGen part d’un trajet sur une carte. Il lit les limitations de vitesse (OpenStreetMap, OSRM).
+        La courbure de la route borne la vitesse en virage par un confort latéral. Pour les feux, les grands
+        axes ont une onde verte&nbsp;; ailleurs, l’état rouge ou vert est tiré avec une graine fixe, donc le
+        même trajet donne le même cycle. Avec une clé
+        Mapbox, on ajoute le ralentissement dû au trafic selon l’heure de départ.
+      </p>
+      <p>
+        Le conducteur a trois profils (Eco, Normal, Sport) qui règlent l’accélération et le freinage qu’il
+        s’autorise. Pour le véhicule, la loi de route F0, F1, F2 et la masse donnent les forces, le couple
+        et la puissance aux roues. Chaque étape s’ouvre dans l’atelier, de la carte au cycle final, et le
+        résultat s’exporte en CSV, en XML ou dans un classeur Excel.
+      </p>
+      <p>
+        L’outil embarque aussi les cycles de référence (WLTC, NEDC, FTP-75, US06…) pour comparer
+        un cycle généré à ce qu’on utilise d’habitude. J’ai comparé des cycles générés à des roulages
+        mesurés, mais je ne peux pas publier ces résultats.
+      </p>
+
+      <h3>Qui s’en sert</h3>
+      <p>
+        Je l’ai pensé d’abord pour la simulation véhicule&nbsp;: freins, régénération, batterie.
+        Il sert aussi à préparer une campagne de roulage, en repérant avant de partir les parcours
+        structurants (montées, descentes, densité de feux). Et un data scientist peut l’appeler en série
+        par son API pour constituer une base de roulages clients. Tout passe par l’API HTTP, sans écran.
+      </p>
+      <p>
+        Par défaut, tout repose sur des services cartographiques ouverts. Pour le trafic, on branche
+        une API payée à l’usage comme Mapbox, gratuite jusqu’à 100&nbsp;000 calculs d’itinéraire par mois
+        (2&nbsp;$ les 1&nbsp;000 au-delà, d’après sa grille de novembre 2026).
       </p>
 
       <figure class="shot">
         <img src="./assets/cyclegen/06-trajet-pico-veleta.jpg" width="1024" height="493" alt="Étape Trajet — Pico Veleta vers Granada" loading="lazy" />
-        <figcaption>Trajet Pico Veleta → Granada (capture produit).</figcaption>
+        <figcaption>Étape Trajet sur la route Pico Veleta → Granada.</figcaption>
       </figure>
 
-      <h2>Deux cadences</h2>
+      <h2>Architecture&nbsp;: ce qui est lent, ce qui est rapide</h2>
       <p>
-        Reconstruire la géométrie (itinéraire, altitude, feux) est coûteux&nbsp;: réseau,
-        modèles numériques. Changer le style de conduite ou le véhicule, une fois le corridor
-        en mémoire, ne coûte presque rien&nbsp;: quelques dizaines de millisecondes.
+        L’écran web est un atelier (carte, curseurs, graphiques). La simulation du conducteur tourne
+        sur un serveur Python, qu’un script peut donc appeler directement. Les forces, le couple et la
+        puissance sont recalculés dans l’atelier&nbsp;: changer de véhicule est instantané.
       </p>
       <p>
-        J’en ai tiré une règle produit. On ne reconstruit le corridor que sur action explicite&nbsp;;
-        retoucher le conducteur relance juste la simulation, sans remettre la carte à zéro.
+        Reconstruire la géométrie (itinéraire, altitude, feux) prend du temps, parce qu’il faut
+        interroger plusieurs services et des modèles de terrain. Changer de conducteur ou de véhicule,
+        une fois ce corridor en mémoire, prend quelques dizaines de millisecondes. Du coup, on ne
+        reconstruit le corridor que si on le demande&nbsp;; retoucher le conducteur relance seulement la
+        simulation, sans remettre la carte à zéro.
       </p>
-      <details class="fold">
-        <summary>Pipeline (cher vs bon marché)</summary>
-        <pre class="code-block" data-lang="pipeline"><code>Atelier web
-  → client HTTP
-      analyser l’itinéraire          # cher
-      construire le corridor         # cher
-      démarrer la simulation         # bon marché si corridor déjà là
-  → serveur Python (routes HTTP minces)
-  → assemblage spatial → corridor
-  → solveur de conducteur (+ modèle véhicule)
-  → profil exportable</code></pre>
-      </details>
+      <figure class="archi" id="archi-cyclegen" aria-label="Planche d’architecture animée de CycleGen">
+        <noscript><p>La planche animée demande JavaScript&nbsp;; le schéma ci-dessous résume le même découpage.</p></noscript>
+      </figure>
+      <figure class="pipe" aria-label="Schéma du pipeline de calcul">
+        <div class="pipe-voies">
+          <section class="pipe-voie pipe-lente"><p class="pipe-titre">Une fois par trajet<span>appels aux services cartographiques</span></p><ol>
+            <li><span class="pipe-num">1</span><b>Trajet</b><span class="pipe-det">Adresses → points GPS (Photon)</span><span class="pipe-ou">serveur</span></li>
+            <li><span class="pipe-num">2</span><b>Itinéraire</b><span class="pipe-det">Tracé routier (OSRM)</span><span class="pipe-ou">serveur</span></li>
+            <li><span class="pipe-num">3</span><b>Altitude</b><span class="pipe-det">Profil du terrain (Open-Meteo, OpenTopoData)</span><span class="pipe-ou">serveur</span></li>
+            <li><span class="pipe-num">4</span><b>Feux et limitations</b><span class="pipe-det">Lus dans OpenStreetMap (Overpass)</span><span class="pipe-ou">serveur</span></li>
+            <li><span class="pipe-num">5</span><b>Corridor</b><span class="pipe-det">Pente lissée, courbure, enveloppe de vitesse</span><span class="pipe-ou">serveur</span></li>
+          </ol><p class="pipe-cache">Corridor gardé en mémoire</p></section>
+          <section class="pipe-voie pipe-rapide"><p class="pipe-titre">À chaque réglage<span>quelques dizaines de millisecondes</span></p><ol>
+            <li><span class="pipe-num">6</span><b>Conducteur</b><span class="pipe-det">IDM, profil Eco, Normal ou Sport</span><span class="pipe-ou">serveur</span></li>
+            <li><span class="pipe-num">7</span><b>Cycle</b><span class="pipe-det">t, v, s, a et pente, pas d’une seconde</span><span class="pipe-ou">serveur</span></li>
+            <li><span class="pipe-num">8</span><b>Forces aux roues</b><span class="pipe-det">Loi de route F0, F1, F2 et masse : force, couple, puissance</span><span class="pipe-ou is-atelier">atelier</span></li>
+            <li><span class="pipe-num">9</span><b>Export</b><span class="pipe-det">CSV, XML ou classeur Excel</span><span class="pipe-ou is-atelier">atelier</span></li>
+          </ol></section>
+        </div>
+        <figcaption>Changer de conducteur ou de véhicule ne relance que la voie rapide&nbsp;: le corridor reste en mémoire tant qu’on ne modifie pas le trajet.</figcaption>
+      </figure>
+
+      <h2>Sous le capot&nbsp;: la stack</h2>
+      <div class="stack">
+        <section class="stack-groupe">
+          <h3>Interface</h3>
+          <ul class="stack-liste">
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/nextdotjs.svg')" aria-hidden="true"></span><span class="stack-nom">Next.js</span><span class="stack-role">Atelier web exporté en site statique</span></li>
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/react.svg')" aria-hidden="true"></span><span class="stack-nom">React</span><span class="stack-role">Écrans Trajet, Contraintes, Conducteur, Cycle</span></li>
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/typescript.svg')" aria-hidden="true"></span><span class="stack-nom">TypeScript</span><span class="stack-role">Tout le code de l’interface</span></li>
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/tailwindcss.svg')" aria-hidden="true"></span><span class="stack-nom">Tailwind CSS</span><span class="stack-role">Mise en page</span></li>
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/leaflet.svg')" aria-hidden="true"></span><span class="stack-nom">Leaflet</span><span class="stack-role">Carte et tracé du trajet</span></li>
+            <li><span class="stack-ico is-generique" style="--ico: url('/blog/assets/icones/module.svg')" aria-hidden="true"></span><span class="stack-nom">Recharts</span><span class="stack-role">Courbes vitesse, pente, forces</span></li>
+          </ul>
+        </section>
+        <section class="stack-groupe">
+          <h3>Calcul</h3>
+          <ul class="stack-liste">
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/python.svg')" aria-hidden="true"></span><span class="stack-nom">Python</span><span class="stack-role">Physique du conducteur et du véhicule</span></li>
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/fastapi.svg')" aria-hidden="true"></span><span class="stack-nom">FastAPI</span><span class="stack-role">API de simulation</span></li>
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/numpy.svg')" aria-hidden="true"></span><span class="stack-nom">NumPy</span><span class="stack-role">Calcul vectoriel le long de la distance</span></li>
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/scipy.svg')" aria-hidden="true"></span><span class="stack-nom">SciPy</span><span class="stack-role">Lissage de pente (Savitzky–Golay)</span></li>
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/pydantic.svg')" aria-hidden="true"></span><span class="stack-nom">Pydantic</span><span class="stack-role">Validation des requêtes</span></li>
+          </ul>
+        </section>
+        <section class="stack-groupe">
+          <h3>Données et API connectées</h3>
+          <ul class="stack-liste">
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/openstreetmap.svg')" aria-hidden="true"></span><span class="stack-nom">OpenStreetMap</span><span class="stack-role">Réseau routier, limitations, feux</span></li>
+            <li><span class="stack-ico is-generique" style="--ico: url('/blog/assets/icones/api.svg')" aria-hidden="true"></span><span class="stack-nom">OSRM</span><span class="stack-role">Calcul d’itinéraire</span></li>
+            <li><span class="stack-ico is-generique" style="--ico: url('/blog/assets/icones/api.svg')" aria-hidden="true"></span><span class="stack-nom">Overpass</span><span class="stack-role">Lecture des feux et des limitations</span></li>
+            <li><span class="stack-ico is-generique" style="--ico: url('/blog/assets/icones/api.svg')" aria-hidden="true"></span><span class="stack-nom">Photon · Nominatim</span><span class="stack-role">Recherche d’adresses</span></li>
+            <li><span class="stack-ico is-generique" style="--ico: url('/blog/assets/icones/api.svg')" aria-hidden="true"></span><span class="stack-nom">Open-Meteo · Open-Elevation · OpenTopoData</span><span class="stack-role">Altitude le long du trajet</span></li>
+          </ul>
+        </section>
+        <section class="stack-groupe stack-optionnel">
+          <h3>Optionnel, avec clé</h3>
+          <ul class="stack-liste">
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/mapbox.svg')" aria-hidden="true"></span><span class="stack-nom">Mapbox</span><span class="stack-role">Itinéraire avec trafic, payant à l’usage</span></li>
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/here.svg')" aria-hidden="true"></span><span class="stack-nom">HERE</span><span class="stack-role">Itinéraire, limitations, altitude</span></li>
+          </ul>
+        </section>
+        <section class="stack-groupe">
+          <h3>Hébergement et tests</h3>
+          <ul class="stack-liste">
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/githubpages.svg')" aria-hidden="true"></span><span class="stack-nom">GitHub Pages</span><span class="stack-role">Héberge l’interface</span></li>
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/render.svg')" aria-hidden="true"></span><span class="stack-nom">Render</span><span class="stack-role">Héberge le serveur de calcul</span></li>
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/docker.svg')" aria-hidden="true"></span><span class="stack-nom">Docker</span><span class="stack-role">Conteneur du serveur</span></li>
+            <li><span class="stack-ico" style="--ico: url('/blog/assets/icones/githubactions.svg')" aria-hidden="true"></span><span class="stack-nom">GitHub Actions</span><span class="stack-role">Tests de non-régression à chaque push et pull request</span></li>
+            <li><span class="stack-ico is-generique" style="--ico: url('/blog/assets/icones/module.svg')" aria-hidden="true"></span><span class="stack-nom">Playwright</span><span class="stack-role">Tests de l’interface dans un navigateur</span></li>
+          </ul>
+        </section>
+      </div>
 
       <h2>Conducteur</h2>
       <p>
-        Un régulateur classique sur l’erreur de vitesse poursuit une consigne et oscille
-        souvent sur une route accidentée. CycleGen utilise un modèle de conducteur continu
-        (Intelligent Driver Model)&nbsp;: à chaque pas, une accélération qui équilibre
-        «&nbsp;je veux aller à telle vitesse&nbsp;» et «&nbsp;je garde une distance de sécurité&nbsp;».
-        Eco / Normal / Sport ne changent que quelques boutons (accélération max, freinage
-        confort, facteur de vitesse). La physique, elle, ne bouge pas.
+        Le conducteur suit un modèle IDM (Intelligent Driver Model), qui arbitre à chaque pas entre
+        la vitesse visée et la distance de sécurité. Il n’y a pas d’autre voiture devant&nbsp;: le
+        «&nbsp;véhicule de tête&nbsp;» est virtuel, il représente le prochain virage, la prochaine baisse
+        de limite ou le prochain feu rouge, ce qui fait anticiper le conducteur. Eco, Normal et Sport
+        changent l’accélération maximale, le freinage de confort, le facteur de vitesse, le temps
+        de tête et l’à-coup toléré, avec le même modèle.
       </p>
       <p>
         Un petit bruit optionnel simule la nervosité en roulage libre&nbsp;; il est coupé
@@ -288,8 +358,8 @@ return params.a_max * (free - (s_star / gap) ** 2)</code></pre>
         a=\frac{F_{\mathrm{applied}}-F_{\mathrm{road}}-F_{\mathrm{grade}}}{m}
         \]
         \[
-        T=F\,r_{\mathrm{dyn}},\qquad
-        P=T\,\omega
+        C_{\mathrm{roue}}=F\,r_{\mathrm{dyn}},\qquad
+        P=C_{\mathrm{roue}}\,\omega
         \]
         <pre class="code-block" data-lang="python"><code># Road-load (kinematic_solver.py)
 def _road_load_n(v_mps: float, plant: VehiclePlant) -> float:
@@ -297,12 +367,12 @@ def _road_load_n(v_mps: float, plant: VehiclePlant) -> float:
     return plant.f0_n + plant.f1_n_per_kph * vk + plant.f2_n_per_kph2 * vk * vk</code></pre>
       </details>
 
-      <h2>Routes alpines</h2>
+      <h2>Le test du col</h2>
       <p>
-        Pour stresser freinage et retenue, la démo embarque des packs déjà remplis
-        (Pico Veleta, Grossglockner, Iseran, Stelvio)&nbsp;: géométrie, corridor, premier profil.
-        À l’ouverture, les quatre écrans (Trajet → Contraintes → Conducteur → Cycle) sont peuplés.
-        Relancer une génération live passe par le serveur de calcul.
+        Ce qui m’intéressait surtout, c’était la montagne. La démo ouvre une étude énergie sur
+        une trace de référence du Grossglockner (14&nbsp;km, 1&nbsp;250&nbsp;m de dénivelé négatif, vitesse
+        synthétisée à partir de la pente et des virages). Les captures ci-dessous viennent d’un trajet
+        calculé par CycleGen sur le Pico Veleta.
       </p>
 
       <figure class="shot">
@@ -310,22 +380,58 @@ def _road_load_n(v_mps: float, plant: VehiclePlant) -> float:
         <figcaption>Analyse&nbsp;: graphe principal, limites d’enveloppe, carte synchronisée.</figcaption>
       </figure>
 
-      <h2>Lecture de l’écran</h2>
+      <h2>Un graphe, pas neuf panneaux</h2>
       <p>
         Tout part d’un graphe principal, souvent la vitesse. Un bandeau de miniatures sert à changer
         de grandeur, et un curseur commun relie carte ↔ courbes. Je voulais qu’on regarde le phénomène
         (suivi d’enveloppe, pic de couple) au lieu de passer son temps à réorganiser neuf panneaux.
       </p>
 
-      <h2>Stack et limites</h2>
+      <h2>Ce que CycleGen ne fait pas</h2>
       <p>
-        Interface statique (Next.js) sur GitHub Pages&nbsp;; calcul Python (FastAPI) en conteneur,
-        aujourd’hui sur Render, donc cold start possible après inactivité.
-        CycleGen ne remplace ni une campagne terrain ni une homologation, et il n’a pas de modèle
-        thermique détaillé de batterie ou de frein. Dernière précision&nbsp;: en virage, la vitesse
-        vient d’un confort latéral, pas de la limite d’adhérence du pneu.
+        CycleGen calcule le profil de roulage et l’effort total aux roues, pas sa répartition.
+        Le partage entre frein mécanique et régénération dépend des limites thermiques et de l’état
+        de charge du groupe motopropulseur&nbsp;: c’est le travail d’un autre modèle, qui prend les
+        profils de CycleGen en entrée.
+      </p>
+      <p>
+        Autres limites&nbsp;: il ne remplace ni une campagne terrain ni une homologation. Il ignore la
+        masse équivalente des pièces en rotation. En virage, il borne la vitesse par le confort, sans
+        modéliser l’adhérence. Le pas de calcul est d’une seconde. Enfin, le serveur de démo est hébergé
+        sur Render&nbsp;: après un moment d’inactivité, le premier calcul peut prendre une vingtaine de secondes.
       </p>
     </article>
+
+    <section class="section demo-fin" id="demo" aria-labelledby="demo-titre">
+      <h2 id="demo-titre">Essayer la démo</h2>
+      <p class="demo-avertissement">
+        <strong>Démo incomplète.</strong> La version en ligne tourne sans clé Mapbox ni HERE&nbsp;: pas de
+        trafic réel, et l’itinéraire, les limitations et l’altitude viennent uniquement des services
+        ouverts (OSRM, OpenStreetMap, Open-Meteo, OpenTopoData). Avec vos propres clés, le code complet
+        les branche sans modification.
+      </p>
+      <figure class="demo-embed" id="demo-live">
+        <div class="demo-embed__bar">
+          <p class="demo-embed__title">Démo</p>
+          <div class="demo-embed__actions">
+            <button type="button" class="btn btn-ghost demo-embed__btn" id="demo-expand" aria-pressed="false">Agrandir</button>
+          </div>
+        </div>
+        <div class="demo-embed__stage">
+          <iframe
+            id="demo-frame"
+            title="Démo interactive CycleGen"
+            src="https://fredericatlan.github.io/CycleGen/"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allow="clipboard-write; fullscreen"
+          ></iframe>
+        </div>
+        <figcaption>
+          Carte, corridor, conducteur, cycle. Premier chargement parfois lent (serveur de calcul).
+        </figcaption>
+      </figure>
+    </section>
   </main>
 
   <footer class="site-footer">
@@ -427,5 +533,6 @@ def _road_load_n(v_mps: float, plant: VehiclePlant) -> float:
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"
     onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}], throwOnError:false});"></script>
+  <script defer src="/blog/assets/cyclegen/archi.js"></script>
 </body>
 </html>
